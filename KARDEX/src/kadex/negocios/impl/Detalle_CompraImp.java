@@ -5,10 +5,10 @@
  */
 package kadex.negocios.impl;
 
-/**
- *
- * @author SONY
- */
+
+
 public class Detalle_CompraImp {
+    
+    
     
 }
