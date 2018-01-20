@@ -8,7 +8,7 @@ package kadex.negocio.entidades;
 import java.util.*;
 public class Factura_Compra {
  
-    private int codigoFCompra;
+    private int codFCompra;
     private Date Fecha;
     private Proveedor proveedor;
 
@@ -16,17 +16,17 @@ public class Factura_Compra {
     }
 
     public Factura_Compra(int codigoFCompra, Date Fecha, Proveedor proveedor) {
-        this.codigoFCompra = codigoFCompra;
+        this.codFCompra = codigoFCompra;
         this.Fecha = Fecha;
         this.proveedor = proveedor;
     }
 
-    public int getCodigoFCompra() {
-        return codigoFCompra;
+    public int getCodFCompra() {
+        return codFCompra;
     }
 
-    public void setCodigoFCompra(int codigoFCompra) {
-        this.codigoFCompra = codigoFCompra;
+    public void setCodFCompra(int codigoFCompra) {
+        this.codFCompra = codigoFCompra;
     }
 
     public Date getFecha() {
