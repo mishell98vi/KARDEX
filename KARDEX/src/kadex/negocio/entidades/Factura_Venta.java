@@ -1,14 +1,41 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package kadex.negocio.entidades;
 
-/**
- *
- * @author SONY
- */
+package kadex.negocio.entidades;
+import java.util.*;
 public class Factura_Venta {
-    
+    private int codigoFVenta;
+    private Date fecha;
+    private Cliente cliente;
+
+    public Factura_Venta() {
+    }
+
+    public Factura_Venta(int codigoFVenta, Date fecha, Cliente cliente) {
+        this.codigoFVenta = codigoFVenta;
+        this.fecha = fecha;
+        this.cliente = cliente;
+    }
+
+    public int getCodFacturaVenta() {
+        return codigoFVenta;
+    }
+
+    public void setCodFacturaVenta(int codigoFVenta) {
+        this.codigoFVenta = codigoFVenta;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 }
