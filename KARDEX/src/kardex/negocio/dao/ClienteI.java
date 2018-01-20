@@ -5,10 +5,7 @@
  */
 package kardex.negocio.dao;
 
-/**
- *
- * @author SONY
- */
+
 public interface ClienteI {
     
 }
