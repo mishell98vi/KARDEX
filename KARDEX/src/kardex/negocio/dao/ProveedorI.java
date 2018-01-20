@@ -4,11 +4,13 @@
  * and open the template in the editor.
  */
 package kardex.negocio.dao;
+import kadex.negocio.entidades.*;
+import java.util.*;
 
-/**
- *
- * @author SONY
- */
 public interface ProveedorI {
-    
+     public int ingresar(Proveedor proveedor) throws Exception;
+    public int modificar(Proveedor proveedor) throws Exception;
+    public int eliminar(Proveedor proveedor) throws Exception;
+    public Proveedor obtener(String ruc) throws Exception;
+    public ArrayList<Proveedor> obtener() throws Exception;
 }
