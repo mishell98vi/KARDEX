@@ -11,7 +11,7 @@ import kardex.negocio.dao.*;
 
 public class CategoriaImp implements CategoriaI{
  
-    @Override
+ @Override
     public int insertar(Categoria categoria) throws Exception {
         int numFilas = 0;
         String sqlC = "INSERT INTO Categoria (codCategoria, nombre,descripcion) VALUES (?,?,?)";
@@ -34,7 +34,7 @@ public class CategoriaImp implements CategoriaI{
         return numFilas;
     }
 
-    @Override
+     @Override
     public int modificar(Categoria categoria) throws Exception {
         int numFilas = 0;
         String sqlC = "UPDATE Categoria SET cosCategoria=?, nombre=?, descripcion=? WHERE codCategoria=?";
@@ -58,7 +58,7 @@ public class CategoriaImp implements CategoriaI{
         return numFilas;
     }
 
-    @Override
+      @Override
     public int eliminar(Categoria categoria) throws Exception {
         int numFilas = 0;
         String sqlC = "DELETE FROM Categoria WHERE codCategoria=?";
@@ -79,37 +79,8 @@ public class CategoriaImp implements CategoriaI{
         return numFilas;
     }
 
-    public Categoria obtener(String codCategoria) throws Exception {
-        Categoria nCategoria = null;
-        String sqlC = "SELECT codCategoria, nombre, descripcion FROM Categoria WHERE codCategoria=?";
-        ArrayList<Parametro> lisParametros = new ArrayList<>();
-        lisParametros.add(new Parametro(1, codCategoria));
-        Conexion con = null;
-        try {
-            con = new Conexion();
-            con.conectar();
-            ResultSet rst = con.ejecutarQuery(sqlC, lisParametros);
-            
-            while (rst.next()) {
-               
-                nCategoria = new Categoria();
-                nCategoria.setCodigoCategoria(rst.getInt(1));
-                nCategoria.setNombre(rst.getString(2));
-                nCategoria.setDescripcion(rst.getString(3));
-                
-                
-            }
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        } finally {
-            if (con != null) {
-                con.desconectar();
-            }
-        }
-        return nCategoria;
-    }
-
-    @Override
+    
+      @Override
     public ArrayList<Categoria> obtener() throws Exception {
         ArrayList<Categoria> listCategoria = new ArrayList<>();
         String sqlC = "SELECT codCategoria, nombre, descripcion FROM Categoria";
@@ -136,5 +107,36 @@ public class CategoriaImp implements CategoriaI{
         }
         return listCategoria;
     }
+
+    @Override
+    public Categoria obtener(int codCategoria) throws Exception {
+         Categoria nCategoria = null;
+        String sqlC = "SELECT codCategoria, nombre, descripcion FROM Categoria WHERE codCategoria=?";
+        ArrayList<Parametro> lisParametros = new ArrayList<>();
+        lisParametros.add(new Parametro(1, codCategoria));
+        Conexion con = null;
+        try {
+            con = new Conexion();
+            con.conectar();
+            ResultSet rst = con.ejecutarQuery(sqlC, lisParametros);
+            
+            while (rst.next()) {
+               
+                nCategoria = new Categoria();
+                nCategoria.setCodigoCategoria(rst.getInt(1));
+                nCategoria.setNombre(rst.getString(2));
+                nCategoria.setDescripcion(rst.getString(3));
+                
+                
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            if (con != null) {
+                con.desconectar();
+            }
+        }
+        return nCategoria;  }
   
 }
+
