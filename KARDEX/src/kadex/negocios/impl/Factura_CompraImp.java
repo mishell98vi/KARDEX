@@ -13,6 +13,7 @@ import java.sql.*;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
 public class Factura_CompraImp implements Factura_CompraI {
     
     @Override
