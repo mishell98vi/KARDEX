@@ -64,11 +64,11 @@ public class Cliente {
         this.telefono = telefono;
     }
 
-    public String geteMail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setemail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
