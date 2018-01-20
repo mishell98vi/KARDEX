@@ -8,16 +8,16 @@ public class Cliente {
     private String apellido;
     private String direccion;
     private String telefono;
-    private String eMail;
+    private String email;
     private Date fechaNac;
 
-    public Cliente(String cedula, String nombre, String apellido, String direccion, String telefono, String eMail, Date fechaNac) {
+    public Cliente(String cedula, String nombre, String apellido, String direccion, String telefono, String email, Date fechaNac) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
         this.direccion = direccion;
         this.telefono = telefono;
-        this.eMail = eMail;
+        this.email = email;
         this.fechaNac = fechaNac;
     }
 
@@ -65,11 +65,11 @@ public class Cliente {
     }
 
     public String geteMail() {
-        return eMail;
+        return email;
     }
 
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
+    public void setemail(String email) {
+        this.email = email;
     }
 
     public Date getFechaNac() {
