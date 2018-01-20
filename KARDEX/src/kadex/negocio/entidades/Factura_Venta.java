@@ -15,11 +15,11 @@ public class Factura_Venta {
         this.cliente = cliente;
     }
 
-    public int getCodFacturaVenta() {
+    public int getCodFVenta() {
         return codigoFVenta;
     }
 
-    public void setCodFacturaVenta(int codigoFVenta) {
+    public void setCodFVenta(int codigoFVenta) {
         this.codigoFVenta = codigoFVenta;
     }
 
