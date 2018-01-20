@@ -39,7 +39,7 @@ public class ProveedorImp implements ProveedorI {
 
     @Override
     public int modificar(Proveedor proveedor) throws Exception {
-         int numFilas = 0;
+        int numFilas = 0;
         String sqlC = "UPDATE Proveedor SET ruc=?, nombre=?, direccion=?, telefono=?, eMail=? WHERE ruc=?";
         ArrayList<Parametro> lisParametros = new ArrayList<>();
         lisParametros.add(new Parametro(1, proveedor.getRuc()));

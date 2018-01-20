@@ -7,7 +7,7 @@ package kadex.negocios.impl;
 
 /**
  *
- * @author SONY
+ * @author Usuario
  */
 public class ProductoImp {
     
