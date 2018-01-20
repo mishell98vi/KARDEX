@@ -64,7 +64,7 @@ public class Cliente {
         this.telefono = telefono;
     }
 
-    public String geteMail() {
+    public String getEMail() {
         return email;
     }
 
