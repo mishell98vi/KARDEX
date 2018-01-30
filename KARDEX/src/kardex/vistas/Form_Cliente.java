@@ -54,13 +54,13 @@ public class Form_Cliente extends Application {
         vacio=new TextArea("");
         
         //labels
-        txtCedula = new Text("Cedula");
-        txtFechaNacim = new Text("Fecha de Nacimiento");
-        txtNombres = new Text("Nombres");
-        txtApellidos = new Text("Apellidos");
-        txtTelf = new Text("Telefono");
-        txtDir = new Text("Direccion");
-        txtEmail = new Text("E-mail");
+        txtCedula = new Text("Cedula: ");
+        txtFechaNacim = new Text("Fecha de Nacimiento: ");
+        txtNombres = new Text("Nombres: ");
+        txtApellidos = new Text("Apellidos: ");
+        txtTelf = new Text("Telefono: ");
+        txtDir = new Text("Direccion: ");
+        txtEmail = new Text("E-mail: ");
 
         //cajas de texto
         cedula = new TextArea("");
