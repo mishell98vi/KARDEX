@@ -10,7 +10,7 @@ public class Factura_CompraImp implements Factura_CompraI {
     @Override
     public int modificar(Factura_Compra facturacompra) throws Exception {
         int filasAfectadas = 0;
-        String sqlC = "UPDATE FacturaCompra SET codFacturaCompra=?, fecha=?, codProveedor=? WHERE codFacturaCompra=?";
+        String sqlC = "UPDATE FacturaCompra SET codigoFacturaCompra=?, fecha=?, codigoProveedor=? WHERE codigoFacturaCompra=?";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, facturacompra.getCodFCompra()));
         if (facturacompra.getFecha() instanceof java.util.Date) {
@@ -36,7 +36,7 @@ public class Factura_CompraImp implements Factura_CompraI {
     @Override
     public int eliminar(Factura_Compra facturacompra) throws Exception {
         int filas = 0;
-        String sqlC = "DELETE FROM FacturaCompra  WHERE codFacturaCompra=?";
+        String sqlC = "DELETE FROM FacturaCompra  WHERE codigoFacturaCompra=?";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, facturacompra.getCodFCompra()));
         Conexion conect = null;
@@ -56,7 +56,7 @@ public class Factura_CompraImp implements Factura_CompraI {
     @Override
     public Factura_Compra obtener(int facturacompra) throws Exception {
         Factura_Compra nFC = null;
-        String sqlC = "SELECT codFacturaCompra, fecha, codProveedor FROM FacturaCompra WHERE codFacturaCompra=?";
+        String sqlC = "SELECT codigoFacturaCompra, fecha, codigoProveedor FROM FacturaCompra WHERE codigoFacturaCompra=?";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, facturacompra));
         Conexion conect = null;
@@ -72,6 +72,7 @@ public class Factura_CompraImp implements Factura_CompraI {
                 nFC.setCodFCompra(rst.getInt(1));
                 nFC.setFecha(rst.getDate(2));
                 nProveedor = obFC.obtener(rst.getString(3));
+                nFC.setProveedor(nProveedor);
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -85,7 +86,7 @@ public class Factura_CompraImp implements Factura_CompraI {
     @Override
     public ArrayList<Factura_Compra> obtener() throws Exception {
         ArrayList<Factura_Compra> listFacturaCompra = new ArrayList<>();
-        String sqlC = "SELECT codFacturaCompra, fecha, codProveedor FROM FacturaCompra";
+        String sqlC = "SELECT codigoFacturaCompra, fecha, codigoProveedor FROM FacturaCompra";
         Conexion conect = null;
         try {
             conect = new Conexion();
@@ -114,7 +115,7 @@ public class Factura_CompraImp implements Factura_CompraI {
     @Override
     public int ingresar(Factura_Compra facturaCompra) throws Exception {
         int filasAfectadas = 0;
-        String sqlC = "INSERT INTO FacturaCompra (codFacturaCompra,fecha, codProveedor) VALUES (?,?,?)";
+        String sqlC = "INSERT INTO FacturaCompra (codigoFacturaCompra, fecha, codigoProveedor) VALUES (?,?,?)";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, facturaCompra.getCodFCompra()));
         if (facturaCompra.getFecha() instanceof java.util.Date) {
@@ -122,7 +123,7 @@ public class Factura_CompraImp implements Factura_CompraI {
         } else {
             listParam.add(new Parametro(2, facturaCompra.getFecha()));
         }
-        listParam.add(new Parametro(3, facturaCompra.getProveedor()));
+        listParam.add(new Parametro(3, facturaCompra.getProveedor().getRuc()));
         Conexion conect = null;
         try {
             conect = new Conexion();

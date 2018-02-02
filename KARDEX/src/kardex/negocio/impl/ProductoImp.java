@@ -10,7 +10,7 @@ public class ProductoImp implements ProductoI{
     @Override
     public int modificar(Producto producto) throws Exception {
         int filasAfectadas = 0;
-        String sqlC = "UPDATE Producto SET codProducto=?, codCategoria=?, nombre=?, precio=? WHERE codProducto=?";
+        String sqlC = "UPDATE Producto SET codigoProducto=?, codigoCategoria=?, nombre=?, precio=? WHERE codigoProducto=?";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, producto.getCodigoProducto()));
         listParam.add(new Parametro(2, producto.getCategoria().getCodigoCategoria()));
@@ -33,7 +33,7 @@ public class ProductoImp implements ProductoI{
 @Override
     public int eliminar(Producto producto) throws Exception {
         int filasAfectadas = 0;
-        String sqlC = "DELETE FROM DetalleCompra WHERE codDetalleCompra=?";
+        String sqlC = "DELETE FROM DetalleCompra WHERE codigoDetalleCompra=?";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, producto.getCodigoProducto()));
         Conexion conect = null;
@@ -54,7 +54,7 @@ public class ProductoImp implements ProductoI{
     public ArrayList<Producto> obtener() throws Exception {
         ArrayList<Producto> lstProducto=new ArrayList<>();
         Producto producto = null;
-        String sqlC = "SELECT codProducto, codCategoria, nombre, precio FROM Producto";
+        String sqlC = "SELECT codigoProducto, codigoCategoria, nombre, precio FROM Producto";
         Conexion conect = null;
         try {
             conect = new Conexion();
@@ -68,6 +68,7 @@ public class ProductoImp implements ProductoI{
                 producto.setCodigoProducto(rst.getInt(1));
                 producto.getCategoria();
                 categoria = categoriaDao.obtener(rst.getInt(2));
+                producto.setCategoria(categoria);
                 producto.setNombre(rst.getString(3));
                 producto.setPrecio(rst.getDouble(4));
                 lstProducto.add(producto);
@@ -84,7 +85,7 @@ public class ProductoImp implements ProductoI{
     @Override
     public Producto obtener(int codProducto) throws Exception {
         Producto producto = null;
-        String sqlC = "SELECT codProducto, codCategoria, nombre, precio FROM Producto Where codProducto=?";
+        String sqlC = "SELECT codigoProducto, codigoCategoria, nombre, precio FROM Producto Where codigoProducto=?";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, codProducto));
         Conexion conect = null;
@@ -100,6 +101,7 @@ public class ProductoImp implements ProductoI{
                 producto.setCodigoProducto(rst.getInt(1));
                 producto.getCategoria();
                 categoria = categoriaDao.obtener(rst.getInt(2));
+                producto.setCategoria(categoria);
                 producto.setNombre(rst.getString(3));
                 producto.setPrecio(rst.getDouble(4));
             }
@@ -115,12 +117,12 @@ public class ProductoImp implements ProductoI{
     @Override
     public int ingresar(Producto producto) throws Exception {
       int filasAfectadas = 0;
-        String sqlC = "INSERT INTO Producto (codProducto, codCategoria, nombre , precio) VALUES (?,?,?,?)";
+        String sqlC = "INSERT INTO Producto (codigoProducto, codigoCategoria, nombre , precio) VALUES (?,?,?,?)";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, producto.getCodigoProducto()));
         listParam.add(new Parametro(2, producto.getCategoria().getCodigoCategoria()));
-        listParam.add(new Parametro(4, producto.getNombre()));
-        listParam.add(new Parametro(5, producto.getPrecio()));
+        listParam.add(new Parametro(3, producto.getNombre()));
+        listParam.add(new Parametro(4, producto.getPrecio()));
         Conexion conect = null;
         try {
             conect = new Conexion();

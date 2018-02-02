@@ -19,20 +19,20 @@ public class Factura_CompraTest {
 
         Factura_CompraI FacComDao = new Factura_CompraImp();
 
-        // TEST INSERETAR 
-        int filas = 0;
-
-        Proveedor pro = new Proveedor("", "", "", "", "");
-        Factura_Compra fc = new Factura_Compra(1, new java.util.Date(), pro);
-
-        try {
-            filas = FacComDao.ingresar(fc);
-            System.out.println("Filas insertadas: " + filas);
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-        
-        assertEquals(filas > 0,true);
+//        // TEST INSERETAR 
+//        int filas = 0;
+//
+//        Proveedor pro = new Proveedor("101", "Maria", "San antonio", "123", "agmailcom");
+//        Factura_Compra fc = new Factura_Compra(1, new java.util.Date(), pro);
+//
+//        try {
+//            filas = FacComDao.ingresar(fc);
+//            System.out.println("Filas insertadas: " + filas);
+//        } catch (Exception e) {
+//            System.out.println("Error: " + e.getMessage());
+//        }
+//        
+//        assertEquals(filas > 0,true);
         
         /// listar por codigo test
         
@@ -40,7 +40,7 @@ public class Factura_CompraTest {
         
         try {
             fa = FacComDao.obtener(1);
-            System.out.println(fa.getCodFCompra()+""+fa.getFecha()+""+fa.getProveedor().getRuc());
+            System.out.println(fa.getCodFCompra()+"       "+fa.getFecha()+"         "+fa.getProveedor().getRuc());
                     
         } catch (Exception e) {
             System.out.println("error: " + e.getMessage());
@@ -53,7 +53,7 @@ public class Factura_CompraTest {
         try {
             fac = FacComDao.obtener();
             for (Factura_Compra far : fac ){
-                 System.out.println(fa.getCodFCompra()+""+fa.getFecha()+""+fa.getProveedor().getRuc());
+                 System.out.println(fa.getCodFCompra()+"      "+fa.getFecha()+"      "+fa.getProveedor().getRuc());
             }
         } catch (Exception e) {
             System.out.println("error: " + e.getMessage());

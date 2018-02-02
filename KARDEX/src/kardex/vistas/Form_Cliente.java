@@ -1,5 +1,4 @@
 package kardex.vistas;
-
 import com.sun.javafx.scene.control.skin.LabeledText;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -73,15 +72,15 @@ public class Form_Cliente extends Application {
 
         //BOTONES
         bIngresar = new Button("Aceptar");
-        bIngresar.setFont(Font.font("Arial Black",20));
-        bModificar = new Button("Modificar");
-        bModificar.setFont(Font.font("Arial Black",20));
+        bIngresar.setFont(Font.font("Times New Roman",20));
+        bModificar = new Button("Times New Roman");
+        bModificar.setFont(Font.font("Times New Roman",20));
         bEliminar = new Button("Eliminar");
-        bEliminar.setFont(Font.font("Arial Black",20));
+        bEliminar.setFont(Font.font("Times New Roman",20));
         bLimpiar = new Button("Limpiar");
-        bLimpiar.setFont(Font.font("Arial Black",20));
+        bLimpiar.setFont(Font.font("Times New Roman",20));
         bCancelar = new Button("Cancelar");
-        bCancelar.setFont(Font.font("Arial Black",20));
+        bCancelar.setFont(Font.font("Times New Roman",20));
         
         
 

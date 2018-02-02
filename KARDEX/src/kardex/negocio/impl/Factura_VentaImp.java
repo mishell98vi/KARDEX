@@ -10,7 +10,7 @@ public class Factura_VentaImp implements Factura_VentaI {
     @Override
     public int modificar(Factura_Venta facturaventa) throws Exception {
         int filasAfectadas = 0;
-        String sqlC = "update FacturaVenta set codFacturaVenta=?, fecha=?, cliente where codFacturaVenta =?";
+        String sqlC = "update FacturaVenta set codigoFacturaVenta=?, fecha=?, cliente where codigoFacturaVenta =?";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, facturaventa.getCodFVenta()));
         if (facturaventa.getFecha() instanceof java.util.Date) {
@@ -36,7 +36,7 @@ public class Factura_VentaImp implements Factura_VentaI {
     @Override
     public int eliminar(Factura_Venta facturaVenta) throws Exception {
         int filasAfectadas = 0;
-        String sqlC = "DELETE FROM FacturaVenta VALUES WHERE codFacturaVenta=?";
+        String sqlC = "DELETE FROM FacturaVenta VALUES WHERE codigoFacturaVenta=?";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, facturaVenta.getCodFVenta()));
         Conexion conect = null;
@@ -56,7 +56,7 @@ public class Factura_VentaImp implements Factura_VentaI {
     @Override
     public Factura_Venta obtener(int codFVenta) throws Exception {
         Factura_Venta fv = null;
-        String sqlC = "SELECT codFacturaVenta, fecha, cliente from FacturaVenta ";
+        String sqlC = "SELECT codigoFacturaVenta, fecha, cliente from FacturaVenta where codigoFacturaVenta=?";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, codFVenta));
         Conexion conect = null;
@@ -86,7 +86,7 @@ public class Factura_VentaImp implements Factura_VentaI {
     @Override
     public ArrayList<Factura_Venta> obtener() throws Exception {
         Factura_Venta fventa = null;
-        String sqlC = "select codFacturaVenta, fecha, cliente from FacturaVenta";
+        String sqlC = "select codigoFacturaVenta, fecha, cliente from FacturaVenta";
         ArrayList<Factura_Venta> lstfv = new ArrayList<>();
         Conexion conect = null;
         try{
@@ -115,7 +115,7 @@ public class Factura_VentaImp implements Factura_VentaI {
     @Override
     public int ingresar(Factura_Venta facturaVenta) throws Exception {
        int filasAfectadas = 0;
-        String sqlC = "INSERT INTO FacturaVenta (codFacturaVentas, fecha, cliente) VALUES (?,?,?) ";
+        String sqlC = "INSERT INTO FacturaVenta (codigoFacturaVenta, fecha, cliente) VALUES (?,?,?) ";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, facturaVenta.getCodFVenta()));
         if (facturaVenta.getFecha() instanceof java.util.Date) {
@@ -123,7 +123,7 @@ public class Factura_VentaImp implements Factura_VentaI {
         } else {
             listParam.add(new Parametro(2, facturaVenta.getFecha()));
         }
-        listParam.add(new Parametro(3, facturaVenta.getCliente()));
+        listParam.add(new Parametro(3, facturaVenta.getCliente().getCedula()));
         Conexion conect = null;
         try {
             conect = new Conexion();

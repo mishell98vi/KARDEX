@@ -4,131 +4,116 @@
  * and open the template in the editor.
  */
 package kardex.vistas;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.*;
-import kardex.negocio.dao.*;
-import kardex.negocio.impl.*;
-import kardex.negocio.entidades.*;
-import java.awt.Color;
-public class Form_Proveedor extends JFrame {
-    JLabel ruc;
-    JLabel nombre;
-    JLabel direccion;
-    JLabel telefono;
-    JLabel eMail;
-   
-    JTextField txtruc;
-    JTextField txtnombre;
-    JTextField txtdireccion;
-    JTextField txttelefono;
-    JTextField txtEmail;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import java.util.*;
+import javafx.scene.text.*;
+import javafx.scene.paint.*;
+import java.lang.reflect.Field;
+import java.text.DateFormat;
+import java.text.MessageFormat;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.layout.*;
+import javafx.scene.control.*;
+public class Form_Proveedor extends  Application {
+    private Text txtRuc;
+    private Text txtNombres;
+    private Text txtDireccion;
+    private Text txtTelefono;
     
-
-    JButton btnLimpiar;
-    JButton btnAceptar;
-    JButton btnCancelar;
-   
-    JPanel pnlcentral;
-    JPanel pnlpie;
-
-    public Form_Proveedor() {
-        this.setSize(300, 300);
-        
-        setTitle("  PROVEEDOR....");
-      //  this.setClosable(true);
-        
-        this.setLayout(new BorderLayout());
-        pnlcentral = new JPanel();
-        pnlpie = new JPanel();
-
-        pnlcentral.setLayout(new GridLayout(5, 2, 5, 5));
-        pnlpie.setLayout(new GridLayout(1, 2, 5, 5));
-        
-        ruc = new JLabel("    RUC:  ");  
-        nombre= new JLabel("    NOMBRE:");
-        direccion= new JLabel("    DIRECCION:");
-        telefono= new JLabel("    TELEFONO:");
-        eMail= new JLabel("    EMAIL:");
-        
-        
-         txtruc= new JTextField(2);
-         txtnombre= new JTextField(2);
-         txtdireccion= new JTextField(2);
-         txttelefono= new JTextField(2);
-         txtEmail= new JTextField(2);
-         
-        btnLimpiar = new JButton("LIMPIAR");
-        btnAceptar = new JButton("ACEPTAR");
-        btnCancelar = new JButton("CANCELAR");
-        
-        
-        pnlcentral.setBackground(Color.CYAN);
-        
-  
-        pnlcentral.add(ruc);
-        pnlcentral.add(txtruc);
-        pnlcentral.add(nombre);
-        pnlcentral.add(txtnombre);
-        pnlcentral.add(direccion);
-        pnlcentral.add(txtdireccion);
-        pnlcentral.add(telefono);
-        pnlcentral.add(txttelefono);
-        pnlcentral.add(eMail);
-        pnlcentral.add(txtEmail);
-        
-        
-        pnlpie.add(btnLimpiar);
-        pnlpie.add(btnAceptar);
-        pnlpie.add(btnCancelar);
-        
-        btnAceptar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    btnAceptarActionListener(e);
-                } catch (Exception ex) {
-                    System.out.println("Error:"+ex.getMessage());
-                }
-            }
-        });
-        
-       
- 
-        this.add(pnlcentral, BorderLayout.CENTER);
-        this.add(pnlpie, BorderLayout.SOUTH);
-
-        
-    }
+    private Text txtEmail;
     
-      public static void main(String[] args) {
-        Form_Proveedor formP = new Form_Proveedor();
-        formP.setVisible(true);   
-    }
-    public void btnAceptarActionListener(ActionEvent e){
-        
-            ProveedorI proveedorDao=new ProveedorImp();
-            Proveedor proveedor = new Proveedor();
+    private TextArea Ruc;
+    private TextArea Nombres;
+    private TextArea Direccion;
+    private TextArea Telefono;
+    private TextArea Email;
+     
+    private Button btnAceptar;
+    private Button btnLimpiar;
+    private Button btnCancelar;
+    private Button btnModificar;
+    private Button btnEliminar;
+    
+    private GridPane panelProveedor;
+    private HBox panelBotones;
+    private VBox panelPrincipal;
             
-            proveedor.setRuc(txtruc.getText());
-            proveedor.setNombre(txtnombre.getText());
-            proveedor.setDireccion(txtdireccion.getText());
-            proveedor.setTelefono(txttelefono.getText());
-            proveedor.setEmail(txtEmail.getText());
+    
+    @Override
+    public void start(Stage primaryStage) {
         
-          try{
-            if(proveedorDao.ingresar(proveedor)>0){
-                JOptionPane.showMessageDialog(this,"Guardado con exito",
-                "transaccion", JOptionPane.INFORMATION_MESSAGE);
-            }else{
-                JOptionPane.showMessageDialog(this,"Error desconocido",
-                "error", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }catch(Exception ex){
-             JOptionPane.showMessageDialog(this,"Error desconocido: "+ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        txtRuc = new Text("Ruc: ");
+        txtRuc.setFont(javafx.scene.text.Font.font("Arial",20));
+        Ruc =new TextArea(""); 
+        txtNombres = new Text("Nombres: ");
+        txtNombres.setFont(javafx.scene.text.Font.font("Arial",20));
+        Nombres=new TextArea("");
+        txtDireccion = new Text("Direccion: ");
+        txtDireccion.setFont(javafx.scene.text.Font.font("Arial",20));
+        Direccion=new TextArea("");
+        txtTelefono = new Text("Telefono: ");
+        txtTelefono.setFont(javafx.scene.text.Font.font("Arial",20));
+        Telefono=new TextArea("");
+        txtEmail = new Text("Email: ");
+        
+        txtEmail.setFont(javafx.scene.text.Font.font("Arial",20));
+        Email=new TextArea("");
+        
+        btnAceptar=new Button("Aceptar");
+        btnAceptar.setFont(javafx.scene.text.Font.font("Times New Roman",15));
+        btnLimpiar=new Button("Limpiar");
+        btnLimpiar.setFont(javafx.scene.text.Font.font("Times New Roman",15));
+        btnCancelar=new Button("Cancelar");
+        btnCancelar.setFont(javafx.scene.text.Font.font("Times New Roman",15));
+        
+        btnModificar=new Button("Modificar");
+        btnModificar.setFont(javafx.scene.text.Font.font("Times New Roman",15));
+        btnEliminar=new Button("Eliminar");
+        btnEliminar.setFont(javafx.scene.text.Font.font("Times New Roman",15));
+
+        panelProveedor = new GridPane();
+        panelProveedor.add(txtRuc, 0, 0);
+        panelProveedor.add(Ruc,1,0);
+        
+        panelProveedor.add(txtNombres, 0, 1);
+        panelProveedor.add(Nombres,1,1);
+        panelProveedor.add(txtDireccion, 0, 2);
+        panelProveedor.add(Direccion,1,2);
+        panelProveedor.add(txtTelefono, 0, 3);
+        panelProveedor.add(Telefono,1,3);
+        panelProveedor.add(txtEmail, 0, 4);
+        panelProveedor.add(Email,1,4);
+        
+        
+        panelBotones =new HBox(20);
+        panelBotones.getChildren().add(btnAceptar);
+        panelBotones.getChildren().add(btnLimpiar);
+        panelBotones.getChildren().add(btnCancelar);
+        panelBotones.setAlignment(Pos.CENTER);
+    
+        panelPrincipal=new VBox();
+        panelPrincipal.getChildren().add(panelProveedor);
+        panelPrincipal.getChildren().add(panelBotones);
+        
+        
+        Scene scene = new Scene(panelPrincipal, 300, 250);
+        
+        primaryStage.setTitle("Proveedor");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        launch(args);
     }
 }

@@ -10,7 +10,7 @@ public class Detalle_VentaImp implements Detalle_VentaI {
     @Override
     public int ingresar(Detalle_Venta detalleVenta) throws Exception {
         int filasAfectadas = 0;
-        String sqlC = "INSERT INTO DetalleVenta (codDetalleVenta, codProducto, codFacturaVenta, cantidad, precioTotal) VALUES (?,?,?,?,?)";
+        String sqlC = "INSERT INTO DetalleVenta (codigoDetalleVenta, codigoProducto, codigoFacturaVenta, cantidad, preciototal) VALUES (?,?,?,?,?)";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, detalleVenta.getCodigoDVenta()));
         listParam.add(new Parametro(2, detalleVenta.getProducto().getCodigoProducto()));
@@ -34,7 +34,7 @@ public class Detalle_VentaImp implements Detalle_VentaI {
     @Override
     public int modificar(Detalle_Venta detalleVenta) throws Exception {
         int filasAfectadas = 0;
-        String sqlC = "UPDATE DetalleVenta SET codDetalleVenta=?, codProducto=?, codFacturaVenta=?, cantidad=?, precioTotal=? WHERE codDetalleVenta=?";
+        String sqlC = "UPDATE DetalleVenta SET codigoDetalleVenta=?, codigoProducto=?, codigoFacturaVenta=?, cantidad=?, preciototal=? WHERE codDetalleVenta=?";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, detalleVenta.getCodigoDVenta()));
         listParam.add(new Parametro(2, detalleVenta.getProducto().getCodigoProducto()));
@@ -60,7 +60,7 @@ public class Detalle_VentaImp implements Detalle_VentaI {
     @Override
     public int eliminar(Detalle_Venta detalleVenta) throws Exception {
         int filasAfectadas = 0;
-        String sqlC = "DELETE FROM DetalleVenta WHERE codDetalleVenta=?";
+        String sqlC = "DELETE FROM DetalleVenta WHERE codigoDetalleVenta=?";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, detalleVenta.getCodigoDVenta()));
         Conexion conect = null;
@@ -80,7 +80,7 @@ public class Detalle_VentaImp implements Detalle_VentaI {
     @Override
     public Detalle_Venta obtener(int codDetalleVenta) throws Exception {
         Detalle_Venta detalle = null;
-        String sqlC = "SELECT codDetalleVenta, codProducto, codFacturaVenta, cantidad, precioTotal FROM DetalleVenta Where id=?";
+        String sqlC = "SELECT codigoDetalleVenta, codigoProducto, codigoFacturaVenta, cantidad, preciototal FROM DetalleVenta Where id=?";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, codDetalleVenta));
         Conexion conect = null;
@@ -116,7 +116,7 @@ public class Detalle_VentaImp implements Detalle_VentaI {
     public ArrayList<Detalle_Venta> obtener() throws Exception {
         ArrayList<Detalle_Venta> lstDetalle = new ArrayList<>();
         Detalle_Venta detalle = null;
-        String sqlC = "SELECT codDetalleVenta, codProducto, codFacturaVenta, cantidad, precioTotal FROM DetalleVenta";
+        String sqlC = "SELECT codigoDetalleVenta, codigoProducto, codigoFacturaVenta, cantidad, preciototal FROM DetalleVenta";
         Conexion conect = null;
         try {
             conect = new Conexion();

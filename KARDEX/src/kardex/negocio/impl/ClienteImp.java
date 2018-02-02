@@ -10,7 +10,7 @@ public class ClienteImp implements ClienteI {
     @Override
     public int modificar(Cliente cliente) throws Exception {
         int filasAfectadas = 0;
-        String sqlC = "UPDATE cliente SET cedua=?, nombre=?, apellido=?, direccion=?, telefono=?, email=?, fechaNac=? WHERE cedula=?";
+        String sqlC = "UPDATE cliente SET cedula=?, nombres=?, apellidos=?, direccion=?, telefono=?, email=?, fecha_Nace=? WHERE cedula=?";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, cliente.getCedula()));
         listParam.add(new Parametro(2, cliente.getNombre()));
@@ -61,7 +61,7 @@ public class ClienteImp implements ClienteI {
     @Override
     public Cliente obtener(String cedula) throws Exception {
         Cliente nCliente = null;
-        String sqlC = "SELECT cedula, nombre, apellido, direccion, telefono, email, fechaNac FROM Cliente WHERE cedula=?";
+        String sqlC = "SELECT cedula, nombres, apellidos, direccion, telefono, email, fecha_Nace FROM Cliente WHERE cedula=?";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, cedula));
         Conexion conect = null;
@@ -91,7 +91,7 @@ public class ClienteImp implements ClienteI {
     @Override
     public ArrayList<Cliente> obtener() throws Exception {
         ArrayList<Cliente> listCliente = new ArrayList<>();
-        String sqlC = "SELECT cedula, nombre, apellido, direccion, telefono, email, fechaNac FROM Cliente";
+        String sqlC = "SELECT cedula, nombres, apellidos, direccion, telefono, email, fecha_Nace FROM Cliente";
         Conexion conect = null;
         try {
             conect = new Conexion();
@@ -120,7 +120,7 @@ public class ClienteImp implements ClienteI {
     @Override
     public int ingresar(Cliente cliente) throws Exception {
         int filasAfectadas = 0;
-        String sqlC = "INSERT INTO Cliente (cedula, nombre,apellido,direccion,telefono, email,fechaNac) VALUES (?,?,?,?,?,?,?)";
+        String sqlC = "INSERT INTO Cliente (cedula, nombres,apellidos,direccion,telefono, email,fecha_Nace) VALUES (?,?,?,?,?,?,?)";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, cliente.getCedula()));
         listParam.add(new Parametro(2, cliente.getNombre()));

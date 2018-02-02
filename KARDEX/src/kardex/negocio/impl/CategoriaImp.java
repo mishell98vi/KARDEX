@@ -10,11 +10,11 @@ public class CategoriaImp implements CategoriaI {
     @Override
     public int insertar(Categoria categoria) throws Exception {
         int filasAfectadas = 0;
-        String sqlC = "INSERT INTO Categoria (codCategoria, nombre,descripcion) VALUES (?,?,?)";
+        String sqlC = "INSERT INTO Categoria (codigoCategoria, nombre,descripcion) VALUES (?,?,?)";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, categoria.getCodigoCategoria()));
         listParam.add(new Parametro(2, categoria.getNombre()));
-        listParam.add(new Parametro(4, categoria.getDescripcion()));
+        listParam.add(new Parametro(3, categoria.getDescripcion()));
         Conexion conect = null;
         try {
             conect = new Conexion();
@@ -32,11 +32,11 @@ public class CategoriaImp implements CategoriaI {
     @Override
     public int modificar(Categoria categoria) throws Exception {
         int filasAfectadas = 0;
-        String sqlC = "UPDATE Categoria SET cosCategoria=?, nombre=?, descripcion=? WHERE codCategoria=?";
+        String sqlC = "UPDATE Categoria SET codigoCategoria=?, nombre=?, descripcion=? WHERE codigoCategoria=?";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, categoria.getCodigoCategoria()));
         listParam.add(new Parametro(2, categoria.getNombre()));
-        listParam.add(new Parametro(4, categoria.getDescripcion()));
+        listParam.add(new Parametro(3, categoria.getDescripcion()));
         Conexion conect = null;
         try {
             conect = new Conexion();
@@ -54,7 +54,7 @@ public class CategoriaImp implements CategoriaI {
     @Override
     public int eliminar(Categoria categoria) throws Exception {
         int filasAfectadas = 0;
-        String sqlC = "DELETE FROM Categoria WHERE codCategoria=?";
+        String sqlC = "DELETE FROM Categoria WHERE codigoCategoria=?";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, categoria.getCodigoCategoria()));
         Conexion conect = null;
@@ -74,7 +74,7 @@ public class CategoriaImp implements CategoriaI {
     @Override
     public ArrayList<Categoria> obtener() throws Exception {
         ArrayList<Categoria> listCategoria = new ArrayList<>();
-        String sqlC = "SELECT codCategoria, nombre, descripcion FROM Categoria";
+        String sqlC = "SELECT codigoCategoria, nombre, descripcion FROM Categoria";
         Conexion conect = null;
         try {
             conect = new Conexion();
@@ -97,11 +97,11 @@ public class CategoriaImp implements CategoriaI {
         return listCategoria;
     }
     @Override
-    public Categoria obtener(int codCategoria) throws Exception {
+    public Categoria obtener(int codigoCategoria) throws Exception {
         Categoria nCategoria = null;
-        String sqlC = "SELECT codCategoria, nombre, descripcion FROM Categoria WHERE codCategoria=?";
+        String sqlC = "SELECT codigoCategoria, nombre, descripcion FROM Categoria WHERE codigoCategoria=?";
         ArrayList<Parametro> listParam = new ArrayList<>();
-        listParam.add(new Parametro(1, codCategoria));
+        listParam.add(new Parametro(1, codigoCategoria));
         Conexion conect = null;
         try {
             conect = new Conexion();

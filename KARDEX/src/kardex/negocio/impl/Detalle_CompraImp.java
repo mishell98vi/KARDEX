@@ -10,7 +10,7 @@ public class Detalle_CompraImp implements Detalle_CompraI {
     @Override
     public int ingresar(Detalle_Compra detalleCompra) throws Exception {
         int filasAfectadas = 0;
-        String sqlC = "INSERT INTO DetalleCompra (codDetalleCompra, codProducto, codFacturaCompra, cantidad, precioTotal) VALUES (?,?,?,?,?)";
+        String sqlC = "INSERT INTO DetalleCompra (codigoDetalleCompra, codigoProducto, codigoFactCompra, cantidad, preciototal) VALUES (?,?,?,?,?)";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, detalleCompra.getCodigoDcompra()));
         listParam.add(new Parametro(2, detalleCompra.getProducto().getCodigoProducto()));
@@ -59,7 +59,7 @@ public class Detalle_CompraImp implements Detalle_CompraI {
     @Override
     public int eliminar(Detalle_Compra detalleCompra) throws Exception {
         int filasAfectadas = 0;
-        String sqlC = "DELETE FROM DetalleCompra WHERE codDetalleCompra=?";
+        String sqlC = "DELETE FROM DetalleCompra WHERE codigoDetalleCompra=?";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, detalleCompra.getCodigoDcompra()));
         Conexion conect = null;
@@ -79,7 +79,7 @@ public class Detalle_CompraImp implements Detalle_CompraI {
     @Override
     public Detalle_Compra obtener(int codigoDCompra) throws Exception {
         Detalle_Compra detalle = null;
-        String sqlC = "SELECT codDetalleCompra, codProducto, codFacturaCompra, cantidad, precioTotal FROM DetalleCompra Where id=?";
+        String sqlC = "SELECT codidoDetalleCompra, codigoProducto, codigoFactCompra, cantidad, preciototal FROM DetalleCompra Where id=?";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, codigoDCompra));
         Conexion conect = null;
@@ -115,7 +115,7 @@ public class Detalle_CompraImp implements Detalle_CompraI {
     public ArrayList<Detalle_Compra> obtener() throws Exception {
         ArrayList<Detalle_Compra> lstDetalle = new ArrayList<>();
         Detalle_Compra detalle = null;
-        String sqlC = "SELECT codDetalleCompra, codProducto, codFacturaCompra, cantidad, precioTotal FROM DetalleCompra";
+        String sqlC = "SELECT codigoDetalleCompra, codigoProducto, codigoFacturaCompra, cantidad, precioTotal FROM DetalleCompra";
         Conexion conect = null;
         try {
             conect = new Conexion();

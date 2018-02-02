@@ -19,23 +19,24 @@ public class ProductoTest {
         
 //TEST INSERTAR
 
-        int filas = 0;
-        Categoria ncategoria = new Categoria(1, "ABC", "Cuadernoss");
-        Producto produc = new Producto(2,ncategoria,  "Academico", 1.75);
-        try {
-            filas = productoDao.ingresar(produc);
-            System.out.println("filas Insertadas:" + filas);
-        } catch (Exception e) {
-        }
-        assertTrue(filas > 0);
+//        int filas = 0;
+//        Categoria ncategoria = new Categoria(1, "ABC", "Cuadernoss");
+//        Producto produc = new Producto(2,ncategoria,  "Academico", 1.75);
+//        try {
+//            filas = productoDao.ingresar(produc);
+//            System.out.println("filas Insertadas:" + filas);
+//        } catch (Exception e) {
+//        }
+//        assertTrue(filas > 0);
         
 ////TEST OBTENER POR CODIGO
 
         Producto producto = new Producto();
         try {
-            producto = productoDao.obtener(1);
+            producto = productoDao.obtener(2);
             System.out.println(producto.getCodigoProducto() + "\t\t" + producto.getCategoria().getCodigoCategoria() + "\t\t" + producto.getNombre() + "\t\t" + producto.getPrecio() + "\t\t" + "\n\n");
         } catch (Exception e) {
+            System.out.println("Error "+e.getMessage());
         }
         assertEquals(producto != null, true);
         
