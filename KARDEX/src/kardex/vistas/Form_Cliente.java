@@ -1,5 +1,7 @@
 package kardex.vistas;
 import com.sun.javafx.scene.control.skin.LabeledText;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,6 +15,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.text.*;
+import kardex.negocio.dao.*;
+import kardex.negocio.entidades.*;
+import kardex.negocio.impl.*;
 
 public class Form_Cliente extends Application {
 
@@ -28,11 +33,12 @@ public class Form_Cliente extends Application {
     private TextArea fechanac;
     private TextArea nombres;
     private TextArea apellidos;
-    private TextArea telf;
+    private TextArea telf; 
     private TextArea dir;
-    private TextArea eMail;
+    private TextArea email;
 
-    private TextArea vacio;
+    private Image iconCliente;
+    private ImageView visorIcono;
     
     private Button bIngresar;
     private Button bModificar;
@@ -50,9 +56,12 @@ public class Form_Cliente extends Application {
     @Override
     public void start(Stage primaryStage) {
         
-        vacio=new TextArea("");
-        
-        //labels
+       iconCliente=new Image("file:src\\kardex\\multimedia\\images\\iconocliente.png");
+       visorIcono= new ImageView(iconCliente);
+       visorIcono.setFitHeight(150);
+       visorIcono.setFitWidth(150);
+      
+         //labels
         txtCedula = new Text("Cedula: ");
         txtFechaNacim = new Text("Fecha de Nacimiento: ");
         txtNombres = new Text("Nombres: ");
@@ -68,19 +77,26 @@ public class Form_Cliente extends Application {
         apellidos = new TextArea("");
         telf = new TextArea("");
         dir = new TextArea("");
-        eMail = new TextArea("");
+        email = new TextArea("");
 
         //BOTONES
         bIngresar = new Button("Aceptar");
-        bIngresar.setFont(Font.font("Times New Roman",20));
+        bIngresar.setFont(Font.font("Times New Roman",15));
+        bIngresar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                btnIngresarEventHandler(event);
+            }
+        });
+       
         bModificar = new Button("Times New Roman");
         bModificar.setFont(Font.font("Times New Roman",20));
         bEliminar = new Button("Eliminar");
         bEliminar.setFont(Font.font("Times New Roman",20));
         bLimpiar = new Button("Limpiar");
-        bLimpiar.setFont(Font.font("Times New Roman",20));
+        bLimpiar.setFont(Font.font("Times New Roman",15));
         bCancelar = new Button("Cancelar");
-        bCancelar.setFont(Font.font("Times New Roman",20));
+        bCancelar.setFont(Font.font("Times New Roman",15));
         
         
 
@@ -100,7 +116,8 @@ public class Form_Cliente extends Application {
         
         //CLIENTE E IMAGEN
         clImagen=new HBox(10);
-        clImagen.getChildren().addAll(vacio, centroCliente);
+        clImagen.getChildren().addAll(visorIcono, centroCliente);
+        clImagen.setAlignment(Pos.CENTER);
         
         //RESTO CLIENTE
         datRest=new GridPane();
@@ -111,12 +128,13 @@ public class Form_Cliente extends Application {
         
         //FINAL CLIENTE
         datsFinales=new HBox(10);
-        datsFinales.getChildren().addAll(txtEmail, eMail);
+        datsFinales.getChildren().addAll(txtEmail, email);
+        datsFinales.setAlignment(Pos.CENTER);
         
         //BOTONES
-        pnlbotones=new HBox(10);
+        pnlbotones=new HBox(25);
         pnlbotones.getChildren().addAll(bIngresar, bLimpiar, bCancelar);
-        
+        pnlbotones.setAlignment(Pos.CENTER);
         //PANTALLA PRINCIPAL
         pnlPrinc = new VBox(10);
         pnlPrinc.getChildren().addAll(clImagen, datRest, datsFinales,pnlbotones);
@@ -124,7 +142,7 @@ public class Form_Cliente extends Application {
         pnlPrinc.setPadding(new Insets(15));
         
 
-        Scene scene = new Scene(pnlPrinc, 480, 320);
+        Scene scene = new Scene(pnlPrinc, 480, 340);
 
         primaryStage.setTitle("Cliente");
         primaryStage.setScene(scene);
@@ -133,6 +151,32 @@ public class Form_Cliente extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+    public void btnIngresarEventHandler(ActionEvent event){
+        ClienteI clienteDao=new ClienteImp();
+        try {
+            Cliente nuevoCliente=new Cliente();
+            nuevoCliente.setCedula(cedula.getText());
+            nuevoCliente.setNombre(nombres.getText());
+            nuevoCliente.setApellido(apellidos.getText());
+            nuevoCliente.setDireccion(dir.getText());
+            nuevoCliente.setTelefono(telf.getText());
+            nuevoCliente.setEmail(email.getText());
+            DateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                nuevoCliente.setFechaNac(formatoFecha.parse(fechanac.getText()));
+            } catch (Exception er) {
+                System.out.println("Error al insertar fecha"+er.getMessage());
+            }
+            if(clienteDao.ingresar(nuevoCliente)>0){
+                System.out.println("Ingreso Correcto");
+            }
+            else{
+                System.out.println("Error de Ingreso");
+            }
+        } catch (Exception e) {
+            System.out.println("Error de Ingreso"+e.getMessage());
+        }
     }
 
 }
