@@ -34,14 +34,14 @@ public class Detalle_CompraImp implements Detalle_CompraI {
     @Override
     public int modificar(Detalle_Compra detalleCompra) throws Exception {
         int filasAfectadas = 0;
-        String sqlC = "UPDATE DetalleCompra SET codDetalleCompra=?, codProducto=?, codFacturaCompra=?, cantidad=?, precioTotal=? WHERE codDetalleCompra=?";
+        String sqlC = "UPDATE DetalleCompra SET codigoDetalleCompra=?, codigoProducto=?, codigoFacturaCompra=?, cantidad=?, preciototal=? WHERE codigoDetalleCompra=?";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, detalleCompra.getCodigoDcompra()));
         listParam.add(new Parametro(2, detalleCompra.getProducto().getCodigoProducto()));
         listParam.add(new Parametro(3, detalleCompra.getfCompra().getCodFCompra()));
         listParam.add(new Parametro(4, detalleCompra.getCantidad()));
         listParam.add(new Parametro(5, detalleCompra.getCantidad()));
-        listParam.add(new Parametro(6, detalleCompra.getCodigoDcompra()));
+        //listParam.add(new Parametro(6, detalleCompra.getCodigoDcompra()));
         Conexion conect = null;
         try {
             conect = new Conexion();
@@ -79,7 +79,7 @@ public class Detalle_CompraImp implements Detalle_CompraI {
     @Override
     public Detalle_Compra obtener(int codigoDCompra) throws Exception {
         Detalle_Compra detalle = null;
-        String sqlC = "SELECT codidoDetalleCompra, codigoProducto, codigoFactCompra, cantidad, preciototal FROM DetalleCompra Where id=?";
+        String sqlC = "SELECT codigoDetalleCompra, codigoProducto, codigoFactCompra, cantidad, preciototal FROM DetalleCompra Where codigoDetalleCompra=?";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, codigoDCompra));
         Conexion conect = null;
@@ -89,7 +89,7 @@ public class Detalle_CompraImp implements Detalle_CompraI {
             ProductoI productoDao = new ProductoImp();
             Producto produc = null;
             Factura_CompraI factCompraDao = new Factura_CompraImp();
-            Factura_Compra factCompra = new Factura_Compra();
+            Factura_Compra factCompra = null;
             ResultSet rst = conect.ejecutarQuery(sqlC, listParam);
             while (rst.next()) {
                 detalle = new Detalle_Compra();
@@ -99,6 +99,7 @@ public class Detalle_CompraImp implements Detalle_CompraI {
                 produc = productoDao.obtener(rst.getInt(2));
                 detalle.setProducto(produc);
                 factCompra = factCompraDao.obtener(rst.getInt(3));
+                detalle.setfCompra(factCompra);
                 detalle.setCantidad(rst.getInt(4));
                 detalle.setpTotal(rst.getDouble(5));
             }
@@ -115,7 +116,7 @@ public class Detalle_CompraImp implements Detalle_CompraI {
     public ArrayList<Detalle_Compra> obtener() throws Exception {
         ArrayList<Detalle_Compra> lstDetalle = new ArrayList<>();
         Detalle_Compra detalle = null;
-        String sqlC = "SELECT codigoDetalleCompra, codigoProducto, codigoFacturaCompra, cantidad, precioTotal FROM DetalleCompra";
+        String sqlC = "SELECT codigoDetalleCompra, codigoProducto, codigoFactCompra, cantidad, preciototal FROM DetalleCompra";
         Conexion conect = null;
         try {
             conect = new Conexion();
@@ -133,6 +134,7 @@ public class Detalle_CompraImp implements Detalle_CompraI {
                 produc = productoDao.obtener(rst.getInt(2));
                 detalle.setProducto(produc);
                 factCompra = factCompraDao.obtener(rst.getInt(3));
+                detalle.setfCompra(factCompra);
                 detalle.setCantidad(rst.getInt(4));
                 detalle.setpTotal(rst.getDouble(5));
                 lstDetalle.add(detalle);
