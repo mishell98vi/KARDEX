@@ -95,8 +95,20 @@ public class Form_Cliente extends Application {
         bEliminar.setFont(Font.font("Times New Roman",20));
         bLimpiar = new Button("Limpiar");
         bLimpiar.setFont(Font.font("Times New Roman",15));
+        bLimpiar.setOnAction(new EventHandler<ActionEvent>() {
+           @Override
+           public void handle(ActionEvent event) {
+               bLimpiarEventHandler(event);
+           }
+       });
         bCancelar = new Button("Cancelar");
         bCancelar.setFont(Font.font("Times New Roman",15));
+        bCancelar.setOnAction(new EventHandler<ActionEvent>() {
+           @Override
+           public void handle(ActionEvent event) {
+               bCancelarEventHandler(event);
+           }
+       });
         
         
 
@@ -179,4 +191,16 @@ public class Form_Cliente extends Application {
         }
     }
 
+    public void bCancelarEventHandler(ActionEvent event){
+        System.exit(0);
+    }
+    public void bLimpiarEventHandler(ActionEvent event){
+        cedula.setText("");
+        nombres.setText("");
+        apellidos.setText("");
+        dir.setText("");
+        telf.setText("");
+        email.setText("");
+    }
+    
 }
