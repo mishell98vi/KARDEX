@@ -1,5 +1,5 @@
 package kardex.vistas;
-import com.sun.javafx.scene.control.skin.LabeledText;
+import com.sun.javafx.scene.control.skin.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import javafx.application.Application;
@@ -21,21 +21,21 @@ import kardex.negocio.impl.*;
 
 public class Form_Cliente extends Application {
 
-    private Text txtCedula;
-    private Text txtFechaNacim;
-    private Text txtNombres;
-    private Text txtApellidos;
-    private Text txtTelf;
-    private Text txtDir;
-    private Text txtEmail;
+    private Label txtCedula;
+    private Label txtFechaNacim;
+    private Label txtNombres;
+    private Label txtApellidos;
+    private Label txtTelf;
+    private Label txtDir;
+    private Label txtEmail;
 
-    private TextArea cedula;
-    private TextArea fechanac;
-    private TextArea nombres;
-    private TextArea apellidos;
-    private TextArea telf; 
-    private TextArea dir;
-    private TextArea email;
+    private TextField cedula;
+    private TextField fechanac;
+    private TextField nombres;
+    private TextField apellidos;
+    private TextField telf; 
+    private TextField dir;
+    private TextField email;
 
     private Image iconCliente;
     private ImageView visorIcono;
@@ -58,43 +58,44 @@ public class Form_Cliente extends Application {
         
        iconCliente=new Image("file:src\\kardex\\multimedia\\images\\iconocliente.png");
        visorIcono= new ImageView(iconCliente);
-       visorIcono.setFitHeight(150);
-       visorIcono.setFitWidth(150);
-      
+       visorIcono.setFitHeight(100);
+       visorIcono.setFitWidth(100);
          //labels
-        txtCedula = new Text("Cedula: ");
-        txtFechaNacim = new Text("Fecha de Nacimiento: ");
-        txtNombres = new Text("Nombres: ");
-        txtApellidos = new Text("Apellidos: ");
-        txtTelf = new Text("Telefono: ");
-        txtDir = new Text("Direccion: ");
-        txtEmail = new Text("E-mail: ");
-
+        txtCedula = new Label("Cedula: ");
+        txtCedula.setFont(Font.font("News701 BT", 20));
+        txtFechaNacim = new Label("Fecha de Nacimiento: ");
+        txtFechaNacim.setFont(Font.font("News701 BT", 20));
+        txtNombres = new Label("Nombres: ");
+        txtNombres.setFont(Font.font("News701 BT", 20));
+        txtApellidos = new Label("Apellidos: ");
+        txtApellidos.setFont(Font.font("News701 BT", 20));
+        txtTelf = new Label("Telefono: ");
+        txtTelf.setFont(Font.font("News701 BT", 20));
+        txtDir = new Label("Direccion: ");
+        txtDir.setFont(Font.font("News701 BT", 20));
+        txtEmail = new Label("E-mail: ");
+        txtEmail.setFont(Font.font("News701 BT", 20));
         //cajas de texto
-        cedula = new TextArea("");
-        fechanac = new TextArea("");
-        nombres = new TextArea("");
-        apellidos = new TextArea("");
-        telf = new TextArea("");
-        dir = new TextArea("");
-        email = new TextArea("");
-
+        cedula = new TextField("");
+        fechanac = new TextField("");
+        nombres = new TextField("");
+        apellidos = new TextField("");
+        telf = new TextField("");
+        dir = new TextField("");
+        email = new TextField("");
+        email.setMinWidth(350);
+        email.setMaxWidth(350);
         //BOTONES
         bIngresar = new Button("Aceptar");
-        bIngresar.setFont(Font.font("Times New Roman",15));
+        bIngresar.setFont(Font.font("News701 BT", 15));
         bIngresar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 btnIngresarEventHandler(event);
             }
         });
-       
-        bModificar = new Button("Times New Roman");
-        bModificar.setFont(Font.font("Times New Roman",20));
-        bEliminar = new Button("Eliminar");
-        bEliminar.setFont(Font.font("Times New Roman",20));
         bLimpiar = new Button("Limpiar");
-        bLimpiar.setFont(Font.font("Times New Roman",15));
+        bLimpiar.setFont(Font.font("News701 BT", 15));
         bLimpiar.setOnAction(new EventHandler<ActionEvent>() {
            @Override
            public void handle(ActionEvent event) {
@@ -102,16 +103,13 @@ public class Form_Cliente extends Application {
            }
        });
         bCancelar = new Button("Cancelar");
-        bCancelar.setFont(Font.font("Times New Roman",15));
+        bCancelar.setFont(Font.font("News701 BT", 15));
         bCancelar.setOnAction(new EventHandler<ActionEvent>() {
            @Override
            public void handle(ActionEvent event) {
                bCancelarEventHandler(event);
            }
        });
-        
-        
-
         //PANELES
         //Cliente
         centroCliente=new GridPane();
@@ -125,24 +123,20 @@ public class Form_Cliente extends Application {
         centroCliente.add(nombres, 1, 2);
         centroCliente.add(txtApellidos, 0, 3);
         centroCliente.add(apellidos, 1, 3);
-        
         //CLIENTE E IMAGEN
         clImagen=new HBox(10);
         clImagen.getChildren().addAll(visorIcono, centroCliente);
         clImagen.setAlignment(Pos.CENTER);
-        
         //RESTO CLIENTE
         datRest=new GridPane();
         datRest.add(txtTelf, 0, 0);
         datRest.add(telf, 1, 0);
         datRest.add(txtDir, 2, 0);
         datRest.add(dir, 3, 0);
-        
         //FINAL CLIENTE
         datsFinales=new HBox(10);
         datsFinales.getChildren().addAll(txtEmail, email);
         datsFinales.setAlignment(Pos.CENTER);
-        
         //BOTONES
         pnlbotones=new HBox(25);
         pnlbotones.getChildren().addAll(bIngresar, bLimpiar, bCancelar);
@@ -152,10 +146,8 @@ public class Form_Cliente extends Application {
         pnlPrinc.getChildren().addAll(clImagen, datRest, datsFinales,pnlbotones);
         pnlPrinc.setAlignment(Pos.CENTER);
         pnlPrinc.setPadding(new Insets(15));
-        
 
-        Scene scene = new Scene(pnlPrinc, 480, 340);
-
+        Scene scene = new Scene(pnlPrinc, 545, 280);
         primaryStage.setTitle("Cliente");
         primaryStage.setScene(scene);
         primaryStage.show();
