@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package kardex.vistas;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,99 +22,126 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
-public class Form_Proveedor extends  Application {
-    private Text txtRuc;
-    private Text txtNombres;
-    private Text txtDireccion;
-    private Text txtTelefono;
-    
-    private Text txtEmail;
-    
-    private TextArea Ruc;
-    private TextArea Nombres;
-    private TextArea Direccion;
-    private TextArea Telefono;
-    private TextArea Email;
-     
-    private Button btnAceptar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import kardex.negocio.dao.*;
+import kardex.negocio.entidades.*;
+import kardex.negocio.impl.*;
+
+public class Form_Proveedor extends Application {
+    private Label txtRuc;
+    private Label txtNombres;
+    private Label txtDireccion;
+    private Label txtTelefono;
+    private Label txtEmail;
+    private TextField Ruc;
+    private TextField Nombres;
+    private TextField Direccion;
+    private TextField Telefono;
+    private TextField Email;
+    private Button btnIngresar;
     private Button btnLimpiar;
     private Button btnCancelar;
-    private Button btnModificar;
-    private Button btnEliminar;
-    
-    private GridPane panelProveedor;
-    private HBox panelBotones;
+    private HBox pntPrincipal;
+    private VBox pnlIcono;
+    private Image iconProveedor;
+    private ImageView visorIcono;
+    private Label pProveedor;
+    private VBox pnlTxtField;
+    private VBox pnlObProv;
+    private HBox pnlProveedor;
+    private HBox pnlBotones;
     private VBox panelPrincipal;
-            
-    
     @Override
     public void start(Stage primaryStage) {
-        
-        txtRuc = new Text("Ruc: ");
-        txtRuc.setFont(javafx.scene.text.Font.font("Arial",20));
-        Ruc =new TextArea(""); 
-        txtNombres = new Text("Nombres: ");
-        txtNombres.setFont(javafx.scene.text.Font.font("Arial",20));
-        Nombres=new TextArea("");
-        txtDireccion = new Text("Direccion: ");
-        txtDireccion.setFont(javafx.scene.text.Font.font("Arial",20));
-        Direccion=new TextArea("");
-        txtTelefono = new Text("Telefono: ");
-        txtTelefono.setFont(javafx.scene.text.Font.font("Arial",20));
-        Telefono=new TextArea("");
-        txtEmail = new Text("Email: ");
-        
-        txtEmail.setFont(javafx.scene.text.Font.font("Arial",20));
-        Email=new TextArea("");
-        
-        btnAceptar=new Button("Aceptar");
-        btnAceptar.setFont(javafx.scene.text.Font.font("Times New Roman",15));
+        //Icono
+        iconProveedor = new Image("file:src\\kardex\\multimedia\\images\\iconoProveedor.jpg");
+        visorIcono = new ImageView(iconProveedor);
+        visorIcono.setFitWidth(200);
+        visorIcono.setFitHeight(150);
+        pnlIcono = new VBox(5);
+        pProveedor = new Label("\" Proveedor \"");
+        pProveedor.setFont(Font.font("News701 BT", 20));
+        pnlIcono.getChildren().addAll(visorIcono, pProveedor);
+        pnlIcono.setAlignment(Pos.CENTER);
+        pnlIcono.setPadding(new Insets(5));
+        //Detalles Proveedor
+        txtRuc = new Label("Ruc: ");
+        txtRuc.setFont(Font.font("News701 BT", 20));
+        Ruc = new TextField("");
+        txtNombres = new Label("Nombres: ");
+        txtNombres.setFont(Font.font("News701 BT", 20));
+        Nombres = new TextField("");
+        txtDireccion = new Label("Direccion: ");
+        txtDireccion.setFont(Font.font("News701 BT", 20));
+        Direccion = new TextField("");
+        txtTelefono = new Label("Telefono: ");
+        txtTelefono.setFont(Font.font("News701 BT", 20));
+        Telefono = new TextField("");
+        txtEmail = new Label("Email: ");
+        txtEmail.setFont(Font.font("News701 BT", 20));
+        Email = new TextField("");
+        pnlTxtField = new VBox(10);
+        pnlObProv = new VBox(10);
+        pnlTxtField.getChildren().addAll(txtRuc,txtNombres,txtDireccion,txtTelefono,txtEmail);
+        pnlObProv.getChildren().addAll(Ruc,Nombres,Direccion,Telefono,Email);
+        pnlTxtField.setAlignment(Pos.CENTER_RIGHT);
+        pnlTxtField.setPadding(new Insets(5));
+        pnlObProv.setAlignment(Pos.CENTER);
+        pnlObProv.setPadding(new Insets(5));
+        //panel Proveedor
+        pnlProveedor=new HBox(10);
+        pnlProveedor.getChildren().addAll(pnlIcono,pnlTxtField,pnlObProv);
+        pnlProveedor.setAlignment(Pos.CENTER);
+        pnlProveedor.setPadding(new Insets(5));
+        //Botones
+        btnIngresar=new Button("Ingresar");
+        btnIngresar.setFont(Font.font("News701 BT", 15));
+        btnIngresar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                bIngEventHandler(event);
+            }
+        });
         btnLimpiar=new Button("Limpiar");
-        btnLimpiar.setFont(javafx.scene.text.Font.font("Times New Roman",15));
+        btnLimpiar.setFont(Font.font("News701 BT", 15));
         btnCancelar=new Button("Cancelar");
-        btnCancelar.setFont(javafx.scene.text.Font.font("Times New Roman",15));
-        
-        btnModificar=new Button("Modificar");
-        btnModificar.setFont(javafx.scene.text.Font.font("Times New Roman",15));
-        btnEliminar=new Button("Eliminar");
-        btnEliminar.setFont(javafx.scene.text.Font.font("Times New Roman",15));
-
-        panelProveedor = new GridPane();
-        panelProveedor.add(txtRuc, 0, 0);
-        panelProveedor.add(Ruc,1,0);
-        
-        panelProveedor.add(txtNombres, 0, 1);
-        panelProveedor.add(Nombres,1,1);
-        panelProveedor.add(txtDireccion, 0, 2);
-        panelProveedor.add(Direccion,1,2);
-        panelProveedor.add(txtTelefono, 0, 3);
-        panelProveedor.add(Telefono,1,3);
-        panelProveedor.add(txtEmail, 0, 4);
-        panelProveedor.add(Email,1,4);
-        
-        
-        panelBotones =new HBox(20);
-        panelBotones.getChildren().add(btnAceptar);
-        panelBotones.getChildren().add(btnLimpiar);
-        panelBotones.getChildren().add(btnCancelar);
-        panelBotones.setAlignment(Pos.CENTER);
-    
+        btnCancelar.setFont(Font.font("News701 BT", 15));
+        pnlBotones=new HBox(20);
+        pnlBotones.getChildren().addAll(btnIngresar,btnLimpiar,btnCancelar);
+        pnlBotones.setAlignment(Pos.CENTER);
+        pnlBotones.setPadding(new Insets(10));
+        //Panel Principal
         panelPrincipal=new VBox();
-        panelPrincipal.getChildren().add(panelProveedor);
-        panelPrincipal.getChildren().add(panelBotones);
+        panelPrincipal.getChildren().addAll(pnlProveedor,pnlBotones);
+        panelPrincipal.setPadding(new Insets(10));
         
-        
-        Scene scene = new Scene(panelPrincipal, 300, 250);
-        
+        Scene scene = new Scene(panelPrincipal, 540, 270);
+
         primaryStage.setTitle("Proveedor");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         launch(args);
+    }
+    public void bIngEventHandler(ActionEvent event){
+        ProveedorI provDao=new ProveedorImp();
+        try {
+            Proveedor nuevoProveedor=new Proveedor();
+            nuevoProveedor.setRuc(Ruc.getText());
+            nuevoProveedor.setNombre(Nombres.getText());
+            nuevoProveedor.setDireccion(Direccion.getText());
+            nuevoProveedor.setTelefono(Telefono.getText());
+            nuevoProveedor.setEmail(Email.getText());
+            if(provDao.ingresar(nuevoProveedor)>0){
+                System.out.println("Ingreso Correcto");
+            }
+            else{
+                System.out.println("Error de Ingreso");
+            }
+        } catch (Exception e) {
+            System.out.println("Error de Ingreso"+e.getMessage());
+        }
     }
 }
