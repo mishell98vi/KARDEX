@@ -72,9 +72,9 @@ public class Form_Producto  extends Application {
         visorIcono.setFitWidth(100);
         prod=new Label("PRODUCTOS");
         prod.setFont(Font.font("News701 BT", 20));
-//        cargarCategorias();
+        cargarCategorias();
         cbxCategoria=new ComboBox<Categoria>(items);
-//        cbxCategoria.setValue(items.get(0));
+        cbxCategoria.setValue(items.get(0));
         cbxCategoria.setVisible(true);
         txtCategoProd=new Label("Categoria: ");
         txtCategoProd.setFont(Font.font("News701 BT", 20));
@@ -153,8 +153,9 @@ public class Form_Producto  extends Application {
         CategoriaI categDao = new CategoriaImp();
         try {
             listadoCategorias=categDao.obtener();
-            items.addAll(listadoCategorias);
-//            cbxCategoria.setItems(value);
+            for(Categoria categ:listadoCategorias){
+                items.add(categ);
+            }
         } catch (Exception e) {
 //            JOptionPane.showMessageDialog(this, "ERROR AL CARGAR CURSOS", "ERROR" + e.getMessage(), JOptionPane.INFORMATION_MESSAGE);
         }
