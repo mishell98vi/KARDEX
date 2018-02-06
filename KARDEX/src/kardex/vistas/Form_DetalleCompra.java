@@ -13,6 +13,8 @@ import javafx.scene.paint.*;
 import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.MessageFormat;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
@@ -37,7 +39,12 @@ public class Form_DetalleCompra extends Application {
     private TextField cod;
     private TextField cant;
     private ComboBox<Producto> lstProd;
+    private ObservableList<Producto> itemProd=FXCollections.observableArrayList();
+    private ArrayList<Producto> listProd;
     private ComboBox<Factura_Compra> lstFactura;
+    private ObservableList<Factura_Compra> itemfc=FXCollections.observableArrayList();
+    private ArrayList<Factura_Compra> listfc;
+    
     private Image icono;
     private ImageView visor;
     private Button btnIngresar;
@@ -74,27 +81,37 @@ public class Form_DetalleCompra extends Application {
         cant=new TextField("");
         lstProd=new ComboBox<>();
         lstFactura=new ComboBox<>();
+        cargarProductos();
+        cargarFacturaCompra();
+        lstFactura.setItems(itemfc);
+        lstProd.setItems(itemProd);
         pnlcod=new HBox(5);
         pnlcod.getChildren().addAll(txtcod, cod);
         pnlcod.setPadding(new Insets(5));
-        pnlcod.setAlignment(Pos.CENTER);
+        pnlcod.setAlignment(Pos.CENTER_LEFT);
         pnlProd=new HBox(5);
         pnlProd.getChildren().addAll(txtProd, lstProd, txtPrecio, precio);
         pnlProd.setPadding(new Insets(5));
-        pnlProd.setAlignment(Pos.CENTER);
+        pnlProd.setAlignment(Pos.CENTER_LEFT);
         pnlcant=new HBox(5);
         pnlcant.getChildren().addAll(txtCant,cant,txtTotal,total);
         pnlcant.setPadding(new Insets(5));
-        pnlcant.setAlignment(Pos.CENTER);
+        pnlcant.setAlignment(Pos.CENTER_LEFT);
         pnlfactura=new VBox(5);
         pnlfactura.getChildren().addAll(txtFactComp, lstFactura);
         pnlfactura.setPadding(new Insets(5));
         pnlfactura.setAlignment(Pos.CENTER);
         btnIngresar=new Button("Ingresar");
         btnIngresar.setFont(Font.font("News701 BT", 15));
+        btnIngresar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                bIngresarEventHandler(event);
+            }
+        });
         btnLimpiar=new Button("Limpiar");
         btnLimpiar.setFont(Font.font("News701 BT", 15));
-        btnCancelar=new Button("Cancelar");
+        btnCancelar=new Button("Salir");
         btnCancelar.setFont(Font.font("News701 BT", 15));
         pnlBotones=new HBox(25);
         pnlBotones.getChildren().addAll(btnIngresar,btnLimpiar,btnCancelar);
@@ -116,5 +133,44 @@ public class Form_DetalleCompra extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
+    public void bIngresarEventHandler(ActionEvent event) {
+        Detalle_CompraI detaDao = new Detalle_CompraImp();
+        Detalle_Compra nDetalleCompra = new Detalle_Compra();
+        try {
+            nDetalleCompra.setCodigoDcompra(Integer.parseInt(cod.getText()));
+            nDetalleCompra.setCantidad(Integer.parseInt(cant.getText()));
+            nDetalleCompra.setpTotal(Double.parseDouble(total.getText()));
+            nDetalleCompra.setProducto(lstProd.getSelectionModel().getSelectedItem());
+            nDetalleCompra.setfCompra(lstFactura.getSelectionModel().getSelectedItem());
+            if (detaDao.ingresar(nDetalleCompra) > 0) {
+                System.out.println("Ingreso correcto");
+            } else {
+                System.out.println("Ingreso Incorrecto");
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    public void cargarProductos(){
+        ProductoI proDao=new ProductoImp();
+        listProd=new ArrayList<>();
+        try {
+            listProd=proDao.obtener();
+            for(Producto produc:listProd){
+                itemProd.add(produc);
+            }
+        } catch (Exception e) {
+        }
+    }
+    public void cargarFacturaCompra(){
+        Factura_CompraI fcDao=new Factura_CompraImp();
+        listfc=new ArrayList<>();
+        try {
+            listfc=fcDao.obtener();
+            for(Factura_Compra fcompra:listfc){
+                itemfc.add(fcompra);
+            }
+        } catch (Exception e) {
+        }
+    }
 }
