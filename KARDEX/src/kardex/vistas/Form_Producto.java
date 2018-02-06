@@ -18,6 +18,7 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.*;
+import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
@@ -26,6 +27,7 @@ import javafx.scene.image.*;
 import kardex.negocio.dao.*;
 import kardex.negocio.entidades.*;
 import kardex.negocio.impl.*;
+import kardex.accesoadatos.*;
 
 public class Form_Producto extends Application {
 
@@ -51,7 +53,7 @@ public class Form_Producto extends Application {
     //botones
     private Button btnIngresar;
     private Button btnLimpiar;
-    private Button btnCancelar;
+    private Button btnCerrar;
     //paneles
     private VBox pnlVisualizar;
     private HBox pnlListCateg;
@@ -77,7 +79,12 @@ public class Form_Producto extends Application {
         cbxCategoria = new ComboBox<>();
         cbxCategoria.setItems(items);
         cbxCategoria.setValue(items.get(0));
-//        cbxCategoria.setVisible(true);
+        cbxCategoria.setOnShown(new EventHandler<Event>() {
+            @Override
+            public void handle(Event event) {
+                mostrarDescripcionEventHandler(event);
+            }
+        });
         txtCategoProd = new Label("Categoria: ");
         txtCategoProd.setFont(Font.font("News701 BT", 20));
         pnlListCateg = new HBox(10);
@@ -137,16 +144,28 @@ public class Form_Producto extends Application {
         });
         btnLimpiar = new Button("Limpiar");
         btnLimpiar.setFont(Font.font("News701 BT", 15));
-        btnCancelar = new Button("Cancelar");
-        btnCancelar.setFont(Font.font("News701 BT", 15));
+        btnLimpiar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                bLimpiarEventHandler(event);
+            }
+        });
+        btnCerrar = new Button("Cancelar");
+        btnCerrar.setFont(Font.font("News701 BT", 15));
+        btnCerrar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                bCerrarEventHandler(event);
+            }
+        });
         pnlBotones = new HBox(25);
-        pnlBotones.getChildren().addAll(btnIngresar, btnLimpiar, btnCancelar);
+        pnlBotones.getChildren().addAll(btnIngresar, btnLimpiar, btnCerrar);
         pnlBotones.setAlignment(Pos.CENTER);
         pnlBotones.setPadding(new Insets(10));
         //Panel Principal
         pntPrincipal = new VBox(5);
         pntPrincipal.getChildren().addAll(pnlprodCateg, pnlDescCateg, pnlBotones);
-        Scene scene = new Scene(pntPrincipal, 500, 360);
+        Scene scene = new Scene(pntPrincipal, 520, 360);
         primaryStage.setTitle("Producto");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -171,6 +190,37 @@ public class Form_Producto extends Application {
     public void bIngresarEventHandler(ActionEvent event){
         ProductoI prodDao=new ProductoImp();
         Producto nProd=new Producto();
+        Categoria ncat=new Categoria();
+        CategoriaI catDao=new CategoriaImp();
+        try {
+            ncat=cbxCategoria.getValue();
+            nProd.setCodigoProducto(Integer.parseInt(codProd.getText()));
+            nProd.setNombre(nomProd.getText());
+            nProd.setPrecio(Double.parseDouble(precioProd.getText()));
+            nProd.setCategoria(ncat);
+            if(prodDao.ingresar(nProd)>0){
+                System.out.println("Ingreso Correcto");
+            }
+            else{
+                System.out.println("Ingreso Fallido");
+            }
+        } catch (Exception e) {
+        }
     }
             
+    public void bLimpiarEventHandler(ActionEvent event){
+        codProd.setText("");
+        nomProd.setText("");
+        precioProd.setText("");
+    }
+    
+    public void bCerrarEventHandler(ActionEvent event){
+        System.exit(0);
+    }
+    
+    public void mostrarDescripcionEventHandler(Event event){
+        Categoria ncat=new Categoria();
+        ncat=cbxCategoria.getValue();
+        Descripcion.setText(ncat.getDescripcion());
+    }
 }

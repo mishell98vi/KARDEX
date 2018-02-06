@@ -20,19 +20,19 @@ public class Factura_CompraTest {
         Factura_CompraI FacComDao = new Factura_CompraImp();
 
 //        // TEST INSERETAR 
-//        int filas = 0;
-//
-//        Proveedor pro = new Proveedor("101", "Maria", "San antonio", "123", "agmailcom");
-//        Factura_Compra fc = new Factura_Compra(1, new java.util.Date(), pro);
-//
-//        try {
-//            filas = FacComDao.ingresar(fc);
-//            System.out.println("Filas insertadas: " + filas);
-//        } catch (Exception e) {
-//            System.out.println("Error: " + e.getMessage());
-//        }
-//        
-//        assertEquals(filas > 0,true);
+        int filas = 0;
+
+        Proveedor pro = new Proveedor("101", "Maria", "San antonio", "123", "agmailcom");
+        Factura_Compra fc = new Factura_Compra(1, new java.util.Date(), pro);
+
+        try {
+            filas = FacComDao.ingresar(fc);
+            System.out.println("Filas insertadas: " + filas);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        
+        assertEquals(filas > 0,true);
         
         /// listar por codigo test
         

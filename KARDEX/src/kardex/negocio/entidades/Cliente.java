@@ -81,4 +81,8 @@ public class Cliente {
         this.fechaNac = fechaNac;
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

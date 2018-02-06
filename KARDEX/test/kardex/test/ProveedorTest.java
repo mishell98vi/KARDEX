@@ -18,16 +18,16 @@ public class ProveedorTest {
         ProveedorI proveedorDao=new ProveedorImp();
        
 //TEST INSERTAR
-//
-//        int filas=0;
-//       
-//        Proveedor nuevoProveedor=new Proveedor("101","Maria","San antonio","123","agmailcom");
-//        try {
-//            filas=proveedorDao.ingresar(nuevoProveedor);
-//            System.out.println("Filas Insertadas:"+filas);
-//        } catch (Exception e) {
-//        }
-//        assertTrue(filas>0);
+
+        int filas=0;
+       
+        Proveedor nuevoProveedor=new Proveedor("101","Maria","San antonio","123","agmailcom");
+        try {
+            filas=proveedorDao.ingresar(nuevoProveedor);
+            System.out.println("Filas Insertadas:"+filas);
+        } catch (Exception e) {
+        }
+        assertTrue(filas>0);
         
 //TEST OBTENER POR CODIGO
 

@@ -18,7 +18,7 @@ public class Factura_VentaTest {
         Factura_VentaI efacturaventaDao = new Factura_VentaImp();
         
 //TEST INSERTAR
-//
+
 //        int filas = 0;
 //        Cliente cliente=new Cliente("0603437047", "Mishell", "Viteri", "M", "099513620","mishell98@gmail.com", new java.util.Date());
 //        Factura_Venta nFacVen=new Factura_Venta(1,new java.util.Date(), cliente);
@@ -29,8 +29,8 @@ public class Factura_VentaTest {
 //            System.out.println("error: "+e.getMessage());
 //        }
 //        assertTrue(filas > 0);
-//        
-//       
+        
+       
 //TEST OBTENER POR CODIGO
 
         Factura_Venta facvent = new Factura_Venta();

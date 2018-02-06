@@ -19,7 +19,7 @@ public class CategoriaTest {
         // TEST INSERTAR
 
         int filas = 0;
-        Categoria categoria = new Categoria(1, "p", "pequeño");
+        Categoria categoria = new Categoria(1, "Mishell", "pequeño");
         try {
             filas = categoriaDao.insertar(categoria);
             System.out.println("Ingreso de " + filas + " Filas Correctas");

@@ -22,6 +22,7 @@ import javafx.scene.image.ImageView;
 import kardex.negocio.dao.*;
 import kardex.negocio.entidades.*;
 import kardex.negocio.impl.*;
+import kardex.accesoadatos.*;
 
 public class Form_DetalleCompra extends Application {
 
@@ -54,13 +55,21 @@ public class Form_DetalleCompra extends Application {
     @Override
     public void start(Stage primaryStage) {
         txtcod=new Label("Codigo: ");
+        txtcod.setFont(Font.font("News701 BT", 20));
         txtProd=new Label("Producto: ");
+        txtProd.setFont(Font.font("News701 BT", 20));
         txtPrecio=new Label("Precio: ");
-        precio=new Label("");
+        txtPrecio.setFont(Font.font("News701 BT", 20));
+        precio=new Label("          ");
+        precio.setFont(Font.font("News701 BT", 20));
         txtCant=new Label("Cantidad: ");
+        txtCant.setFont(Font.font("News701 BT", 20));
         txtFactComp=new Label("Factura: ");
+        txtFactComp.setFont(Font.font("News701 BT", 20));
         txtTotal=new Label("Total: ");
-        total=new Label("");
+        txtTotal.setFont(Font.font("News701 BT", 20));
+        total=new Label("           ");
+        total.setFont(Font.font("News701 BT", 20));
         cod=new TextField("");
         cant=new TextField("");
         lstProd=new ComboBox<>();
@@ -82,8 +91,11 @@ public class Form_DetalleCompra extends Application {
         pnlfactura.setPadding(new Insets(5));
         pnlfactura.setAlignment(Pos.CENTER);
         btnIngresar=new Button("Ingresar");
+        btnIngresar.setFont(Font.font("News701 BT", 15));
         btnLimpiar=new Button("Limpiar");
+        btnLimpiar.setFont(Font.font("News701 BT", 15));
         btnCancelar=new Button("Cancelar");
+        btnCancelar.setFont(Font.font("News701 BT", 15));
         pnlBotones=new HBox(25);
         pnlBotones.getChildren().addAll(btnIngresar,btnLimpiar,btnCancelar);
         pnlBotones.setPadding(new Insets(5));
@@ -94,7 +106,7 @@ public class Form_DetalleCompra extends Application {
         pntPrincipal.setAlignment(Pos.CENTER);
         
         
-        Scene scene = new Scene(pntPrincipal, 300, 250);
+        Scene scene = new Scene(pntPrincipal, 440, 400);
 
         primaryStage.setTitle("Detalle Compra");
         primaryStage.setScene(scene);

@@ -19,17 +19,17 @@ public class ClienteTest {
         ClienteI clDao = new ClienteImp();
 
         ///////TEST INSERTAR
-//        
-//        int filas = 0;
-//
-//        Cliente cln = new Cliente("0603437047", "Mishell", "Viteri", "Puyo", "0973140672", "mishell9vi@gmail.com", new java.util.Date());
-//        try {
-//            filas = clDao.ingresar(cln);
-//            System.out.println("Filas Insertadas: " + filas + "\n");
-//        } catch (Exception e) {
-//        }
-//        assertTrue(filas > 0);
-//        
+        
+        int filas = 0;
+
+        Cliente cln = new Cliente("0603437047", "Mishell", "Viteri", "Puyo", "0973140672", "mishell9vi@gmail.com", new java.util.Date());
+        try {
+            filas = clDao.ingresar(cln);
+            System.out.println("Filas Insertadas: " + filas + "\n");
+        } catch (Exception e) {
+        }
+        assertTrue(filas > 0);
+        
 //        ////TEST OBTENER CODIGO
         Cliente cli = new Cliente();
 //

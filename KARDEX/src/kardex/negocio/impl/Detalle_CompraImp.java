@@ -79,6 +79,8 @@ public class Detalle_CompraImp implements Detalle_CompraI {
     @Override
     public Detalle_Compra obtener(int codigoDCompra) throws Exception {
         Detalle_Compra detalle = null;
+        ProductoI productoDao = new ProductoImp();
+            Factura_CompraI factCompraDao = new Factura_CompraImp();
         String sqlC = "SELECT codigoDetalleCompra, codigoProducto, codigoFactCompra, cantidad, preciototal FROM DetalleCompra Where codigoDetalleCompra=?";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, codigoDCompra));
@@ -86,9 +88,7 @@ public class Detalle_CompraImp implements Detalle_CompraI {
         try {
             conect = new Conexion();
             conect.conectar();
-            ProductoI productoDao = new ProductoImp();
             Producto produc = null;
-            Factura_CompraI factCompraDao = new Factura_CompraImp();
             Factura_Compra factCompra = null;
             ResultSet rst = conect.ejecutarQuery(sqlC, listParam);
             while (rst.next()) {

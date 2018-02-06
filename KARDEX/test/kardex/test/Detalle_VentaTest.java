@@ -1,5 +1,5 @@
-
 package kardex.test;
+
 import kardex.negocio.dao.*;
 import kardex.accesoadatos.*;
 import kardex.negocio.entidades.*;
@@ -10,20 +10,21 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class Detalle_VentaTest {
-    
+
     public Detalle_VentaTest() {
     }
-        @Test
+
+    @Test
     public void testGeneral() {
         Detalle_VentaI deveDao = new Detalle_VentaImp();
         /////////INSERTAR TEST
-        int filas = 0;
-
+//        int filas = 0;
+//
 //        Categoria ca = new Categoria(1, "ABC", "Cuadernoss");
-//        Producto producto = new Producto(1, ca, "Universitario", 1.25);
+//        Producto producto = new Producto(2, ca, "Universitario", 1.25);
 //        Cliente cli = new Cliente("1234567890", "David", "Campps", "La condamine", "0991575474", "jc@gmail.com", new java.util.Date());
-//        FacturaVenta facturaventa = new FacturaVenta(1, new java.util.Date(), cli);
-//        DetalleVenta detalleventa = new DetalleVenta(1, producto, facturaventa, 1, 2);
+//        Factura_Venta facturaventa = new Factura_Venta(1, new java.util.Date(), cli);
+//        Detalle_Venta detalleventa = new Detalle_Venta(1, producto, facturaventa, 1, 2);
 //
 //        try {                                                                  
 //            filas = deveDao.ingresar(detalleventa);
@@ -34,27 +35,27 @@ public class Detalle_VentaTest {
 //        assertTrue(filas > 0);
 
         //////////////////////////////// obtener por codigo 
-//        DetalleVenta dt = new DetalleVenta();
+//        Detalle_Venta dt = new Detalle_Venta();
 //
 //        try {
 //            dt = deveDao.obtener(1);
-//            System.out.println(dt.getCodDetalleVenta() + " " + dt.getProducto().getCodProducto() + " " + dt.getFacturaVenta().getCodFacturaVenta() + " " + dt.getCantidad() + " " + dt.getPrecioTotal());
+//            System.out.println(dt.getCodigoDVenta()+ " " + dt.getProducto().getCodigoProducto()+ " " + dt.getfVenta().getCodFVenta()+ " " + dt.getCantidad() + " " + dt.getpTotal());
 //        } catch (Exception e) {
 //            System.out.println("error: " + e.getMessage());
 //        }
-        ////assertEquals(dt != null, true);
-        /// revisar esto ..!!!!
-//////////        ArrayList<DetalleVenta> det = new ArrayList<>();
-//////////        try {
-//////////            det = deveDao.obtener();
-//////////            for (DetalleVenta deta : det) {
-//////////                System.out.println(deta.getCodDetalleVenta() + " " + deta.getProducto().getCodProducto() + " " + deta.getFacturaVenta().getCodFacturaVenta() + " " + deta.getCantidad() + " " + deta.getPrecioTotal());
-//////////            }
-//////////        } catch (Exception e) {
-//////////            System.out.println("error: " + e.getMessage());
-//////////        }
-//////////        
-//////////         assertTrue(det.size()>0);
+//        assertEquals(dt != null, true);
+//OBTENER LISTA
+        ArrayList<Detalle_Venta> dec = new ArrayList<>();
+        try {
+            dec = deveDao.obtener();
+            for (Detalle_Venta det : dec) {
+                System.out.println(det.getCodigoDVenta() + " " + det.getProducto().getCodigoProducto() + " " + det.getfVenta().getCodFVenta() + " " + det.getCantidad() + " " + det.getpTotal());
+            }
+        } catch (Exception e) {
+            System.out.println("error: " + e.getMessage());
+        }
+
+        assertTrue(dec.size() > 0);
     }
-    
+
 }
