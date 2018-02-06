@@ -19,15 +19,15 @@ public class ProductoTest {
         
 //TEST INSERTAR
 
-//        int filas = 0;
-//        Categoria ncategoria = new Categoria(1, "ABC", "Cuadernoss");
-//        Producto produc = new Producto(2,ncategoria,  "Academico", 1.75);
-//        try {
-//            filas = productoDao.ingresar(produc);
-//            System.out.println("filas Insertadas:" + filas);
-//        } catch (Exception e) {
-//        }
-//        assertTrue(filas > 0);
+        int filas = 0;
+        Categoria ncategoria = new Categoria(1, "ABC", "Cuadernoss");
+        Producto produc = new Producto(2,ncategoria,  "Academico", 1.75);
+        try {
+            filas = productoDao.ingresar(produc);
+            System.out.println("filas Insertadas:" + filas);
+        } catch (Exception e) {
+        }
+        assertTrue(filas > 0);
         
 ////TEST OBTENER POR CODIGO
 
