@@ -193,6 +193,7 @@ public class Form_Cliente extends Application {
         dir.setText("");
         telf.setText("");
         email.setText("");
+        fechanac.setText("");
     }
     
 }
