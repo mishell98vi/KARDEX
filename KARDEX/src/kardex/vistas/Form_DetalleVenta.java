@@ -102,10 +102,29 @@ public class Form_DetalleVenta extends Application{
         pnlFactVenta.setPadding(new Insets(5));
         btnIngresar=new Button("Ingresar");
         btnIngresar.setFont(Font.font("News701 BT", 15));
+        btnIngresar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                bIngresarEventHandler(event);
+            }
+        });
+        
         btnLimpiar=new Button("Limpiar");
         btnLimpiar.setFont(Font.font("News701 BT", 15));
-        btnCancelar=new Button("Cancelar");
+        btnLimpiar.setOnAction(new EventHandler<ActionEvent>() {
+           @Override
+           public void handle(ActionEvent event) {
+               btnLimpiarEventHandler(event);
+           }
+       });
+        btnCancelar=new Button("Salir");
         btnCancelar.setFont(Font.font("News701 BT", 15));
+         btnCancelar.setOnAction(new EventHandler<ActionEvent>() {
+           @Override
+           public void handle(ActionEvent event) {
+               btnCancelarEventHandler(event);
+           }
+       });
         pnlBotones=new HBox(25);
         pnlBotones.getChildren().addAll(btnIngresar,btnLimpiar,btnCancelar);
         pnlBotones.setAlignment(Pos.CENTER);
@@ -122,5 +141,32 @@ public class Form_DetalleVenta extends Application{
     
     public static void main(String[] args) {
         launch(args);
+    }
+    public void bIngresarEventHandler(ActionEvent event) {
+        Detalle_VentaI detvDao = new Detalle_VentaImp();
+        Detalle_Venta nDetalleVenta = new Detalle_Venta();
+        try {
+            nDetalleVenta.setCodigoDVenta(Integer.parseInt(cod.getText()));
+            nDetalleVenta.setCantidad(Integer.parseInt(cant.getText()));
+            nDetalleVenta.setpTotal(Double.parseDouble(total.getText()));
+            nDetalleVenta.setProducto(lstProd.getSelectionModel().getSelectedItem());
+            nDetalleVenta.setfVenta(lstFactura.getSelectionModel().getSelectedItem());
+            if (detvDao.ingresar(nDetalleVenta) > 0) {
+                System.out.println("Ingreso correcto");
+            } else {
+                System.out.println("Ingreso Incorrecto");
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+     public void btnLimpiarEventHandler(ActionEvent event){
+        cod.setText("");
+        cant.setText("");
+        total.setText("");
+
+           }
+     public void btnCancelarEventHandler(ActionEvent event){
+        System.exit(0);
     }
 }

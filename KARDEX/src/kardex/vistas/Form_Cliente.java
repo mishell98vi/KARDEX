@@ -102,7 +102,7 @@ public class Form_Cliente extends Application {
                bLimpiarEventHandler(event);
            }
        });
-        bCancelar = new Button("Cancelar");
+        bCancelar = new Button("Salir");
         bCancelar.setFont(Font.font("News701 BT", 15));
         bCancelar.setOnAction(new EventHandler<ActionEvent>() {
            @Override

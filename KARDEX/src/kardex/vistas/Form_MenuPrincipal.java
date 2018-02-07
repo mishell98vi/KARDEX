@@ -33,6 +33,10 @@ public class Form_MenuPrincipal extends Application {
     Menu inicio;
     Menu cliente;
     Menu proveedor;
+    Menu producto;
+    Menu categoria;
+    Menu detalle_compra;
+    Menu detalle_venta;
     Menu FacturaVenta;
     Menu facturaCompra;
     Menu kardex;
@@ -51,6 +55,33 @@ public class Form_MenuPrincipal extends Application {
     MenuItem delProveedor;
     MenuItem infProveedor;
     MenuItem listProveedor;
+    //Producto
+    MenuItem newProducto;
+    MenuItem modProducto;
+    MenuItem delProducto;
+    MenuItem infProducto;
+    MenuItem listProducto;
+    //Categoria
+    
+    MenuItem newCategoria;
+    MenuItem modCategoria;
+    MenuItem delCategoria;
+    MenuItem infCategoria;
+    MenuItem listCategoria;
+   //Detalle compra
+    
+    MenuItem newDetalle_compra;
+    MenuItem modDetalle_compra;
+    MenuItem delDetalle_compra;
+    MenuItem infDetalle_compra;
+    MenuItem listDetalle_compra;
+    //Detalle venta
+    MenuItem newDetalle_venta;
+    MenuItem modDetalle_venta;
+    MenuItem delDetalle_venta;
+    MenuItem infDetalle_venta;
+    MenuItem listDetalle_venta;
+    
     //FacturaVenta
     MenuItem newFacVenta;
     MenuItem modFacVenta;
@@ -117,6 +148,40 @@ public class Form_MenuPrincipal extends Application {
         listProveedor = new MenuItem("Listado Proveedor");
         proveedor.getItems().addAll(newProveedor, modProveedor, delProveedor, new SeparatorMenuItem(), infProveedor, listProveedor);
         //Menu Inicio
+        producto = new Menu("Producto");
+        newProducto = new MenuItem("Nuevo Producto");
+        modProducto = new MenuItem("Modificar Producto");
+        delProducto = new MenuItem("Eliminar Producto");
+        infProducto = new MenuItem("Informacion de un Producto");
+        listProducto = new MenuItem("Listado Producto");
+        producto.getItems().addAll(newProducto, modProducto, delProducto, new SeparatorMenuItem(), infProducto, listProducto);
+        //Menu Inicio
+        categoria = new Menu("Categoria");
+        newCategoria = new MenuItem("Nueva Categoria");
+        modCategoria = new MenuItem("Modificar Categoria");
+        delCategoria = new MenuItem("Eliminar Categoria");
+        infCategoria = new MenuItem("Informacion de una Categoria");
+        listCategoria = new MenuItem("Listado Categoria");
+        categoria.getItems().addAll(newCategoria, modCategoria, delCategoria, new SeparatorMenuItem(), infCategoria, listCategoria);
+        //Detalle compra
+        detalle_compra = new Menu("Detalle Compra");
+        newDetalle_compra = new MenuItem("Nuevo Detalle compra");
+        modDetalle_compra = new MenuItem("Modificar Detalle compra");
+        delDetalle_compra = new MenuItem("Eliminar Detalle compra");
+        infDetalle_compra = new MenuItem("Informacion de un Detalle compra");
+        listDetalle_compra = new MenuItem("Listado Detalle compra");
+        detalle_compra.getItems().addAll(newDetalle_compra, modDetalle_compra, delDetalle_compra, new SeparatorMenuItem(), infDetalle_compra, listDetalle_compra);
+        
+        //Detalle venta
+        detalle_venta = new Menu("Detalle venta");
+        newDetalle_venta = new MenuItem("Nuevo Detalle venta");
+        modDetalle_venta = new MenuItem("Modificar Detalle venta");
+        delDetalle_venta = new MenuItem("Eliminar Detalle venta");
+        infDetalle_venta = new MenuItem("Informacion de Detalle venta");
+        listDetalle_venta = new MenuItem("Listado Detalle venta");
+        detalle_venta.getItems().addAll(newDetalle_venta, modDetalle_venta, delDetalle_venta, new SeparatorMenuItem(), infDetalle_venta, listDetalle_venta);
+        
+        //Menu Inicio
         facturaCompra = new Menu("Factura Compras");
         newFacCompra = new MenuItem("Nuevas Compas");
         modFacCompra = new MenuItem("Modificar Compra");
@@ -130,7 +195,7 @@ public class Form_MenuPrincipal extends Application {
         kardexAnual = new MenuItem("Kardex Anual");
         kardex.getItems().addAll(kardexMensual, kardexAnual);
 
-        menuPrincipal.getMenus().addAll(inicio, cliente, proveedor, FacturaVenta, facturaCompra, kardex);
+        menuPrincipal.getMenus().addAll(inicio, cliente, proveedor,producto,categoria, detalle_compra, detalle_venta, FacturaVenta, facturaCompra, kardex);
 
         pntPrincipal = new VBox(10);
         pntPrincipal.getChildren().add(menuPrincipal);

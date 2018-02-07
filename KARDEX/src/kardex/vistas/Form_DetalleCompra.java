@@ -109,10 +109,23 @@ public class Form_DetalleCompra extends Application {
                 bIngresarEventHandler(event);
             }
         });
+        
         btnLimpiar=new Button("Limpiar");
         btnLimpiar.setFont(Font.font("News701 BT", 15));
+        btnLimpiar.setOnAction(new EventHandler<ActionEvent>() {
+           @Override
+           public void handle(ActionEvent event) {
+               bLimpiarEventHandler(event);
+           }
+       });
         btnCancelar=new Button("Salir");
         btnCancelar.setFont(Font.font("News701 BT", 15));
+        btnCancelar.setOnAction(new EventHandler<ActionEvent>() {
+           @Override
+           public void handle(ActionEvent event) {
+               bCancelarEventHandler(event);
+           }
+       });
         pnlBotones=new HBox(25);
         pnlBotones.getChildren().addAll(btnIngresar,btnLimpiar,btnCancelar);
         pnlBotones.setPadding(new Insets(5));
@@ -150,6 +163,16 @@ public class Form_DetalleCompra extends Application {
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
+    }
+     public void bLimpiarEventHandler(ActionEvent event){
+        cod.setText("");
+        cant.setText("");
+        total.setText("");
+//        lstProd.setItems("");
+//        lstFactura.setItems("");
+           }
+     public void bCancelarEventHandler(ActionEvent event){
+        System.exit(0);
     }
     public void cargarProductos(){
         ProductoI proDao=new ProductoImp();

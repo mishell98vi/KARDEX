@@ -91,8 +91,20 @@ public class Form_Categoria extends Application {
         });
         btnLimpiar = new Button("Limpiar");
         btnLimpiar.setFont(Font.font("News701 BT", 20));
-        btnCancelar = new Button("Cancelar");
+        btnLimpiar.setOnAction(new EventHandler<ActionEvent>() {
+           @Override
+           public void handle(ActionEvent event) {
+               bLimpiarEventHandler(event);
+           }
+       });
+        btnCancelar = new Button("Salir");
         btnCancelar.setFont(Font.font("News701 BT", 20));
+        btnCancelar.setOnAction(new EventHandler<ActionEvent>() {
+           @Override
+           public void handle(ActionEvent event) {
+               bCancelarEventHandler(event);
+           }
+       });
         pnlBotones = new HBox(25);
         pnlBotones.getChildren().addAll(btnIngresar, btnLimpiar, btnCancelar);
         pnlBotones.setAlignment(Pos.CENTER);
@@ -126,5 +138,14 @@ public class Form_Categoria extends Application {
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
+    }
+    public void bCancelarEventHandler(ActionEvent event){
+        System.exit(0);
+    }
+    public void bLimpiarEventHandler(ActionEvent event){
+        codigo.setText("");
+        nombre.setText("");
+        descripcion.setText("");
+        
     }
 }

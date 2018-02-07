@@ -150,7 +150,7 @@ public class Form_Producto extends Application {
                 bLimpiarEventHandler(event);
             }
         });
-        btnCerrar = new Button("Cancelar");
+        btnCerrar = new Button("Salir");
         btnCerrar.setFont(Font.font("News701 BT", 15));
         btnCerrar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
