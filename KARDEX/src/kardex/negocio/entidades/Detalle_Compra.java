@@ -61,5 +61,5 @@ public class Detalle_Compra {
     public void setpTotal(double pTotal) {
         this.pTotal = pTotal;
     }
-
+  
 }
