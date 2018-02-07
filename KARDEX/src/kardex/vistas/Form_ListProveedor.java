@@ -48,7 +48,7 @@ public class Form_ListProveedor extends Application {
         cmlDireccion.setMaxWidth(250);
         cmlDireccion.setMinWidth(250);
         cmlTelefono = new TableColumn<>("Telefono");
-        cmlEmail = new TableColumn<>("eMail");
+        cmlEmail = new TableColumn<>("Email");
         cmlEmail.setMaxWidth(250);
         cmlEmail.setMinWidth(250);
         tblProveedor.getColumns().addAll(cmlRuc, cmlNombre, cmlDireccion,cmlTelefono,cmlEmail);
