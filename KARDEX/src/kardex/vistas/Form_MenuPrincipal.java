@@ -97,7 +97,7 @@ public class Form_MenuPrincipal extends Application {
     //kardex
     MenuItem kardexMensual;
     MenuItem kardexAnual;
-    private VBox pntPrincipal;
+    private BorderPane escritorio;
     @Override
     public void start(Stage primaryStage) {
         fondo = new Image("file:src\\unachkardex\\multimedia\\error.jpg", 1280, 720, true, true);
@@ -123,7 +123,8 @@ public class Form_MenuPrincipal extends Application {
         newCliente.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                nClienteEventHandler(event);
+                
+                
             }
         });
         modCliente = new MenuItem("Modificar Cliente");
@@ -158,6 +159,15 @@ public class Form_MenuPrincipal extends Application {
         //Menu Inicio
         categoria = new Menu("Categoria");
         newCategoria = new MenuItem("Nueva Categoria");
+        newCategoria.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Pane nCategoria=new Pane();
+                nCategoria.getChildren().add(nCategoriaEventHandler(event));
+                nCategoria.setPadding(new Insets(10));
+                escritorio.setCenter(nCategoria);
+            }
+        });
         modCategoria = new MenuItem("Modificar Categoria");
         delCategoria = new MenuItem("Eliminar Categoria");
         infCategoria = new MenuItem("Informacion de una Categoria");
@@ -197,10 +207,10 @@ public class Form_MenuPrincipal extends Application {
 
         menuPrincipal.getMenus().addAll(inicio, cliente, proveedor,producto,categoria, detalle_compra, detalle_venta, FacturaVenta, facturaCompra, kardex);
 
-        pntPrincipal = new VBox(10);
-        pntPrincipal.getChildren().add(menuPrincipal);
+        escritorio = new BorderPane();
+        escritorio.setTop(menuPrincipal);
         
-        Scene scene = new Scene(pntPrincipal, 300, 250);
+        Scene scene = new Scene(escritorio, 300, 250);
         primaryStage.setMaximized(true);
         primaryStage.setResizable(false);
         primaryStage.setTitle("Hello World!");
@@ -215,7 +225,25 @@ public class Form_MenuPrincipal extends Application {
     public void mnSalirEventHandler(ActionEvent event){
         System.exit(0);
     }
-    public void nClienteEventHandler(ActionEvent event){
-//        pntPrincipal.getChildren().add(nCliente);
+    public Form_SubVentana nCategoriaEventHandler(ActionEvent event){
+        BorderPane categNueva=new BorderPane();
+        Label titulo=new Label("Nueva Categoria");
+        titulo.setFont(Font.font("News701 BT", 25));
+        titulo.setTextFill(Color.AQUA);
+        Button cerrar=new Button("X");
+        cerrar.setFont(Font.font("Arial Black", 20));
+        cerrar.setTextFill(Color.AQUA);
+        Form_Barra_De_Titulo btitulo=new Form_Barra_De_Titulo(titulo, cerrar);
+        categNueva.setTop(btitulo.getBarra());
+        Form_Nueva_Categoria categN=new Form_Nueva_Categoria();
+        categNueva.setCenter(categN.getPnlFinal());
+        Form_SubVentana nCategoria=new Form_SubVentana();
+        nCategoria.setRoot(categNueva);
+        nCategoria.makeDragable(btitulo.getBarra());
+        nCategoria.makeDragable(titulo);
+        nCategoria.makeResizable(20);
+        nCategoria.makeFocusable();
+        nCategoria.setCloseButton(cerrar);
+        return nCategoria;
     }
 }

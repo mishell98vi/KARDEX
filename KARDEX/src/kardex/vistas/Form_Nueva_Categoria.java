@@ -1,24 +1,26 @@
 package kardex.vistas;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.*;
-import javafx.scene.image.*;
-import javafx.scene.layout.StackPane;
+import javafx.application.*;
+import javafx.event.*;
+import javafx.scene.*;
 import javafx.scene.layout.*;
+import java.util.*;
 import javafx.scene.text.*;
-import javafx.stage.Stage;
+import javafx.scene.paint.*;
+import java.lang.reflect.*;
+import java.text.*;
+import javafx.beans.*;
+import javafx.collections.*;
+import javafx.geometry.*;
+import javafx.scene.control.*;
+import javafx.stage.*;
+import javafx.scene.image.*;
 import kardex.negocio.dao.*;
 import kardex.negocio.entidades.*;
 import kardex.negocio.impl.*;
 import kardex.accesoadatos.*;
 
-public class Form_Categoria extends Application {
+public class Form_Nueva_Categoria{
 
     private Label titulo;
     private Label txtCodigo;
@@ -31,7 +33,6 @@ public class Form_Categoria extends Application {
     private ImageView visor;
     private Button btnIngresar;
     private Button btnLimpiar;
-    private Button btnCancelar;
     private VBox pnlICat1;
     private VBox pnlICat2;
     private HBox pnlcat;
@@ -39,10 +40,9 @@ public class Form_Categoria extends Application {
     private HBox pnlSup;
     private VBox pnlInt;
     private HBox pnlBotones;
-    private VBox pntPricipal;
+    private VBox pnlFinal;
 
-    @Override
-    public void start(Stage primaryStage) {
+    public Form_Nueva_Categoria() {
         //superior
         titulo = new Label("\" Categorias \"");
         titulo.setFont(Font.font("News701 BT", 30));
@@ -97,30 +97,17 @@ public class Form_Categoria extends Application {
                bLimpiarEventHandler(event);
            }
        });
-        btnCancelar = new Button("Salir");
-        btnCancelar.setFont(Font.font("News701 BT", 20));
-        btnCancelar.setOnAction(new EventHandler<ActionEvent>() {
-           @Override
-           public void handle(ActionEvent event) {
-               bCancelarEventHandler(event);
-           }
-       });
+        
         pnlBotones = new HBox(25);
-        pnlBotones.getChildren().addAll(btnIngresar, btnLimpiar, btnCancelar);
+        pnlBotones.getChildren().addAll(btnIngresar, btnLimpiar);
         pnlBotones.setAlignment(Pos.CENTER);
-        pntPricipal = new VBox(10);
-        pntPricipal.getChildren().addAll(pnlSup, pnlInt, pnlBotones);
-        pntPricipal.setPadding(new Insets(10));
-
-        Scene scene = new Scene(pntPricipal, 420, 370);
-
-        primaryStage.setTitle("Categoria");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
+        pnlFinal = new VBox(10);
+        pnlFinal.getChildren().addAll(pnlSup, pnlInt, pnlBotones);
+        pnlFinal.setPadding(new Insets(10));
+        Image fondoFinal=new Image("file:src\\kardex\\multimedia\\images\\fondo.jpg");
+        BackgroundImage fondo=new BackgroundImage(fondoFinal, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        pnlFinal.setBackground(new Background(fondo));
+        pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: orange ; -fx-border-width: 2px");
     }
 
     public void bIngresarEventHandler(ActionEvent event) {
@@ -139,13 +126,15 @@ public class Form_Categoria extends Application {
             System.out.println("Error: " + e.getMessage());
         }
     }
-    public void bCancelarEventHandler(ActionEvent event){
-        System.exit(0);
-    }
+    
     public void bLimpiarEventHandler(ActionEvent event){
         codigo.setText("");
         nombre.setText("");
         descripcion.setText("");
         
+    }
+
+    public VBox getPnlFinal() {
+        return pnlFinal;
     }
 }
