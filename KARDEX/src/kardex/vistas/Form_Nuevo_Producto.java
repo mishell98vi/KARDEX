@@ -1,35 +1,26 @@
 package kardex.vistas;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+import javafx.application.*;
+import javafx.event.*;
+import javafx.scene.*;
+import javafx.scene.layout.*;
 import java.util.*;
-import javafx.scene.control.*;
 import javafx.scene.text.*;
 import javafx.scene.paint.*;
-import java.lang.reflect.Field;
-import java.text.DateFormat;
-import java.text.MessageFormat;
-import javafx.beans.InvalidationListener;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
+import java.lang.reflect.*;
+import java.text.*;
+import javafx.beans.*;
 import javafx.collections.*;
-import javafx.event.Event;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.layout.*;
+import javafx.geometry.*;
 import javafx.scene.control.*;
+import javafx.stage.*;
 import javafx.scene.image.*;
 import kardex.negocio.dao.*;
 import kardex.negocio.entidades.*;
 import kardex.negocio.impl.*;
 import kardex.accesoadatos.*;
 
-public class Form_Producto extends Application {
+public class Form_Nuevo_Producto{
 
     //Objetos
     private TextField codProd;
@@ -64,10 +55,9 @@ public class Form_Producto extends Application {
     private HBox pnlprodCateg;
     private VBox pnlDescCateg;
     private HBox pnlBotones;
-    private VBox pntPrincipal;
+    private VBox pnlFinal;
 
-    @Override
-    public void start(Stage primaryStage) {
+    public Form_Nuevo_Producto() {
         //imagen y listado de categorias
         icono = new Image("file:src\\kardex\\multimedia\\images\\iconoProducto.png");
         visorIcono = new ImageView(icono);
@@ -163,17 +153,15 @@ public class Form_Producto extends Application {
         pnlBotones.setAlignment(Pos.CENTER);
         pnlBotones.setPadding(new Insets(10));
         //Panel Principal
-        pntPrincipal = new VBox(5);
-        pntPrincipal.getChildren().addAll(pnlprodCateg, pnlDescCateg, pnlBotones);
-        Scene scene = new Scene(pntPrincipal, 520, 360);
-        primaryStage.setTitle("Producto");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        pnlFinal = new VBox(5);
+        Image fondoFinal = new Image("file:src\\kardex\\multimedia\\images\\fondo.jpg");
+        BackgroundImage fondo = new BackgroundImage(fondoFinal, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        pnlFinal.setBackground(new Background(fondo));
+        pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: orange ; -fx-border-width: 2px");
+        pnlFinal.getChildren().addAll(pnlprodCateg, pnlDescCateg, pnlBotones);
     }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
+    
+    
 
     public void cargarCategorias() {
         listadoCategorias = new ArrayList<>();
@@ -222,5 +210,9 @@ public class Form_Producto extends Application {
         Categoria ncat=new Categoria();
         ncat=cbxCategoria.getValue();
         Descripcion.setText(ncat.getDescripcion());
+    }
+
+    public VBox getPnlFinal() {
+        return pnlFinal;
     }
 }

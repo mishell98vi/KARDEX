@@ -1,27 +1,28 @@
-
 package kardex.vistas;
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.*;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
+
+import javafx.application.*;
+import javafx.event.*;
+import javafx.scene.*;
+import javafx.scene.layout.*;
 import java.util.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.Group;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.*;
+import javafx.scene.paint.*;
+import java.lang.reflect.*;
+import java.text.*;
+import javafx.beans.*;
+import javafx.collections.*;
+import javafx.geometry.*;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.*;
+import javafx.stage.*;
+import javafx.scene.image.*;
 import kardex.negocio.dao.*;
 import kardex.negocio.entidades.*;
 import kardex.negocio.impl.*;
 import kardex.accesoadatos.*;
 
-public class Form_ListDetalleCompra extends Application {
+public class Form_Listado_DetalleCompra {
+
     private TableView<Detalle_Compra> tblDetalle_Compra;
     private Label titulo;
     private TableColumn<Detalle_Compra, Integer> cmlcodDetalle_Compra;
@@ -29,34 +30,32 @@ public class Form_ListDetalleCompra extends Application {
     private TableColumn<Detalle_Compra, Factura_Compra> cmlfacturaCompra;
     private TableColumn<Detalle_Compra, Integer> cmlCantidad;
     private TableColumn<Detalle_Compra, Double> cmlprecioTotal;
-    private VBox pntPrincipal;
-    
-    @Override
-    public void start(Stage primaryStage) {
+    private VBox pnlFinal;
+
+    public Form_Listado_DetalleCompra() {
         titulo = new Label("LISTADO DE DETALLE COMPRA");
         titulo.setFont(Font.font("News701 BT", 20));
         tblDetalle_Compra = new TableView();
-        
+
         cmlcodDetalle_Compra = new TableColumn<>("Codigo Detalle_Compra");
-        cmlProducto= new TableColumn<>("Producto");
+        cmlProducto = new TableColumn<>("Producto");
         cmlfacturaCompra = new TableColumn<>("Codigo Factura_Compra");
         cmlCantidad = new TableColumn<>("Cantidad");
         cmlprecioTotal = new TableColumn<>("Precio_Total");
-       
-        tblDetalle_Compra.getColumns().addAll(cmlcodDetalle_Compra, cmlProducto, cmlfacturaCompra,cmlCantidad,cmlprecioTotal);
-        cargarDetalle_Compra();
-        pntPrincipal = new VBox();
-        pntPrincipal.getChildren().addAll(titulo, tblDetalle_Compra);
-        pntPrincipal.setAlignment(Pos.CENTER);
-        Scene scene = new Scene(pntPrincipal, 425, 250);
 
-        primaryStage.setTitle("Listado de Detalle Compra");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        tblDetalle_Compra.getColumns().addAll(cmlcodDetalle_Compra, cmlProducto, cmlfacturaCompra, cmlCantidad, cmlprecioTotal);
+        cargarDetalle_Compra();
+        pnlFinal = new VBox();
+        Image fondoFinal = new Image("file:src\\kardex\\multimedia\\images\\fondo.jpg");
+        BackgroundImage fondo = new BackgroundImage(fondoFinal, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        pnlFinal.setBackground(new Background(fondo));
+        pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: orange ; -fx-border-width: 2px");
+        pnlFinal.getChildren().addAll(titulo, tblDetalle_Compra);
+        pnlFinal.setAlignment(Pos.CENTER);
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    public VBox getPnlFinal() {
+        return pnlFinal;
     }
 
     public void cargarDetalle_Compra() {
@@ -65,13 +64,13 @@ public class Form_ListDetalleCompra extends Application {
 
         try {
             listDC = dcDao.obtener();
-           
+
             cmlcodDetalle_Compra.setCellValueFactory(new PropertyValueFactory<>("codigoDcompra"));
             cmlProducto.setCellValueFactory(new PropertyValueFactory<>("producto"));
             cmlfacturaCompra.setCellValueFactory(new PropertyValueFactory<>("fCompra"));
             cmlCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
             cmlprecioTotal.setCellValueFactory(new PropertyValueFactory<>("pTotal"));
-            
+
             tblDetalle_Compra.getItems().addAll(listDC);
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());

@@ -1,32 +1,27 @@
 package kardex.vistas;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+import javafx.application.*;
+import javafx.event.*;
+import javafx.scene.*;
+import javafx.scene.layout.*;
 import java.util.*;
 import javafx.scene.text.*;
 import javafx.scene.paint.*;
-import java.lang.reflect.Field;
-import java.text.DateFormat;
-import java.text.MessageFormat;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.layout.*;
+import java.lang.reflect.*;
+import java.text.*;
+import javafx.beans.*;
+import javafx.collections.*;
+import javafx.geometry.*;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.cell.*;
+import javafx.stage.*;
+import javafx.scene.image.*;
 import kardex.negocio.dao.*;
 import kardex.negocio.entidades.*;
 import kardex.negocio.impl.*;
 import kardex.accesoadatos.*;
 
-public class Form_DetalleCompra extends Application {
+public class Form_Nueva_DetalleCompra{
 
     private Label txtcod;
     private Label txtProd;
@@ -57,10 +52,9 @@ public class Form_DetalleCompra extends Application {
     private VBox pnlfactura;
     private HBox pnlBotones;
     private VBox pnlSup;
-    private VBox pntPrincipal;
+    private VBox pnlFinal;
 
-    @Override
-    public void start(Stage primaryStage) {
+    public Form_Nueva_DetalleCompra() {
         txtcod=new Label("Codigo: ");
         txtcod.setFont(Font.font("News701 BT", 20));
         txtProd=new Label("Producto: ");
@@ -130,22 +124,16 @@ public class Form_DetalleCompra extends Application {
         pnlBotones.getChildren().addAll(btnIngresar,btnLimpiar,btnCancelar);
         pnlBotones.setPadding(new Insets(5));
         pnlBotones.setAlignment(Pos.CENTER);
-        pntPrincipal=new VBox(5);
-        pntPrincipal.getChildren().addAll(pnlcod,pnlProd,pnlcant,pnlfactura,pnlBotones);
-        pntPrincipal.setPadding(new Insets(10));
-        pntPrincipal.setAlignment(Pos.CENTER);
-        
-        
-        Scene scene = new Scene(pntPrincipal, 440, 400);
-
-        primaryStage.setTitle("Detalle Compra");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        pnlFinal=new VBox(5);
+        Image fondoFinal = new Image("file:src\\kardex\\multimedia\\images\\fondo.jpg");
+        BackgroundImage fondo = new BackgroundImage(fondoFinal, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        pnlFinal.setBackground(new Background(fondo));
+        pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: orange ; -fx-border-width: 2px");
+        pnlFinal.getChildren().addAll(pnlcod,pnlProd,pnlcant,pnlfactura,pnlBotones);
+        pnlFinal.setPadding(new Insets(10));
+        pnlFinal.setAlignment(Pos.CENTER);
     }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
+    
     public void bIngresarEventHandler(ActionEvent event) {
         Detalle_CompraI detaDao = new Detalle_CompraImp();
         Detalle_Compra nDetalleCompra = new Detalle_Compra();
@@ -195,5 +183,9 @@ public class Form_DetalleCompra extends Application {
             }
         } catch (Exception e) {
         }
+    }
+
+    public VBox getPnlFinal() {
+        return pnlFinal;
     }
 }

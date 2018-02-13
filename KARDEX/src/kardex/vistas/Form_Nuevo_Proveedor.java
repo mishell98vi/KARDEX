@@ -1,34 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package kardex.vistas;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+import javafx.application.*;
+import javafx.event.*;
+import javafx.scene.*;
+import javafx.scene.layout.*;
 import java.util.*;
 import javafx.scene.text.*;
 import javafx.scene.paint.*;
-import java.lang.reflect.Field;
-import java.text.DateFormat;
-import java.text.MessageFormat;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.layout.*;
+import java.lang.reflect.*;
+import java.text.*;
+import javafx.beans.*;
+import javafx.collections.*;
+import javafx.geometry.*;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.stage.*;
+import javafx.scene.image.*;
 import kardex.negocio.dao.*;
 import kardex.negocio.entidades.*;
 import kardex.negocio.impl.*;
+import kardex.accesoadatos.*;
 
-public class Form_Proveedor extends Application {
+public class Form_Nuevo_Proveedor{
     private Label txtRuc;
     private Label txtNombres;
     private Label txtDireccion;
@@ -42,7 +35,6 @@ public class Form_Proveedor extends Application {
     private Button btnIngresar;
     private Button btnLimpiar;
     private Button btnCancelar;
-    private HBox pntPrincipal;
     private VBox pnlIcono;
     private Image iconProveedor;
     private ImageView visorIcono;
@@ -51,9 +43,8 @@ public class Form_Proveedor extends Application {
     private VBox pnlObProv;
     private HBox pnlProveedor;
     private HBox pnlBotones;
-    private VBox panelPrincipal;
-    @Override
-    public void start(Stage primaryStage) {
+    private VBox pnlFinal;
+    public Form_Nuevo_Proveedor() {
         //Icono
         iconProveedor = new Image("file:src\\kardex\\multimedia\\images\\iconoProveedor.jpg");
         visorIcono = new ImageView(iconProveedor);
@@ -112,19 +103,17 @@ public class Form_Proveedor extends Application {
         pnlBotones.setAlignment(Pos.CENTER);
         pnlBotones.setPadding(new Insets(10));
         //Panel Principal
-        panelPrincipal=new VBox();
-        panelPrincipal.getChildren().addAll(pnlProveedor,pnlBotones);
-        panelPrincipal.setPadding(new Insets(10));
-        
-        Scene scene = new Scene(panelPrincipal, 540, 270);
-
-        primaryStage.setTitle("Proveedor");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        pnlFinal=new VBox(5);
+        Image fondoFinal = new Image("file:src\\kardex\\multimedia\\images\\fondo.jpg");
+        BackgroundImage fondo = new BackgroundImage(fondoFinal, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        pnlFinal.setBackground(new Background(fondo));
+        pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: orange ; -fx-border-width: 2px");
+        pnlFinal.getChildren().addAll(pnlProveedor,pnlBotones);
+        pnlFinal.setPadding(new Insets(10));
     }
-    public static void main(String[] args) {
-        launch(args);
-    }
+    
+    
+    
     public void bIngEventHandler(ActionEvent event){
         ProveedorI provDao=new ProveedorImp();
         try {
@@ -143,5 +132,9 @@ public class Form_Proveedor extends Application {
         } catch (Exception e) {
             System.out.println("Error de Ingreso"+e.getMessage());
         }
+    }
+
+    public VBox getPnlFinal() {
+        return pnlFinal;
     }
 }

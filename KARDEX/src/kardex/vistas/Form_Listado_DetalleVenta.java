@@ -1,28 +1,27 @@
-
 package kardex.vistas;
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.*;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
+
+import javafx.application.*;
+import javafx.event.*;
+import javafx.scene.*;
+import javafx.scene.layout.*;
 import java.util.*;
-import static javafx.application.Application.launch;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.Group;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.*;
+import javafx.scene.paint.*;
+import java.lang.reflect.*;
+import java.text.*;
+import javafx.beans.*;
+import javafx.collections.*;
+import javafx.geometry.*;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.*;
+import javafx.stage.*;
+import javafx.scene.image.*;
 import kardex.negocio.dao.*;
 import kardex.negocio.entidades.*;
 import kardex.negocio.impl.*;
 import kardex.accesoadatos.*;
 
-public class Form_ListDetalleVenta extends Application {
+public class Form_Listado_DetalleVenta {
 
     private TableView<Detalle_Venta> tblDetalle_Venta;
     private Label titutlo;
@@ -31,10 +30,9 @@ public class Form_ListDetalleVenta extends Application {
     private TableColumn<Detalle_Venta, Factura_Venta> cmlFacV;
     private TableColumn<Detalle_Venta, Integer> cmlCantidad;
     private TableColumn<Detalle_Venta, Double> cmlPrecioT;
-    private VBox pntPrincipal;
+    private VBox pnlFinal;
 
-    @Override
-    public void start(Stage primaryStage) {
+    public Form_Listado_DetalleVenta() {
 
         titutlo = new Label("LISTADO DETALLE VENTA");
         titutlo.setFont(Font.font("News701 BT", 20));
@@ -47,27 +45,24 @@ public class Form_ListDetalleVenta extends Application {
 
         tblDetalle_Venta.getColumns().addAll(cmlCodDV, cmlProducto, cmlFacV, cmlCantidad, cmlPrecioT);
         cargarDetalle_Venta();
-        pntPrincipal = new VBox();
-        pntPrincipal.getChildren().addAll(titutlo, tblDetalle_Venta);
-        pntPrincipal.setAlignment(Pos.CENTER);
-
-        Scene scene = new Scene(pntPrincipal, 820, 650);
-
-        primaryStage.setTitle("Listado Detalles Ventas");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        pnlFinal = new VBox();
+        Image fondoFinal = new Image("file:src\\kardex\\multimedia\\images\\fondo.jpg");
+        BackgroundImage fondo = new BackgroundImage(fondoFinal, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        pnlFinal.setBackground(new Background(fondo));
+        pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: orange ; -fx-border-width: 2px");
+        pnlFinal.getChildren().addAll(titutlo, tblDetalle_Venta);
+        pnlFinal.setAlignment(Pos.CENTER);
 
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    public VBox getPnlFinal() {
+        return pnlFinal;
     }
-    
-    public void cargarDetalle_Venta(){
-     List<Detalle_Venta> listDV = new ArrayList<>();
-     Detalle_VentaI dvDao = new Detalle_VentaImp();
-     
-     
+
+    public void cargarDetalle_Venta() {
+        List<Detalle_Venta> listDV = new ArrayList<>();
+        Detalle_VentaI dvDao = new Detalle_VentaImp();
+
         try {
             listDV = dvDao.obtener();
             cmlCodDV.setCellValueFactory(new PropertyValueFactory<>("codigoDVenta"));
@@ -75,16 +70,14 @@ public class Form_ListDetalleVenta extends Application {
             cmlFacV.setCellValueFactory(new PropertyValueFactory<>("fVenta"));
             cmlCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
             cmlPrecioT.setCellValueFactory(new PropertyValueFactory<>("pTotal"));
-            
             tblDetalle_Venta.getItems().addAll(listDV);
-            
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
             Group ptnError = new Group();
             ptnError.getChildren().add(new Label("Error: " + e.getMessage()));
             Scene error = new Scene(ptnError, 0, 0);
-            
+
         }
-        
+
     }
 }

@@ -3,7 +3,6 @@ package kardex.vistas;
 
 import com.sun.javafx.scene.control.skin.LabeledText;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -21,7 +20,7 @@ import kardex.negocio.entidades.*;
 import kardex.negocio.impl.*;
 import kardex.accesoadatos.*;
 
-public class Form_FacturaCompra extends Application {
+public class Form_Nueva_FacturaVenta {
 
     private Text txtCodigo;
     private Text txtFecha;
@@ -49,10 +48,9 @@ public class Form_FacturaCompra extends Application {
     private VBox panelInfoCliente;
     private VBox panelLogoFactura;
     private HBox panelClienteFactura;
-    private VBox pntPrincipal;
+    private VBox PnlFinal;
     
-    @Override
-    public void start(Stage primaryStage) {
+    public Form_Nueva_FacturaVenta() {
 
         //labels
         txtCodigo = new Text("Codigo: ");
@@ -109,15 +107,13 @@ public class Form_FacturaCompra extends Application {
 //        panelClienteFactura.add(panelLogoFactura, 1, 0);
         
 
-        pntPrincipal=new VBox(20);
-        pntPrincipal.getChildren().addAll(panelClienteFactura,new Button("detalles"),new Button("opciones"),new Button("botones"));
-        Scene scene = new Scene(pntPrincipal, 320*2, 480);
+        PnlFinal=new VBox(20);
+        PnlFinal.getChildren().addAll(panelClienteFactura,new Button("detalles"),new Button("opciones"),new Button("botones"));
+        Scene scene = new Scene(PnlFinal, 320*2, 480);
+    }
 
-        primaryStage.setTitle("Factura Venta");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    public VBox getPnlFinal() {
+        return PnlFinal;
     }
-        public static void main(String[] args) {
-        launch(args);
-    }
+    
 }

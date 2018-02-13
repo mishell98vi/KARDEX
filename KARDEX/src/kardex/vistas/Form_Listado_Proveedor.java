@@ -1,32 +1,28 @@
-
 package kardex.vistas;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.*;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
+import javafx.application.*;
+import javafx.event.*;
+import javafx.scene.*;
+import javafx.scene.layout.*;
 import java.util.*;
-import static javafx.application.Application.launch;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.Group;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.*;
+import javafx.scene.paint.*;
+import java.lang.reflect.*;
+import java.text.*;
+import javafx.beans.*;
+import javafx.collections.*;
+import javafx.geometry.*;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.*;
+import javafx.stage.*;
+import javafx.scene.image.*;
 import kardex.negocio.dao.*;
 import kardex.negocio.entidades.*;
 import kardex.negocio.impl.*;
 import kardex.accesoadatos.*;
 
+public class Form_Listado_Proveedor {
 
-public class Form_ListProveedor extends Application {
-   
-    
     private TableView<Proveedor> tblProveedor;
     private Label titulo;
     private TableColumn<Proveedor, Integer> cmlRuc;
@@ -34,11 +30,10 @@ public class Form_ListProveedor extends Application {
     private TableColumn<Proveedor, String> cmlDireccion;
     private TableColumn<Proveedor, String> cmlTelefono;
     private TableColumn<Proveedor, String> cmlEmail;
-    private VBox pntPrincipal;
-    
-    @Override
+    private VBox pnlFinal;
+
     public void start(Stage primaryStage) {
-        
+
         titulo = new Label("LISTADO DE PROVEEDORES");
         titulo.setFont(Font.font("News701 BT", 20));
         tblProveedor = new TableView();
@@ -51,20 +46,15 @@ public class Form_ListProveedor extends Application {
         cmlEmail = new TableColumn<>("Email");
         cmlEmail.setMaxWidth(250);
         cmlEmail.setMinWidth(250);
-        tblProveedor.getColumns().addAll(cmlRuc, cmlNombre, cmlDireccion,cmlTelefono,cmlEmail);
+        tblProveedor.getColumns().addAll(cmlRuc, cmlNombre, cmlDireccion, cmlTelefono, cmlEmail);
         cargarProveedor();
-        pntPrincipal = new VBox();
-        pntPrincipal.getChildren().addAll(titulo, tblProveedor);
-        pntPrincipal.setAlignment(Pos.CENTER);
-        Scene scene = new Scene(pntPrincipal, 425, 250);
-
-        primaryStage.setTitle("Listado de Proveedores.");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
+        pnlFinal = new VBox();
+        Image fondoFinal = new Image("file:src\\kardex\\multimedia\\images\\fondo.jpg");
+        BackgroundImage fondo = new BackgroundImage(fondoFinal, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        pnlFinal.setBackground(new Background(fondo));
+        pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: orange ; -fx-border-width: 2px");
+        pnlFinal.getChildren().addAll(titulo, tblProveedor);
+        pnlFinal.setAlignment(Pos.CENTER);
     }
 
     public void cargarProveedor() {
@@ -85,5 +75,9 @@ public class Form_ListProveedor extends Application {
             ptnError.getChildren().add(new Label("Error: " + e.getMessage()));
             Scene error = new Scene(ptnError, 0, 0);
         }
+    }
+
+    public VBox getPnlFinal() {
+        return pnlFinal;
     }
 }

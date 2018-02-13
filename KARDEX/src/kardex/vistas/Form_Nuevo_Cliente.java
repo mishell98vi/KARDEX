@@ -1,25 +1,27 @@
 package kardex.vistas;
-import com.sun.javafx.scene.control.skin.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.image.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.*;
-import javafx.scene.layout.StackPane;
+
+import javafx.application.*;
+import javafx.event.*;
+import javafx.scene.*;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
+import java.util.*;
 import javafx.scene.text.*;
+import javafx.scene.paint.*;
+import java.lang.reflect.*;
+import java.text.*;
+import javafx.beans.*;
+import javafx.collections.*;
+import javafx.geometry.*;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.*;
+import javafx.stage.*;
+import javafx.scene.image.*;
 import kardex.negocio.dao.*;
 import kardex.negocio.entidades.*;
 import kardex.negocio.impl.*;
+import kardex.accesoadatos.*;
 
-public class Form_Cliente extends Application {
+public class Form_Nuevo_Cliente {
 
     private Label txtCedula;
     private Label txtFechaNacim;
@@ -33,13 +35,13 @@ public class Form_Cliente extends Application {
     private TextField fechanac;
     private TextField nombres;
     private TextField apellidos;
-    private TextField telf; 
+    private TextField telf;
     private TextField dir;
     private TextField email;
 
     private Image iconCliente;
     private ImageView visorIcono;
-    
+
     private Button bIngresar;
     private Button bModificar;
     private Button bEliminar;
@@ -51,16 +53,15 @@ public class Form_Cliente extends Application {
     private GridPane datRest;
     private HBox datsFinales;
     private HBox pnlbotones;
-    private VBox pnlPrinc;
+    private VBox pnlFinal;
 
-    @Override
-    public void start(Stage primaryStage) {
-        
-       iconCliente=new Image("file:src\\kardex\\multimedia\\images\\iconocliente.png");
-       visorIcono= new ImageView(iconCliente);
-       visorIcono.setFitHeight(100);
-       visorIcono.setFitWidth(100);
-         //labels
+    public Form_Nuevo_Cliente() {
+
+        iconCliente = new Image("file:src\\kardex\\multimedia\\images\\iconocliente.png");
+        visorIcono = new ImageView(iconCliente);
+        visorIcono.setFitHeight(100);
+        visorIcono.setFitWidth(100);
+        //labels
         txtCedula = new Label("Cedula: ");
         txtCedula.setFont(Font.font("News701 BT", 20));
         txtFechaNacim = new Label("Fecha de Nacimiento: ");
@@ -97,22 +98,22 @@ public class Form_Cliente extends Application {
         bLimpiar = new Button("Limpiar");
         bLimpiar.setFont(Font.font("News701 BT", 15));
         bLimpiar.setOnAction(new EventHandler<ActionEvent>() {
-           @Override
-           public void handle(ActionEvent event) {
-               bLimpiarEventHandler(event);
-           }
-       });
+            @Override
+            public void handle(ActionEvent event) {
+                bLimpiarEventHandler(event);
+            }
+        });
         bCancelar = new Button("Salir");
         bCancelar.setFont(Font.font("News701 BT", 15));
         bCancelar.setOnAction(new EventHandler<ActionEvent>() {
-           @Override
-           public void handle(ActionEvent event) {
-               bCancelarEventHandler(event);
-           }
-       });
+            @Override
+            public void handle(ActionEvent event) {
+                bCancelarEventHandler(event);
+            }
+        });
         //PANELES
         //Cliente
-        centroCliente=new GridPane();
+        centroCliente = new GridPane();
         centroCliente.setVgap(10);
         centroCliente.setHgap(10);
         centroCliente.add(txtCedula, 0, 0);
@@ -124,42 +125,42 @@ public class Form_Cliente extends Application {
         centroCliente.add(txtApellidos, 0, 3);
         centroCliente.add(apellidos, 1, 3);
         //CLIENTE E IMAGEN
-        clImagen=new HBox(10);
+        clImagen = new HBox(10);
         clImagen.getChildren().addAll(visorIcono, centroCliente);
         clImagen.setAlignment(Pos.CENTER);
         //RESTO CLIENTE
-        datRest=new GridPane();
+        datRest = new GridPane();
         datRest.add(txtTelf, 0, 0);
         datRest.add(telf, 1, 0);
         datRest.add(txtDir, 2, 0);
         datRest.add(dir, 3, 0);
         //FINAL CLIENTE
-        datsFinales=new HBox(10);
+        datsFinales = new HBox(10);
         datsFinales.getChildren().addAll(txtEmail, email);
         datsFinales.setAlignment(Pos.CENTER);
         //BOTONES
-        pnlbotones=new HBox(25);
+        pnlbotones = new HBox(25);
         pnlbotones.getChildren().addAll(bIngresar, bLimpiar, bCancelar);
         pnlbotones.setAlignment(Pos.CENTER);
         //PANTALLA PRINCIPAL
-        pnlPrinc = new VBox(10);
-        pnlPrinc.getChildren().addAll(clImagen, datRest, datsFinales,pnlbotones);
-        pnlPrinc.setAlignment(Pos.CENTER);
-        pnlPrinc.setPadding(new Insets(15));
-
-        Scene scene = new Scene(pnlPrinc, 545, 280);
-        primaryStage.setTitle("Cliente");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        pnlFinal = new VBox(10);
+        Image fondoFinal = new Image("file:src\\kardex\\multimedia\\images\\fondo.jpg");
+        BackgroundImage fondo = new BackgroundImage(fondoFinal, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        pnlFinal.setBackground(new Background(fondo));
+        pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: orange ; -fx-border-width: 2px");
+        pnlFinal.getChildren().addAll(clImagen, datRest, datsFinales, pnlbotones);
+        pnlFinal.setAlignment(Pos.CENTER);
+        pnlFinal.setPadding(new Insets(15));
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    public VBox getPnlFinal() {
+        return pnlFinal;
     }
-    public void btnIngresarEventHandler(ActionEvent event){
-        ClienteI clienteDao=new ClienteImp();
+
+    public void btnIngresarEventHandler(ActionEvent event) {
+        ClienteI clienteDao = new ClienteImp();
         try {
-            Cliente nuevoCliente=new Cliente();
+            Cliente nuevoCliente = new Cliente();
             nuevoCliente.setCedula(cedula.getText());
             nuevoCliente.setNombre(nombres.getText());
             nuevoCliente.setApellido(apellidos.getText());
@@ -170,23 +171,23 @@ public class Form_Cliente extends Application {
             try {
                 nuevoCliente.setFechaNac(formatoFecha.parse(fechanac.getText()));
             } catch (Exception er) {
-                System.out.println("Error al insertar fecha"+er.getMessage());
+                System.out.println("Error al insertar fecha" + er.getMessage());
             }
-            if(clienteDao.ingresar(nuevoCliente)>0){
+            if (clienteDao.ingresar(nuevoCliente) > 0) {
                 System.out.println("Ingreso Correcto");
-            }
-            else{
+            } else {
                 System.out.println("Error de Ingreso");
             }
         } catch (Exception e) {
-            System.out.println("Error de Ingreso"+e.getMessage());
+            System.out.println("Error de Ingreso" + e.getMessage());
         }
     }
 
-    public void bCancelarEventHandler(ActionEvent event){
+    public void bCancelarEventHandler(ActionEvent event) {
         System.exit(0);
     }
-    public void bLimpiarEventHandler(ActionEvent event){
+
+    public void bLimpiarEventHandler(ActionEvent event) {
         cedula.setText("");
         nombres.setText("");
         apellidos.setText("");
@@ -195,5 +196,5 @@ public class Form_Cliente extends Application {
         email.setText("");
         fechanac.setText("");
     }
-    
+
 }

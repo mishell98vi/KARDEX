@@ -3,6 +3,7 @@ package kardex.vistas;
 
 import com.sun.javafx.scene.control.skin.LabeledText;
 import javafx.application.Application;
+import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -20,7 +21,7 @@ import kardex.negocio.entidades.*;
 import kardex.negocio.impl.*;
 import kardex.accesoadatos.*;
 
-public class Form_FacturaVenta extends Application {
+public class Form_Nueva_FacturaCompra extends Application {
 
     private Text txtCodigo;
     private Text txtFecha;

@@ -102,12 +102,12 @@ public class Form_Nueva_Categoria{
         pnlBotones.getChildren().addAll(btnIngresar, btnLimpiar);
         pnlBotones.setAlignment(Pos.CENTER);
         pnlFinal = new VBox(10);
-        pnlFinal.getChildren().addAll(pnlSup, pnlInt, pnlBotones);
-        pnlFinal.setPadding(new Insets(10));
         Image fondoFinal=new Image("file:src\\kardex\\multimedia\\images\\fondo.jpg");
         BackgroundImage fondo=new BackgroundImage(fondoFinal, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         pnlFinal.setBackground(new Background(fondo));
         pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: orange ; -fx-border-width: 2px");
+        pnlFinal.getChildren().addAll(pnlSup, pnlInt, pnlBotones);
+        pnlFinal.setPadding(new Insets(10));
     }
 
     public void bIngresarEventHandler(ActionEvent event) {
