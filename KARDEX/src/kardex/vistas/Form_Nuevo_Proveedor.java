@@ -96,8 +96,20 @@ public class Form_Nuevo_Proveedor{
         });
         btnLimpiar=new Button("Limpiar");
         btnLimpiar.setFont(Font.font("News701 BT", 15));
+        btnLimpiar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                bLimpiarEventHandler(event);
+            }
+        });
         btnCancelar=new Button("Cancelar");
         btnCancelar.setFont(Font.font("News701 BT", 15));
+        btnCancelar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                bCancelarEventHandler(event);
+            }
+        });
         pnlBotones=new HBox(20);
         pnlBotones.getChildren().addAll(btnIngresar,btnLimpiar,btnCancelar);
         pnlBotones.setAlignment(Pos.CENTER);
@@ -133,7 +145,17 @@ public class Form_Nuevo_Proveedor{
             System.out.println("Error de Ingreso"+e.getMessage());
         }
     }
-
+   public void bLimpiarEventHandler(ActionEvent event){
+        Ruc.setText("");
+        Nombres.setText("");
+        Direccion.setText("");
+        Telefono.setText("");
+        Email.setText("");
+        
+    }
+    public void bCancelarEventHandler(ActionEvent event){
+        System.exit(0);
+    }
     public VBox getPnlFinal() {
         return pnlFinal;
     }
