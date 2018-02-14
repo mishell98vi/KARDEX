@@ -32,7 +32,7 @@ public class Form_Listado_Proveedor {
     private TableColumn<Proveedor, String> cmlEmail;
     private VBox pnlFinal;
 
-    public void start(Stage primaryStage) {
+    public Form_Listado_Proveedor(){
 
         titulo = new Label("LISTADO DE PROVEEDORES");
         titulo.setFont(Font.font("News701 BT", 20));

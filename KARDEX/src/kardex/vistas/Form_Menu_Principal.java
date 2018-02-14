@@ -138,6 +138,15 @@ public class Form_Menu_Principal extends Application {
         delCliente = new MenuItem("Eliminar Cliente");
         infCliente = new MenuItem("Informacion de un Cliente");
         listCliente = new MenuItem("Listado de Clientes");
+        listCliente.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Pane lstClientes=new Pane();
+                lstClientes.getChildren().add(lstClienteEventHandler(event));
+                lstClientes.setPadding(new Insets(10));
+                interior.getChildren().add(lstClientes);
+            }
+        });
         cliente.getItems().addAll(newCliente, modCliente, delCliente, new SeparatorMenuItem(), infCliente, listCliente);
         //Menu Factura Venta
         FacturaVenta = new Menu("Factura Ventas");
@@ -172,6 +181,15 @@ public class Form_Menu_Principal extends Application {
         delProveedor = new MenuItem("Eliminar Proveedor");
         infProveedor = new MenuItem("Informacion de un Proveedor");
         listProveedor = new MenuItem("Listado Proveedor");
+        listProveedor.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Pane lstProveedores=new Pane();
+                lstProveedores.getChildren().add(lstProveedorEventHandler(event));
+                lstProveedores.setPadding(new Insets(10));
+                interior.getChildren().add(lstProveedores);
+            }
+        });
         proveedor.getItems().addAll(newProveedor, modProveedor, delProveedor, new SeparatorMenuItem(), infProveedor, listProveedor);
         //Menu Producto
         producto = new Menu("Producto");
@@ -215,6 +233,15 @@ public class Form_Menu_Principal extends Application {
         delCategoria = new MenuItem("Eliminar Categoria");
         infCategoria = new MenuItem("Informacion de una Categoria");
         listCategoria = new MenuItem("Listado Categoria");
+        listCategoria.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Pane lstCateg=new Pane();
+                lstCateg.getChildren().add(lstCategoriaEventHandler(event));
+                lstCateg.setPadding(new Insets(10));
+                interior.getChildren().add(lstCateg);
+            }
+        });
         categoria.getItems().addAll(newCategoria, modCategoria, delCategoria, new SeparatorMenuItem(), infCategoria, listCategoria);
         //Menu Detalle Compras
         detalle_compra = new Menu("Detalle Compra");
@@ -232,6 +259,15 @@ public class Form_Menu_Principal extends Application {
         delDetalle_compra = new MenuItem("Eliminar Detalle compra");
         infDetalle_compra = new MenuItem("Informacion de un Detalle compra");
         listDetalle_compra = new MenuItem("Listado Detalle compra");
+        listDetalle_compra.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Pane lstDetCompra=new Pane();
+                lstDetCompra.getChildren().add(lstDetalleCompraEventHandler(event));
+                lstDetCompra.setPadding(new Insets(10));
+                interior.getChildren().add(lstDetCompra);
+            }
+        });
         detalle_compra.getItems().addAll(newDetalle_compra, modDetalle_compra, delDetalle_compra, new SeparatorMenuItem(), infDetalle_compra, listDetalle_compra);
         
         //Detalle venta
@@ -250,6 +286,15 @@ public class Form_Menu_Principal extends Application {
         delDetalle_venta = new MenuItem("Eliminar Detalle venta");
         infDetalle_venta = new MenuItem("Informacion de Detalle venta");
         listDetalle_venta = new MenuItem("Listado Detalle venta");
+        listDetalle_venta.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Pane lstDetVenta=new Pane();
+                lstDetVenta.getChildren().add(lstDetalleVentaEventHandler(event));
+                lstDetVenta.setPadding(new Insets(10));
+                interior.getChildren().add(lstDetVenta);
+            }
+        });
         detalle_venta.getItems().addAll(newDetalle_venta, modDetalle_venta, delDetalle_venta, new SeparatorMenuItem(), infDetalle_venta, listDetalle_venta);
         
         //Menu Inicio
@@ -356,6 +401,27 @@ public class Form_Menu_Principal extends Application {
         nFactVenta.setCloseButton(cerrar);
         return nFactVenta;
     }
+    public Form_SubVentana lstFactVentaEventHandler(ActionEvent event){
+        BorderPane listFacV=new BorderPane();
+        Label titulo=new Label("Nuevo Factura Venta");
+        titulo.setFont(Font.font("News701 BT", 25));
+        titulo.setTextFill(Color.AQUA);
+        Button cerrar=new Button("X");
+        cerrar.setFont(Font.font("Arial Black", 20));
+        cerrar.setTextFill(Color.AQUA);
+        Form_Barra_De_Titulo btitulonFV=new Form_Barra_De_Titulo(titulo, cerrar);
+        listFacV.setTop(btitulonFV.getBarra());
+        Form_Listado_FacturaVenta lstFaV=new Form_Listado_FacturaVenta();
+        listFacV.setCenter(lstFaV.getPnlFinal());
+        Form_SubVentana FacVList=new Form_SubVentana();
+        FacVList.setRoot(listFacV);
+        FacVList.makeDragable(btitulonFV.getBarra());
+        FacVList.makeDragable(titulo);
+        FacVList.makeResizable(20);
+        FacVList.makeFocusable();
+        FacVList.setCloseButton(cerrar);
+        return FacVList;
+    }
     
     public Form_SubVentana nProveedorEventHandler(ActionEvent event){
         BorderPane proveedorNuevo=new BorderPane();
@@ -377,6 +443,27 @@ public class Form_Menu_Principal extends Application {
         nProveedor.makeFocusable();
         nProveedor.setCloseButton(cerrar);
         return nProveedor;
+    }
+    public Form_SubVentana lstProveedorEventHandler(ActionEvent event){
+        BorderPane listProveedor=new BorderPane();
+        Label titulo=new Label("Nuevo Proveedor");
+        titulo.setFont(Font.font("News701 BT", 25));
+        titulo.setTextFill(Color.AQUA);
+        Button cerrar=new Button("X");
+        cerrar.setFont(Font.font("Arial Black", 20));
+        cerrar.setTextFill(Color.AQUA);
+        Form_Barra_De_Titulo btitulonProve=new Form_Barra_De_Titulo(titulo, cerrar);
+        listProveedor.setTop(btitulonProve.getBarra());
+        Form_Listado_Proveedor provList=new Form_Listado_Proveedor();
+        listProveedor.setCenter(provList.getPnlFinal());
+        Form_SubVentana provL=new Form_SubVentana();
+        provL.setRoot(listProveedor);
+        provL.makeDragable(btitulonProve.getBarra());
+        provL.makeDragable(titulo);
+        provL.makeResizable(20);
+        provL.makeFocusable();
+        provL.setCloseButton(cerrar);
+        return provL;
     }
     
     public Form_SubVentana nClienteEventHandler(ActionEvent event){
@@ -400,6 +487,27 @@ public class Form_Menu_Principal extends Application {
         nCliente.setCloseButton(cerrar);
         return nCliente;
     }
+    public Form_SubVentana lstClienteEventHandler(ActionEvent event){
+        BorderPane listClientes=new BorderPane();
+        Label titulo=new Label("Nueva CLiente");
+        titulo.setFont(Font.font("News701 BT", 25));
+        titulo.setTextFill(Color.AQUA);
+        Button cerrar=new Button("X");
+        cerrar.setFont(Font.font("Arial Black", 20));
+        cerrar.setTextFill(Color.AQUA);
+        Form_Barra_De_Titulo btitulonCliente=new Form_Barra_De_Titulo(titulo, cerrar);
+        listClientes.setTop(btitulonCliente.getBarra());
+        Form_Listado_Cliente clientesLista=new Form_Listado_Cliente();
+        listClientes.setCenter(clientesLista.getPnlFinal());
+        Form_SubVentana lstClientes=new Form_SubVentana();
+        lstClientes.setRoot(listClientes);
+        lstClientes.makeDragable(btitulonCliente.getBarra());
+        lstClientes.makeDragable(titulo);
+        lstClientes.makeResizable(20);
+        lstClientes.makeFocusable();
+        lstClientes.setCloseButton(cerrar);
+        return lstClientes;
+    }
     
     public Form_SubVentana nCategoriaEventHandler(ActionEvent event){
         BorderPane categNueva=new BorderPane();
@@ -421,6 +529,27 @@ public class Form_Menu_Principal extends Application {
         nCategoria.makeFocusable();
         nCategoria.setCloseButton(cerrar);
         return nCategoria;
+    }
+    public Form_SubVentana lstCategoriaEventHandler(ActionEvent event){
+        BorderPane listCateg=new BorderPane();
+        Label titulo=new Label("Nueva Categoria");
+        titulo.setFont(Font.font("News701 BT", 25));
+        titulo.setTextFill(Color.AQUA);
+        Button cerrar=new Button("X");
+        cerrar.setFont(Font.font("Arial Black", 20));
+        cerrar.setTextFill(Color.AQUA);
+        Form_Barra_De_Titulo btitulonCateg=new Form_Barra_De_Titulo(titulo, cerrar);
+        listCateg.setTop(btitulonCateg.getBarra());
+        Form_Listado_Categoria categLista=new Form_Listado_Categoria();
+        listCateg.setCenter(categLista.getPnlFinal());
+        Form_SubVentana lstCategorias=new Form_SubVentana();
+        lstCategorias.setRoot(listCateg);
+        lstCategorias.makeDragable(btitulonCateg.getBarra());
+        lstCategorias.makeDragable(titulo);
+        lstCategorias.makeResizable(20);
+        lstCategorias.makeFocusable();
+        lstCategorias.setCloseButton(cerrar);
+        return lstCategorias;
     }
     
     public Form_SubVentana nDetalleCompraEventHandler(ActionEvent event){
@@ -444,7 +573,27 @@ public class Form_Menu_Principal extends Application {
         nDetallCompra.setCloseButton(cerrar);
         return nDetallCompra;
     }
-    
+    public Form_SubVentana lstDetalleCompraEventHandler(ActionEvent event){
+        BorderPane listDetCom=new BorderPane();
+        Label titulo=new Label("Nueva Detalle Compra");
+        titulo.setFont(Font.font("News701 BT", 25));
+        titulo.setTextFill(Color.AQUA);
+        Button cerrar=new Button("X");
+        cerrar.setFont(Font.font("Arial Black", 20));
+        cerrar.setTextFill(Color.AQUA);
+        Form_Barra_De_Titulo btitulonDC=new Form_Barra_De_Titulo(titulo, cerrar);
+        listDetCom.setTop(btitulonDC.getBarra());
+        Form_Listado_DetalleCompra DetCompLista=new Form_Listado_DetalleCompra();
+        listDetCom.setCenter(DetCompLista.getPnlFinal());
+        Form_SubVentana lstDetCompra=new Form_SubVentana();
+        lstDetCompra.setRoot(listDetCom);
+        lstDetCompra.makeDragable(btitulonDC.getBarra());
+        lstDetCompra.makeDragable(titulo);
+        lstDetCompra.makeResizable(20);
+        lstDetCompra.makeFocusable();
+        lstDetCompra.setCloseButton(cerrar);
+        return lstDetCompra;
+    }
     public Form_SubVentana nDetalleVentaEventHandler(ActionEvent event){
         BorderPane detalleVentaNuevo=new BorderPane();
         Label titulo=new Label("Nueva Detalle Venta");
@@ -466,7 +615,27 @@ public class Form_Menu_Principal extends Application {
         nDetallVenta.setCloseButton(cerrar);
         return nDetallVenta;
     }
-    
+    public Form_SubVentana lstDetalleVentaEventHandler(ActionEvent event){
+        BorderPane listDetVen=new BorderPane();
+        Label titulo=new Label("Nueva Detalle Venta");
+        titulo.setFont(Font.font("News701 BT", 25));
+        titulo.setTextFill(Color.AQUA);
+        Button cerrar=new Button("X");
+        cerrar.setFont(Font.font("Arial Black", 20));
+        cerrar.setTextFill(Color.AQUA);
+        Form_Barra_De_Titulo btitulonDV=new Form_Barra_De_Titulo(titulo, cerrar);
+        listDetVen.setTop(btitulonDV.getBarra());
+        Form_Listado_DetalleVenta detVenLista=new Form_Listado_DetalleVenta();
+        listDetVen.setCenter(detVenLista.getPnlFinal());
+        Form_SubVentana lstDetVenta=new Form_SubVentana();
+        lstDetVenta.setRoot(listDetVen);
+        lstDetVenta.makeDragable(btitulonDV.getBarra());
+        lstDetVenta.makeDragable(titulo);
+        lstDetVenta.makeResizable(20);
+        lstDetVenta.makeFocusable();
+        lstDetVenta.setCloseButton(cerrar);
+        return lstDetVenta;
+    }
     
     
     
