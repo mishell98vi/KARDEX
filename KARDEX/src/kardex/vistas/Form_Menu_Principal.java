@@ -105,7 +105,6 @@ public class Form_Menu_Principal extends Application {
         interior.setMaxSize(1270, 710);
         Background fondoImagen=new Background(new BackgroundImage(new Image("file:src\\kardex\\multimedia\\images\\unachLogo.png"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(500, 500, false, true, true, false)));
         interior.setBackground(fondoImagen);
-        
         visorFondo = new ImageView(fondo);
         visorFondo.setPreserveRatio(true);
 
@@ -431,10 +430,13 @@ public class Form_Menu_Principal extends Application {
         Button cerrar=new Button("X");
         cerrar.setFont(Font.font("Arial Black", 20));
         cerrar.setTextFill(Color.AQUA);
+        //obejto de barra de titulo
         Form_Barra_De_Titulo btitulonProve=new Form_Barra_De_Titulo(titulo, cerrar);
         proveedorNuevo.setTop(btitulonProve.getBarra());
+        //creo un objeto de tipo nuevo proveedor
         Form_Nuevo_Proveedor proveN=new Form_Nuevo_Proveedor();
-        proveedorNuevo.setCenter(proveN.getPnlFinal());
+        proveedorNuevo.setCenter(proveN.getPnlFinal());//agrego en la parte central el nuevo proveedor
+        
         Form_SubVentana nProveedor=new Form_SubVentana();
         nProveedor.setRoot(proveedorNuevo);
         nProveedor.makeDragable(btitulonProve.getBarra());
