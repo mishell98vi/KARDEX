@@ -24,7 +24,7 @@ public class Form_SubVentana extends Region {
 
     //current state
     private boolean RESIZE_BOTTOM;
-    private boolean RESIZE_RIGHT;
+    private boolean RESIZE_RIGHT;//detectala posicion del mouse 
 
     public void setRoot(Node node) {
         getChildren().add(node);
@@ -37,7 +37,7 @@ public class Form_SubVentana extends Region {
     }
 
     //we can select nodes that react drag event
-    public void makeDragable(Node what) {
+    public void makeDragable(Node what) {  //detecta los nodos al cual desplazar
         final Delta dragDelta = new Delta();
         what.setOnMousePressed(mouseEvent -> {
             dragDelta.x = getLayoutX() - mouseEvent.getScreenX();
@@ -50,7 +50,7 @@ public class Form_SubVentana extends Region {
             setLayoutY(mouseEvent.getScreenY() + dragDelta.y);
         });
     }
-
+//permite achicar  y agrandar
     public void makeResizable(double mouseBorderWidth) {
         this.setOnMouseMoved(mouseEvent -> {
             //local window's coordiantes
@@ -85,12 +85,13 @@ public class Form_SubVentana extends Region {
             }
         });
     }
-
+//detecta el boton principal para cerra del frm principal , cierra panel interno
     public void setCloseButton(Button btn) {
         btn.setOnAction(event -> ((Pane) getParent()).getChildren().remove(this));
     }
 
     //just for encapsulation
+    //lee la posicion de lectura del mouse en pantallaa
     private class Delta {
 
         double x, y;
