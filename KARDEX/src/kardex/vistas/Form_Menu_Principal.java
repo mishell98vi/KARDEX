@@ -103,7 +103,7 @@ public class Form_Menu_Principal extends Application {
     public void start(Stage primaryStage) {
         interior=new Pane();
         interior.setMaxSize(1270, 710);
-        Background fondoImagen=new Background(new BackgroundImage(new Image("file:src\\kardex\\multimedia\\images\\unachLogo.png"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(500, 500, false, true, true, false)));
+        Background fondoImagen=new Background(new BackgroundImage(new Image("file:src\\kardex\\multimedia\\images\\micasa.png"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(500, 500, false, true, true, false)));
         interior.setBackground(fondoImagen);
         visorFondo = new ImageView(fondo);
         visorFondo.setPreserveRatio(true);
@@ -242,59 +242,6 @@ public class Form_Menu_Principal extends Application {
             }
         });
         categoria.getItems().addAll(newCategoria, modCategoria, delCategoria, new SeparatorMenuItem(), infCategoria, listCategoria);
-        //Menu Detalle Compras
-        detalle_compra = new Menu("Detalle Compra");
-        newDetalle_compra = new MenuItem("Nuevo Detalle compra");
-        newDetalle_compra.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Pane nDetalleCompra=new Pane();
-                nDetalleCompra.getChildren().add(nDetalleCompraEventHandler(event));
-                nDetalleCompra.setPadding(new Insets(10));
-                interior.getChildren().add(nDetalleCompra);
-            }
-        });
-        modDetalle_compra = new MenuItem("Modificar Detalle compra");
-        delDetalle_compra = new MenuItem("Eliminar Detalle compra");
-        infDetalle_compra = new MenuItem("Informacion de un Detalle compra");
-        listDetalle_compra = new MenuItem("Listado Detalle compra");
-        listDetalle_compra.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Pane lstDetCompra=new Pane();
-                lstDetCompra.getChildren().add(lstDetalleCompraEventHandler(event));
-                lstDetCompra.setPadding(new Insets(10));
-                interior.getChildren().add(lstDetCompra);
-            }
-        });
-        detalle_compra.getItems().addAll(newDetalle_compra, modDetalle_compra, delDetalle_compra, new SeparatorMenuItem(), infDetalle_compra, listDetalle_compra);
-        
-        //Detalle venta
-        detalle_venta = new Menu("Detalle venta");
-        newDetalle_venta = new MenuItem("Nuevo Detalle venta");
-        newDetalle_venta.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Pane nDetalleVenta=new Pane();
-                nDetalleVenta.getChildren().add(nDetalleVentaEventHandler(event));
-                nDetalleVenta.setPadding(new Insets(10));
-                interior.getChildren().add(nDetalleVenta);
-            }
-        });
-        modDetalle_venta = new MenuItem("Modificar Detalle venta");
-        delDetalle_venta = new MenuItem("Eliminar Detalle venta");
-        infDetalle_venta = new MenuItem("Informacion de Detalle venta");
-        listDetalle_venta = new MenuItem("Listado Detalle venta");
-        listDetalle_venta.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Pane lstDetVenta=new Pane();
-                lstDetVenta.getChildren().add(lstDetalleVentaEventHandler(event));
-                lstDetVenta.setPadding(new Insets(10));
-                interior.getChildren().add(lstDetVenta);
-            }
-        });
-        detalle_venta.getItems().addAll(newDetalle_venta, modDetalle_venta, delDetalle_venta, new SeparatorMenuItem(), infDetalle_venta, listDetalle_venta);
         
         //Menu Inicio
         facturaCompra = new Menu("Factura Compras");
@@ -310,16 +257,16 @@ public class Form_Menu_Principal extends Application {
         kardexAnual = new MenuItem("Kardex Anual");
         kardex.getItems().addAll(kardexMensual, kardexAnual);
 
-        menuPrincipal.getMenus().addAll(inicio, cliente, proveedor,producto,categoria, detalle_compra, detalle_venta, FacturaVenta, facturaCompra, kardex);
+        menuPrincipal.getMenus().addAll(inicio, cliente, proveedor,producto,categoria, FacturaVenta, facturaCompra, kardex);
 
         escritorio = new BorderPane();
         escritorio.setTop(menuPrincipal);
         escritorio.setCenter(interior);
         Scene scene = new Scene(escritorio, 1280, 720);
         primaryStage.setMaximized(true);
-        primaryStage.setMaxHeight(720);
+        primaryStage.setMaxHeight(960);
         primaryStage.setMaxWidth(1280);
-        primaryStage.setMinHeight(720);
+        primaryStage.setMinHeight(960);
         primaryStage.setMinWidth(1280);
         primaryStage.setResizable(false);
         primaryStage.setTitle("Hello World!");
@@ -426,10 +373,10 @@ public class Form_Menu_Principal extends Application {
         BorderPane proveedorNuevo=new BorderPane();
         Label titulo=new Label("Nuevo Proveedor");
         titulo.setFont(Font.font("News701 BT", 25));
-        titulo.setTextFill(Color.AQUA);
+        titulo.setTextFill(Color.BLACK);
         Button cerrar=new Button("X");
         cerrar.setFont(Font.font("Arial Black", 20));
-        cerrar.setTextFill(Color.AQUA);
+        cerrar.setTextFill(Color.BLACK);
         //obejto de barra de titulo
         Form_Barra_De_Titulo btitulonProve=new Form_Barra_De_Titulo(titulo, cerrar);
         proveedorNuevo.setTop(btitulonProve.getBarra());
