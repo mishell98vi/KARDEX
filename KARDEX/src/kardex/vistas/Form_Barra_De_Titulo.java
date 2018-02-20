@@ -27,10 +27,10 @@ public class Form_Barra_De_Titulo {
     private BorderPane titulo;
 
     public Form_Barra_De_Titulo(Node nombre, Node cerrar) {
-        imagenFondo=new Image("file:src\\kardex\\multimedia\\images\\Titulo.jpg");
+        imagenFondo=new Image("file:src\\kardex\\multimedia\\images\\barratitulo.jpg");
         fondo=new BackgroundImage(imagenFondo, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         cerrar.setStyle("-fx-background-color: lightpink");
-        icono=new ImageView(new Image("file:ssrc\\kardex\\multimedia\\images\\unachLogo.png", 40, 40, true, true));
+        icono=new ImageView(new Image("file:ssrc\\kardex\\multimedia\\images\\micasa.png", 40, 40, true, true));
         titulo = new BorderPane();
         titulo.setLeft(icono);
         titulo.setCenter(nombre);
