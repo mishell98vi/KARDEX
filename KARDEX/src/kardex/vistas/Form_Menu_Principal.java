@@ -224,6 +224,15 @@ public class Form_Menu_Principal extends Application {
         delProducto = new MenuItem("Eliminar Producto");
 
         infProducto = new MenuItem("Informacion de un Producto");
+        infProducto.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Pane bProducto = new Pane();
+                bProducto.getChildren().add(bProductoEventHandler(event));
+                bProducto.setPadding(new Insets(10));
+                interior.getChildren().add(bProducto);
+            }
+        });
         listProducto = new MenuItem("Listado Producto");
         listProducto.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -260,6 +269,15 @@ public class Form_Menu_Principal extends Application {
             }
         });
         infCategoria = new MenuItem("Informacion de una Categoria");
+        infCategoria.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Pane buscaCateg = new Pane();
+                buscaCateg.getChildren().add(bCategoriaEventHandler(event));
+                buscaCateg.setPadding(new Insets(10));
+                interior.getChildren().add(buscaCateg);
+            }
+        });
         listCategoria = new MenuItem("Listado Categoria");
         listCategoria.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -331,6 +349,28 @@ public class Form_Menu_Principal extends Application {
         nProducto.makeFocusable();
         nProducto.setCloseButton(cerrar);
         return nProducto;
+    }
+    
+    public Form_SubVentana bProductoEventHandler(ActionEvent event) {
+        BorderPane producBuscar = new BorderPane();
+        Label titulo = new Label("Nuevo Producto");
+        titulo.setFont(Font.font("News701 BT", 25));
+        titulo.setTextFill(Color.AQUA);
+        Button cerrar = new Button("X");
+        cerrar.setFont(Font.font("Arial Black", 20));
+        cerrar.setTextFill(Color.AQUA);
+        Form_Barra_De_Titulo btitulonProduc = new Form_Barra_De_Titulo(titulo, cerrar);
+        producBuscar.setTop(btitulonProduc.getBarra());
+        Form_BuscarProducto prodB = new Form_BuscarProducto();
+        producBuscar.setCenter(prodB.getPnlFinal());
+        Form_SubVentana bProducto = new Form_SubVentana();
+        bProducto.setRoot(producBuscar);
+        bProducto.makeDragable(btitulonProduc.getBarra());
+        bProducto.makeDragable(titulo);
+        bProducto.makeResizable(20);
+        bProducto.makeFocusable();
+        bProducto.setCloseButton(cerrar);
+        return bProducto;
     }
 
     public Form_SubVentana lstProductoEventHandler(ActionEvent event) {
@@ -467,7 +507,7 @@ public class Form_Menu_Principal extends Application {
         nCliente.setCloseButton(cerrar);
         return nCliente;
     }
-
+    
     public Form_SubVentana eClienteEventHandler(ActionEvent event) {
         BorderPane clienteEliminar = new BorderPane();
         Label titulo = new Label("Eliminar CLiente");
@@ -532,6 +572,28 @@ public class Form_Menu_Principal extends Application {
         nCategoria.makeFocusable();
         nCategoria.setCloseButton(cerrar);
         return nCategoria;
+    }
+    
+    public Form_SubVentana bCategoriaEventHandler(ActionEvent event) {
+        BorderPane buscaCategoria = new BorderPane();
+        Label titulo = new Label("Nueva Categoria");
+        titulo.setFont(Font.font("News701 BT", 25));
+        titulo.setTextFill(Color.AQUA);
+        Button cerrar = new Button("X");
+        cerrar.setFont(Font.font("Arial Black", 20));
+        cerrar.setTextFill(Color.AQUA);
+        Form_Barra_De_Titulo btitulonCateg = new Form_Barra_De_Titulo(titulo, cerrar);
+        buscaCategoria.setTop(btitulonCateg.getBarra());
+        Form_BuscarCategoria cetegB = new Form_BuscarCategoria();
+        buscaCategoria.setCenter(cetegB.getPnlFinal());
+        Form_SubVentana bCategoria = new Form_SubVentana();
+        bCategoria.setRoot(buscaCategoria);
+        bCategoria.makeDragable(btitulonCateg.getBarra());
+        bCategoria.makeDragable(titulo);
+        bCategoria.makeResizable(20);
+        bCategoria.makeFocusable();
+        bCategoria.setCloseButton(cerrar);
+        return bCategoria;
     }
 
     public Form_SubVentana lstCategoriaEventHandler(ActionEvent event) {
