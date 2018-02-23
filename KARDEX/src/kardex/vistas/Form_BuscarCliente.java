@@ -173,7 +173,7 @@ public class Form_BuscarCliente {
         pnlFinal.setPadding(new Insets(15));
     }
 
-    public VBox getPnlFinal() {
+    public Node getPnlFinal() {
         return pnlFinal;
     }
 

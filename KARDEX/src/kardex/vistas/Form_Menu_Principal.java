@@ -145,6 +145,16 @@ public class Form_Menu_Principal extends Application {
             }
         });
         infCliente = new MenuItem("Informacion de un Cliente");
+        infCliente.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Pane bCliente = new Pane();
+                bCliente.getChildren().add(bClienteEventHandler(event));
+                bCliente.setPadding(new Insets(10));
+                interior.getChildren().add(bCliente);
+                
+            }
+        });
         listCliente = new MenuItem("Listado de Clientes");
         listCliente.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -506,6 +516,28 @@ public class Form_Menu_Principal extends Application {
         nCliente.makeFocusable();
         nCliente.setCloseButton(cerrar);
         return nCliente;
+    }
+    
+    public Form_SubVentana bClienteEventHandler(ActionEvent event) {
+        BorderPane clienteBuscar = new BorderPane();
+        Label titulo = new Label("Nueva CLiente");
+        titulo.setFont(Font.font("News701 BT", 25));
+        titulo.setTextFill(Color.AQUA);
+        Button cerrar = new Button("X");
+        cerrar.setFont(Font.font("Arial Black", 20));
+        cerrar.setTextFill(Color.AQUA);
+        Form_Barra_De_Titulo btitulonCliente = new Form_Barra_De_Titulo(titulo, cerrar);
+        clienteBuscar.setTop(btitulonCliente.getBarra());
+        Form_BuscarCliente clientB = new Form_BuscarCliente();
+        clienteBuscar.setCenter(clientB.getPnlFinal());
+        Form_SubVentana bCliente = new Form_SubVentana();
+        bCliente.setRoot(clienteBuscar);
+        bCliente.makeDragable(btitulonCliente.getBarra());
+        bCliente.makeDragable(titulo);
+        bCliente.makeResizable(20);
+        bCliente.makeFocusable();
+        bCliente.setCloseButton(cerrar);
+        return bCliente;
     }
     
     public Form_SubVentana eClienteEventHandler(ActionEvent event) {
