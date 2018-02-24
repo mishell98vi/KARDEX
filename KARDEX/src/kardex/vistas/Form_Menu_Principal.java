@@ -207,6 +207,15 @@ public class Form_Menu_Principal extends Application {
             }
         });
         infProveedor = new MenuItem("Informacion de un Proveedor");
+        infProveedor.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Pane busProveedores = new Pane();
+                busProveedores.getChildren().add(bProveedorEventHandler(event));
+                busProveedores.setPadding(new Insets(10));
+                interior.getChildren().add(busProveedores);
+            }
+        });
         listProveedor = new MenuItem("Listado Proveedor");
         listProveedor.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -472,6 +481,31 @@ public class Form_Menu_Principal extends Application {
         nProveedor.makeFocusable();
         nProveedor.setCloseButton(cerrar);
         return nProveedor;
+    }
+    
+    public Form_SubVentana bProveedorEventHandler(ActionEvent event){
+        BorderPane proveedorInfo = new BorderPane();
+        Label titulo = new Label("Informacion de Proveedor");
+        titulo.setFont(Font.font("News701 BT", 25));
+        titulo.setTextFill(Color.BLACK);
+        Button cerrar = new Button("X");
+        cerrar.setFont(Font.font("Arial Black", 20));
+        cerrar.setTextFill(Color.BLACK);
+        //obejto de barra de titulo
+        Form_Barra_De_Titulo btituloProve = new Form_Barra_De_Titulo(titulo, cerrar);
+        proveedorInfo.setTop(btituloProve.getBarra());
+        //creo un objeto de tipo nuevo proveedor
+        Form_BuscarProveedor proveB = new Form_BuscarProveedor();
+        proveedorInfo.setCenter(proveB.getPnlFinal());//agrego en la parte central el nuevo proveedor
+
+        Form_SubVentana bProveedor = new Form_SubVentana();
+        bProveedor.setRoot(proveedorInfo);
+        bProveedor.makeDragable(btituloProve.getBarra());
+        bProveedor.makeDragable(titulo);
+        bProveedor.makeResizable(20);
+        bProveedor.makeFocusable();
+        bProveedor.setCloseButton(cerrar);
+        return bProveedor;
     }
 
     public Form_SubVentana lstProveedorEventHandler(ActionEvent event) {
