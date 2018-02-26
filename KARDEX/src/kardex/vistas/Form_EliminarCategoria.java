@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package kardex.vistas;
 import javafx.application.*;
 import javafx.event.*;
@@ -47,9 +43,6 @@ public class Form_EliminarCategoria {
     private VBox pnlInt;
     private HBox pnlBotones;
     private VBox pnlFinal;
-
-    
-  
     private Categoria categ;        
     public Form_EliminarCategoria() {
         //superior
@@ -119,9 +112,8 @@ public class Form_EliminarCategoria {
                bLimpiarEventHandler(event);
            }
        });
-        
         pnlBotones = new HBox(25);
-        pnlBotones.getChildren().addAll(btnEliminar,btnBuscar, btnLimpiar);
+        pnlBotones.getChildren().addAll(btnBuscar,btnEliminar, btnLimpiar);
         pnlBotones.setAlignment(Pos.CENTER);
         pnlFinal = new VBox(10);
         Image fondoFinal=new Image("file:src\\kardex\\multimedia\\images\\FONDOO.jpg");
@@ -134,7 +126,6 @@ public class Form_EliminarCategoria {
 
     public void bEliminarEventHandler(ActionEvent event) {
         CategoriaI categDao = new CategoriaImp();
-       
         try {
             Alert confirmacion= new Alert(Alert.AlertType.CONFIRMATION);
             confirmacion.setTitle("Informacion del sistema");
@@ -187,9 +178,6 @@ public class Form_EliminarCategoria {
         
     }
     
-    
- 
-
     public VBox getPnlFinal() {
         return pnlFinal;
     }

@@ -33,7 +33,7 @@ public class ProductoImp implements ProductoI{
 @Override
     public int eliminar(Producto producto) throws Exception {
         int filasAfectadas = 0;
-        String sqlC = "DELETE FROM DetalleCompra WHERE codigoDetalleCompra=?";
+        String sqlC = "DELETE FROM Producto WHERE codigoProducto=?";
         ArrayList<Parametro> listParam = new ArrayList<>();
         listParam.add(new Parametro(1, producto.getCodigoProducto()));
         Conexion conect = null;

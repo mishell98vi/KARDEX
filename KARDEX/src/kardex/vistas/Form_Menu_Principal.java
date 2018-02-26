@@ -34,10 +34,8 @@ public class Form_Menu_Principal extends Application {
     Menu proveedor;
     Menu producto;
     Menu categoria;
-    Menu detalle_compra;
-    Menu detalle_venta;
-    Menu FacturaVenta;
-    Menu facturaCompra;
+    Menu venta;
+    Menu compra;
     Menu kardex;
     //inicio
     MenuItem login;
@@ -82,37 +80,39 @@ public class Form_Menu_Principal extends Application {
     MenuItem listDetalle_venta;
 
     //FacturaVenta
-    MenuItem newFacVenta;
-    MenuItem modFacVenta;
-    MenuItem delFacVenta;
-    MenuItem infFacVenta;
-    MenuItem listFacVenta;
+    MenuItem newVenta;
+    MenuItem delVenta;
+    MenuItem listVenta;
     //facturCompra
-    MenuItem newFacCompra;
-    MenuItem modFacCompra;
-    MenuItem delFacCompra;
-    MenuItem infFacCompra;
-    MenuItem listFacCompra;
+    MenuItem newCompra;
+    MenuItem delCompra;
+    MenuItem listCompra;
     //kardex
     MenuItem kardexMensual;
-    MenuItem kardexAnual;
+    MenuItem listakardex;
     private BorderPane escritorio;
     private Pane interior;
 
     @Override
     public void start(Stage primaryStage) {
+        
+            
+        
         interior = new Pane();
         interior.setMaxSize(1270, 710);
         Background fondoImagen = new Background(new BackgroundImage(new Image("file:src\\kardex\\multimedia\\images\\micasa.png"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(500, 500, false, true, true, false)));
         interior.setBackground(fondoImagen);
         visorFondo = new ImageView(fondo);
         visorFondo.setPreserveRatio(true);
-
         menuPrincipal = new MenuBar();
-        //Menu Inicio
+        
+//********************************//
+//INICIO
         inicio = new Menu("Inicio");
         inicio.setStyle(STYLESHEET_CASPIAN);
+        //LOGIN
         login = new MenuItem("Iniciar Sesion");
+        //SALIR
         Salir = new MenuItem("Salir");
         Salir.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -120,9 +120,39 @@ public class Form_Menu_Principal extends Application {
                 mnSalirEventHandler(event);
             }
         });
+        
+//INICIO
         inicio.getItems().addAll(login, Salir);
-        //Menu Inicio
+//********************************//
+//VENTAS
+venta = new Menu("Ventas");
+        //NUEVA VENTA
+        newVenta = new MenuItem("Nueva Venta");
+        newVenta.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Pane nFacVenta = new Pane();
+                nFacVenta.getChildren().add(nFactVentaEventHandler(event));
+                nFacVenta.setPadding(new Insets(10));
+                interior.getChildren().add(nFacVenta);
+            }
+        });
+        //ELIMINAR VENTA
+        //LISTA DE VENTAS
+//VENTAS
+        venta.getItems().addAll(newVenta);
+//********************************//
+//COMPRAS
+compra = new Menu("Compras");
+        //NUEVA COMPRA
+        //ELIMIAR COMPRA
+        //LISTA DE COMRAS
+//COMPRAS
+//********************************//
+//CLIENTE
+
         cliente = new Menu("Clientes");
+        //NUEVO CLIENTE
         newCliente = new MenuItem("Nuevo Cliente");
         newCliente.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -133,7 +163,18 @@ public class Form_Menu_Principal extends Application {
                 interior.getChildren().add(nCliente);
             }
         });
+        //EDITAR CLIENTE
         modCliente = new MenuItem("Modificar Cliente");
+        modCliente.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Pane mCliente = new Pane();
+                mCliente.getChildren().add(mClienteEventHandler(event));
+                mCliente.setPadding(new Insets(10));
+                interior.getChildren().add(mCliente);
+            }
+        });
+        //ELIMINAR CLIENTE
         delCliente = new MenuItem("Eliminar Cliente");
         delCliente.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -144,6 +185,7 @@ public class Form_Menu_Principal extends Application {
                 interior.getChildren().add(eCliente);
             }
         });
+        //INFORMACION DE UN CLIENTE
         infCliente = new MenuItem("Informacion de un Cliente");
         infCliente.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -152,9 +194,9 @@ public class Form_Menu_Principal extends Application {
                 bCliente.getChildren().add(bClienteEventHandler(event));
                 bCliente.setPadding(new Insets(10));
                 interior.getChildren().add(bCliente);
-                
             }
         });
+        //LISTADO DE CLIENTES
         listCliente = new MenuItem("Listado de Clientes");
         listCliente.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -165,26 +207,13 @@ public class Form_Menu_Principal extends Application {
                 interior.getChildren().add(lstClientes);
             }
         });
+        
+//CLIENTE
         cliente.getItems().addAll(newCliente, modCliente, delCliente, new SeparatorMenuItem(), infCliente, listCliente);
-        //Menu Factura Venta
-        FacturaVenta = new Menu("Factura Ventas");
-        newFacVenta = new MenuItem("Nueva Venta");
-        newFacVenta.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Pane nFacVenta = new Pane();
-                nFacVenta.getChildren().add(nFactVentaEventHandler(event));
-                nFacVenta.setPadding(new Insets(10));
-                interior.getChildren().add(nFacVenta);
-            }
-        });
-        modFacVenta = new MenuItem("Modificar Venta");
-        delFacVenta = new MenuItem("Eliminar Venta");
-        infFacVenta = new MenuItem("Informacion de una Venta");
-        listFacVenta = new MenuItem("Listado de Venta");
-        FacturaVenta.getItems().addAll(newFacVenta, modFacVenta, delFacVenta, new SeparatorMenuItem(), infFacVenta, listFacVenta);
-        //Menu Proveedor
+//********************************//        
+//PROVEEDOR
         proveedor = new Menu("Proveedores");
+        //NUEVO PROVEEDOR
         newProveedor = new MenuItem("Nuevo Proveedor");
         newProveedor.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -195,7 +224,18 @@ public class Form_Menu_Principal extends Application {
                 interior.getChildren().add(nProveedor);
             }
         });
+        //EDITAR PROVEEDOR
         modProveedor = new MenuItem("Modificar Proveedor");
+        modProveedor.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Pane eliProveedores = new Pane();
+                eliProveedores.getChildren().add(mProveedorEventHandler(event));
+                eliProveedores.setPadding(new Insets(10));
+                interior.getChildren().add(eliProveedores);
+            }
+        });
+        //ELIMINAR PROVEEDOR
         delProveedor = new MenuItem("Eliminar Proveedor");
         delProveedor.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -206,6 +246,8 @@ public class Form_Menu_Principal extends Application {
                 interior.getChildren().add(eliProveedores);
             }
         });
+        
+        //INFORMACION DE UN PROVEEDOR
         infProveedor = new MenuItem("Informacion de un Proveedor");
         infProveedor.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -216,6 +258,7 @@ public class Form_Menu_Principal extends Application {
                 interior.getChildren().add(busProveedores);
             }
         });
+        //LISTADO DE PROVEEDOR
         listProveedor = new MenuItem("Listado Proveedor");
         listProveedor.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -226,9 +269,12 @@ public class Form_Menu_Principal extends Application {
                 interior.getChildren().add(lstProveedores);
             }
         });
+//PROVEEDOR   
         proveedor.getItems().addAll(newProveedor, modProveedor, delProveedor, new SeparatorMenuItem(), infProveedor, listProveedor);
-        //Menu Producto
+//********************************//        
+//PRODUCTO
         producto = new Menu("Producto");
+        //NUEVO PRODUCTO
         newProducto = new MenuItem("Nuevo Producto");
         newProducto.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -239,9 +285,20 @@ public class Form_Menu_Principal extends Application {
                 interior.getChildren().add(nProducto);
             }
         });
+        //EDITAR PRODUCTO
         modProducto = new MenuItem("Modificar Producto");
+        //ELIMINAR PRODUCTO
         delProducto = new MenuItem("Eliminar Producto");
-
+        delProducto.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Pane eProducto = new Pane();
+                eProducto.getChildren().add(eProductoEventHandler(event));
+                eProducto.setPadding(new Insets(10));
+                interior.getChildren().add(eProducto);
+            }
+        });
+        //INFORMACION DE UN PRODUCTO
         infProducto = new MenuItem("Informacion de un Producto");
         infProducto.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -252,6 +309,8 @@ public class Form_Menu_Principal extends Application {
                 interior.getChildren().add(bProducto);
             }
         });
+        
+        //LISTADO DE PRODUCTO
         listProducto = new MenuItem("Listado Producto");
         listProducto.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -262,9 +321,12 @@ public class Form_Menu_Principal extends Application {
                 interior.getChildren().add(lstProductos);
             }
         });
+//PRODUCTO
         producto.getItems().addAll(newProducto, modProducto, delProducto, new SeparatorMenuItem(), infProducto, listProducto);
-        //Menu Categoria
+//********************************//        
+//CATEGORIA
         categoria = new Menu("Categoria");
+        //NUEVO CATEGORIA
         newCategoria = new MenuItem("Nueva Categoria");
         newCategoria.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -275,18 +337,21 @@ public class Form_Menu_Principal extends Application {
                 interior.getChildren().add(nCategoria);
             }
         });
+        //EDITAR CATEGORIA
         modCategoria = new MenuItem("Modificar Categoria");
+        //ELIMINAR CATEGORIA
         delCategoria = new MenuItem("Eliminar Categoria");
         delCategoria.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 Pane elimCateg = new Pane();
-                elimCateg.getChildren().add(lstCategoriaEventHandler(event));
+                elimCateg.getChildren().add(eCategoriaEventHandler(event));
                 elimCateg.setPadding(new Insets(10));
                 interior.getChildren().add(elimCateg);
 
             }
         });
+        //INFORMACION DE UN CATEGORIA
         infCategoria = new MenuItem("Informacion de una Categoria");
         infCategoria.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -297,6 +362,8 @@ public class Form_Menu_Principal extends Application {
                 interior.getChildren().add(buscaCateg);
             }
         });
+        
+        //LISTADO DE CATEGORIA
         listCategoria = new MenuItem("Listado Categoria");
         listCategoria.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -307,24 +374,24 @@ public class Form_Menu_Principal extends Application {
                 interior.getChildren().add(lstCateg);
             }
         });
+//CATEGORIA
         categoria.getItems().addAll(newCategoria, modCategoria, delCategoria, new SeparatorMenuItem(), infCategoria, listCategoria);
-
-        //Menu Inicio
-        facturaCompra = new Menu("Factura Compras");
-        newFacCompra = new MenuItem("Nuevas Compas");
-        modFacCompra = new MenuItem("Modificar Compra");
-        delFacCompra = new MenuItem("Eliminar Compra");
-        infFacCompra = new MenuItem("Informacion de una Compra");
-        listFacCompra = new MenuItem("Listado de Compras");
-        facturaCompra.getItems().addAll(newFacCompra, modFacCompra, delFacCompra, new SeparatorMenuItem(), infFacCompra, listFacCompra);
-        //Menu Inicio
+//********************************//        
+//KARDEX
         kardex = new Menu("Kardex");
+        //KARDEX MENSUAL
         kardexMensual = new MenuItem("Kardex Mensual");
-        kardexAnual = new MenuItem("Kardex Anual");
-        kardex.getItems().addAll(kardexMensual, kardexAnual);
-
-        menuPrincipal.getMenus().addAll(inicio, cliente, proveedor, producto, categoria, FacturaVenta, facturaCompra, kardex);
-
+        //LISTADO DE KARDEX
+        listakardex = new MenuItem("Listado de kardex");
+//KARDEX
+        kardex.getItems().addAll(kardexMensual, listakardex);
+//********************************//        
+//CONSULTAS
+        //LOS 3 PRODUCTOS MAS VENDIDOS
+        //LOS 3 PROVEEDORES CON MAS COMPRAS
+        //EL MEJOR CLIENTE
+        //LOS PRODUCTOS CON SU STOCK
+        menuPrincipal.getMenus().addAll(inicio,venta,compra, cliente, proveedor, producto, categoria, kardex);
         escritorio = new BorderPane();
         escritorio.setTop(menuPrincipal);
         escritorio.setCenter(interior);
@@ -344,75 +411,14 @@ public class Form_Menu_Principal extends Application {
         launch(args);
     }
 
-    public void mnSalirEventHandler(ActionEvent event) {
+//INICIO
+    //LOGIN
+    //SALIR
+    private void mnSalirEventHandler(ActionEvent event) {
         System.exit(0);
     }
-
-    public Form_SubVentana nProductoEventHandler(ActionEvent event) {
-        BorderPane producNuevo = new BorderPane();
-        Label titulo = new Label("Nuevo Producto");
-        titulo.setFont(Font.font("News701 BT", 25));
-        titulo.setTextFill(Color.AQUA);
-        Button cerrar = new Button("X");
-        cerrar.setFont(Font.font("Arial Black", 20));
-        cerrar.setTextFill(Color.AQUA);
-        Form_Barra_De_Titulo btitulonProduc = new Form_Barra_De_Titulo(titulo, cerrar);
-        producNuevo.setTop(btitulonProduc.getBarra());
-        Form_Nuevo_Producto prodN = new Form_Nuevo_Producto();
-        producNuevo.setCenter(prodN.getPnlFinal());
-        Form_SubVentana nProducto = new Form_SubVentana();
-        nProducto.setRoot(producNuevo);
-        nProducto.makeDragable(btitulonProduc.getBarra());
-        nProducto.makeDragable(titulo);
-        nProducto.makeResizable(20);
-        nProducto.makeFocusable();
-        nProducto.setCloseButton(cerrar);
-        return nProducto;
-    }
-    
-    public Form_SubVentana bProductoEventHandler(ActionEvent event) {
-        BorderPane producBuscar = new BorderPane();
-        Label titulo = new Label("Nuevo Producto");
-        titulo.setFont(Font.font("News701 BT", 25));
-        titulo.setTextFill(Color.AQUA);
-        Button cerrar = new Button("X");
-        cerrar.setFont(Font.font("Arial Black", 20));
-        cerrar.setTextFill(Color.AQUA);
-        Form_Barra_De_Titulo btitulonProduc = new Form_Barra_De_Titulo(titulo, cerrar);
-        producBuscar.setTop(btitulonProduc.getBarra());
-        Form_BuscarProducto prodB = new Form_BuscarProducto();
-        producBuscar.setCenter(prodB.getPnlFinal());
-        Form_SubVentana bProducto = new Form_SubVentana();
-        bProducto.setRoot(producBuscar);
-        bProducto.makeDragable(btitulonProduc.getBarra());
-        bProducto.makeDragable(titulo);
-        bProducto.makeResizable(20);
-        bProducto.makeFocusable();
-        bProducto.setCloseButton(cerrar);
-        return bProducto;
-    }
-
-    public Form_SubVentana lstProductoEventHandler(ActionEvent event) {
-        BorderPane listProd = new BorderPane();
-        Label titulo = new Label("Listado de Productos");
-        titulo.setFont(Font.font("News701 BT", 25));
-        titulo.setTextFill(Color.AQUA);
-        Button cerrar = new Button("X");
-        cerrar.setFont(Font.font("Arial Black", 20));
-        cerrar.setTextFill(Color.AQUA);
-        Form_Barra_De_Titulo btitulonProduc = new Form_Barra_De_Titulo(titulo, cerrar);
-        listProd.setTop(btitulonProduc.getBarra());
-        Form_Listado_Producto lstProds = new Form_Listado_Producto();
-        listProd.setCenter(lstProds.getPnlFinal());
-        Form_SubVentana listaProductos = new Form_SubVentana();
-        listaProductos.setRoot(listProd);
-        listaProductos.makeDragable(btitulonProduc.getBarra());
-        listaProductos.makeDragable(titulo);
-        listaProductos.makeResizable(20);
-        listaProductos.makeFocusable();
-        listaProductos.setCloseButton(cerrar);
-        return listaProductos;
-    }
+//VENTAS
+    //NUEVA VENTA
 
     public Form_SubVentana nFactVentaEventHandler(ActionEvent event) {
         BorderPane FactVentaNuevo = new BorderPane();
@@ -422,13 +428,13 @@ public class Form_Menu_Principal extends Application {
         Button cerrar = new Button("X");
         cerrar.setFont(Font.font("Arial Black", 20));
         cerrar.setTextFill(Color.AQUA);
-        Form_Barra_De_Titulo btitulonFV = new Form_Barra_De_Titulo(titulo, cerrar);
-        FactVentaNuevo.setTop(btitulonFV.getBarra());
+        Form_Barra_De_Titulo bTitulo = new Form_Barra_De_Titulo(titulo, cerrar);
+        FactVentaNuevo.setTop(bTitulo.getBarra());
         Form_Nueva_FacturaVenta FactVentN = new Form_Nueva_FacturaVenta();
         FactVentaNuevo.setCenter(FactVentN.getPnlFinal());
         Form_SubVentana nFactVenta = new Form_SubVentana();
         nFactVenta.setRoot(FactVentaNuevo);
-        nFactVenta.makeDragable(btitulonFV.getBarra());
+        nFactVenta.makeDragable(bTitulo.getBarra());
         nFactVenta.makeDragable(titulo);
         nFactVenta.makeResizable(20);
         nFactVenta.makeFocusable();
@@ -436,28 +442,130 @@ public class Form_Menu_Principal extends Application {
         return nFactVenta;
     }
 
-    public Form_SubVentana lstFactVentaEventHandler(ActionEvent event) {
-        BorderPane listFacV = new BorderPane();
-        Label titulo = new Label("Nuevo Factura Venta");
+    //ELIMINAR VENTA
+    //LISTA DE VENTAS
+//COMPRAS
+    //NUEVA COMPRA
+    //ELIMIAR COMPRA
+    //LISTA DE COMRAS
+//CLIENTE
+    //NUEVO CLIENTE
+    public Form_SubVentana nClienteEventHandler(ActionEvent event) {
+        BorderPane clienteNuevo = new BorderPane();
+        Label titulo = new Label("Nuevo CLiente");
         titulo.setFont(Font.font("News701 BT", 25));
         titulo.setTextFill(Color.AQUA);
         Button cerrar = new Button("X");
         cerrar.setFont(Font.font("Arial Black", 20));
         cerrar.setTextFill(Color.AQUA);
-        Form_Barra_De_Titulo btitulonFV = new Form_Barra_De_Titulo(titulo, cerrar);
-        listFacV.setTop(btitulonFV.getBarra());
-        Form_Listado_FacturaVenta lstFaV = new Form_Listado_FacturaVenta();
-        listFacV.setCenter(lstFaV.getPnlFinal());
-        Form_SubVentana FacVList = new Form_SubVentana();
-        FacVList.setRoot(listFacV);
-        FacVList.makeDragable(btitulonFV.getBarra());
-        FacVList.makeDragable(titulo);
-        FacVList.makeResizable(20);
-        FacVList.makeFocusable();
-        FacVList.setCloseButton(cerrar);
-        return FacVList;
+        Form_Barra_De_Titulo bTitulo = new Form_Barra_De_Titulo(titulo, cerrar);
+        clienteNuevo.setTop(bTitulo.getBarra());
+        Form_Nuevo_Cliente cliente = new Form_Nuevo_Cliente();
+        clienteNuevo.setCenter(cliente.getPnlFinal());
+        Form_SubVentana subCliente = new Form_SubVentana();
+        subCliente.setRoot(clienteNuevo);
+        subCliente.makeDragable(bTitulo.getBarra());
+        subCliente.makeDragable(titulo);
+        subCliente.makeResizable(20);
+        subCliente.makeFocusable();
+        subCliente.setCloseButton(cerrar);
+        return subCliente;
     }
 
+    //EDITAR CLIENTE
+    public Form_SubVentana mClienteEventHandler(ActionEvent event) {
+        BorderPane clienteEliminar = new BorderPane();
+        Label titulo = new Label("Editar Informacion de un CLiente");
+        titulo.setFont(Font.font("News701 BT", 25));
+        titulo.setTextFill(Color.AQUA);
+        Button cerrar = new Button("X");
+        cerrar.setFont(Font.font("Arial Black", 20));
+        cerrar.setTextFill(Color.AQUA);
+        Form_Barra_De_Titulo bTitulo = new Form_Barra_De_Titulo(titulo, cerrar);
+        clienteEliminar.setTop(bTitulo.getBarra());
+        Form_EditarCliente cliente = new Form_EditarCliente();
+        clienteEliminar.setCenter(cliente.getPnlFinal());
+        Form_SubVentana subCliente = new Form_SubVentana();
+        subCliente.setRoot(clienteEliminar);
+        subCliente.makeDragable(bTitulo.getBarra());
+        subCliente.makeDragable(titulo);
+        subCliente.makeResizable(20);
+        subCliente.makeFocusable();
+        subCliente.setCloseButton(cerrar);
+        return subCliente;
+    }
+
+    //ELIMINAR CLIENTE
+    public Form_SubVentana eClienteEventHandler(ActionEvent event) {
+        BorderPane clienteEliminar = new BorderPane();
+        Label titulo = new Label("Eliminar CLiente");
+        titulo.setFont(Font.font("News701 BT", 25));
+        titulo.setTextFill(Color.AQUA);
+        Button cerrar = new Button("X");
+        cerrar.setFont(Font.font("Arial Black", 20));
+        cerrar.setTextFill(Color.AQUA);
+        Form_Barra_De_Titulo bTitulo = new Form_Barra_De_Titulo(titulo, cerrar);
+        clienteEliminar.setTop(bTitulo.getBarra());
+        Form_EliminarCliente cliente = new Form_EliminarCliente();
+        clienteEliminar.setCenter(cliente.getPnlFinal());
+        Form_SubVentana subCliente = new Form_SubVentana();
+        subCliente.setRoot(clienteEliminar);
+        subCliente.makeDragable(bTitulo.getBarra());
+        subCliente.makeDragable(titulo);
+        subCliente.makeResizable(20);
+        subCliente.makeFocusable();
+        subCliente.setCloseButton(cerrar);
+        return subCliente;
+    }
+
+    //INFORMACION DE UN CLIENTE
+    public Form_SubVentana bClienteEventHandler(ActionEvent event) {
+        BorderPane clienteBuscar = new BorderPane();
+        Label titulo = new Label("Informacion de un CLiente");
+        titulo.setFont(Font.font("News701 BT", 25));
+        titulo.setTextFill(Color.AQUA);
+        Button cerrar = new Button("X");
+        cerrar.setFont(Font.font("Arial Black", 20));
+        cerrar.setTextFill(Color.AQUA);
+        Form_Barra_De_Titulo bTitulo = new Form_Barra_De_Titulo(titulo, cerrar);
+        clienteBuscar.setTop(bTitulo.getBarra());
+        Form_BuscarCliente cliente = new Form_BuscarCliente();
+        clienteBuscar.setCenter(cliente.getPnlFinal());
+        Form_SubVentana subCliente = new Form_SubVentana();
+        subCliente.setRoot(clienteBuscar);
+        subCliente.makeDragable(bTitulo.getBarra());
+        subCliente.makeDragable(titulo);
+        subCliente.makeResizable(20);
+        subCliente.makeFocusable();
+        subCliente.setCloseButton(cerrar);
+        return subCliente;
+    }
+
+    //LISTADO DE CLIENTES
+    public Form_SubVentana lstClienteEventHandler(ActionEvent event) {
+        BorderPane listClientes = new BorderPane();
+        Label titulo = new Label("Listado de CLientes");
+        titulo.setFont(Font.font("News701 BT", 25));
+        titulo.setTextFill(Color.AQUA);
+        Button cerrar = new Button("X");
+        cerrar.setFont(Font.font("Arial Black", 20));
+        cerrar.setTextFill(Color.AQUA);
+        Form_Barra_De_Titulo bTitulo = new Form_Barra_De_Titulo(titulo, cerrar);
+        listClientes.setTop(bTitulo.getBarra());
+        Form_Listado_Cliente cliente = new Form_Listado_Cliente();
+        listClientes.setCenter(cliente.getPnlFinal());
+        Form_SubVentana subCliente = new Form_SubVentana();
+        subCliente.setRoot(listClientes);
+        subCliente.makeDragable(bTitulo.getBarra());
+        subCliente.makeDragable(titulo);
+        subCliente.makeResizable(20);
+        subCliente.makeFocusable();
+        subCliente.setCloseButton(cerrar);
+        return subCliente;
+    }
+//PROVEEDOR
+
+    //NUEVO PROVEEDOR
     public Form_SubVentana nProveedorEventHandler(ActionEvent event) {
         BorderPane proveedorNuevo = new BorderPane();
         Label titulo = new Label("Nuevo Proveedor");
@@ -467,23 +575,68 @@ public class Form_Menu_Principal extends Application {
         cerrar.setFont(Font.font("Arial Black", 20));
         cerrar.setTextFill(Color.BLACK);
         //obejto de barra de titulo
-        Form_Barra_De_Titulo btitulonProve = new Form_Barra_De_Titulo(titulo, cerrar);
-        proveedorNuevo.setTop(btitulonProve.getBarra());
+        Form_Barra_De_Titulo bTitulo = new Form_Barra_De_Titulo(titulo, cerrar);
+        proveedorNuevo.setTop(bTitulo.getBarra());
         //creo un objeto de tipo nuevo proveedor
-        Form_Nuevo_Proveedor proveN = new Form_Nuevo_Proveedor();
-        proveedorNuevo.setCenter(proveN.getPnlFinal());//agrego en la parte central el nuevo proveedor
-
-        Form_SubVentana nProveedor = new Form_SubVentana();
-        nProveedor.setRoot(proveedorNuevo);
-        nProveedor.makeDragable(btitulonProve.getBarra());
-        nProveedor.makeDragable(titulo);
-        nProveedor.makeResizable(20);
-        nProveedor.makeFocusable();
-        nProveedor.setCloseButton(cerrar);
-        return nProveedor;
+        Form_Nuevo_Proveedor proveedor = new Form_Nuevo_Proveedor();
+        proveedorNuevo.setCenter(proveedor.getPnlFinal());//agrego en la parte central el nuevo proveedor
+        Form_SubVentana subProveedor = new Form_SubVentana();
+        subProveedor.setRoot(proveedorNuevo);
+        subProveedor.makeDragable(bTitulo.getBarra());
+        subProveedor.makeDragable(titulo);
+        subProveedor.makeResizable(20);
+        subProveedor.makeFocusable();
+        subProveedor.setCloseButton(cerrar);
+        return subProveedor;
     }
-    
-    public Form_SubVentana bProveedorEventHandler(ActionEvent event){
+
+    //EDITAR PROVEEDOR
+    public Form_SubVentana mProveedorEventHandler(ActionEvent event) {
+        BorderPane eProveedor = new BorderPane();
+        Label titulo = new Label("Eliminar un Proveedor");
+        titulo.setFont(Font.font("News701 BT", 25));
+        titulo.setTextFill(Color.AQUA);
+        Button cerrar = new Button("X");
+        cerrar.setFont(Font.font("Arial Black", 20));
+        cerrar.setTextFill(Color.AQUA);
+        Form_Barra_De_Titulo bTitulo = new Form_Barra_De_Titulo(titulo, cerrar);
+        eProveedor.setTop(bTitulo.getBarra());
+        Form_EditarProveedor proveedor = new Form_EditarProveedor();
+        eProveedor.setCenter(proveedor.getPnlFinal());
+        Form_SubVentana subProveedor = new Form_SubVentana();
+        subProveedor.setRoot(eProveedor);
+        subProveedor.makeDragable(bTitulo.getBarra());
+        subProveedor.makeDragable(titulo);
+        subProveedor.makeResizable(20);
+        subProveedor.makeFocusable();
+        subProveedor.setCloseButton(cerrar);
+        return subProveedor;
+    }
+    //ELIMINAR PROVEEDOR
+    public Form_SubVentana eProveedorEventHandler(ActionEvent event) {
+        BorderPane eProveedor = new BorderPane();
+        Label titulo = new Label("Eliminar un Proveedor");
+        titulo.setFont(Font.font("News701 BT", 25));
+        titulo.setTextFill(Color.AQUA);
+        Button cerrar = new Button("X");
+        cerrar.setFont(Font.font("Arial Black", 20));
+        cerrar.setTextFill(Color.AQUA);
+        Form_Barra_De_Titulo bTitulo = new Form_Barra_De_Titulo(titulo, cerrar);
+        eProveedor.setTop(bTitulo.getBarra());
+        Form_EliminarProveedor proveedor = new Form_EliminarProveedor();
+        eProveedor.setCenter(proveedor.getPnlFinal());
+        Form_SubVentana subProveedor = new Form_SubVentana();
+        subProveedor.setRoot(eProveedor);
+        subProveedor.makeDragable(bTitulo.getBarra());
+        subProveedor.makeDragable(titulo);
+        subProveedor.makeResizable(20);
+        subProveedor.makeFocusable();
+        subProveedor.setCloseButton(cerrar);
+        return subProveedor;
+    }
+
+    //INFORMACION DE UN PROVEEDOR
+    public Form_SubVentana bProveedorEventHandler(ActionEvent event) {
         BorderPane proveedorInfo = new BorderPane();
         Label titulo = new Label("Informacion de Proveedor");
         titulo.setFont(Font.font("News701 BT", 25));
@@ -492,132 +645,140 @@ public class Form_Menu_Principal extends Application {
         cerrar.setFont(Font.font("Arial Black", 20));
         cerrar.setTextFill(Color.BLACK);
         //obejto de barra de titulo
-        Form_Barra_De_Titulo btituloProve = new Form_Barra_De_Titulo(titulo, cerrar);
-        proveedorInfo.setTop(btituloProve.getBarra());
+        Form_Barra_De_Titulo bTitulo = new Form_Barra_De_Titulo(titulo, cerrar);
+        proveedorInfo.setTop(bTitulo.getBarra());
         //creo un objeto de tipo nuevo proveedor
-        Form_BuscarProveedor proveB = new Form_BuscarProveedor();
-        proveedorInfo.setCenter(proveB.getPnlFinal());//agrego en la parte central el nuevo proveedor
-
-        Form_SubVentana bProveedor = new Form_SubVentana();
-        bProveedor.setRoot(proveedorInfo);
-        bProveedor.makeDragable(btituloProve.getBarra());
-        bProveedor.makeDragable(titulo);
-        bProveedor.makeResizable(20);
-        bProveedor.makeFocusable();
-        bProveedor.setCloseButton(cerrar);
-        return bProveedor;
+        Form_BuscarProveedor proveedor = new Form_BuscarProveedor();
+        proveedorInfo.setCenter(proveedor.getPnlFinal());//agrego en la parte central el nuevo proveedor
+        Form_SubVentana subProveedor = new Form_SubVentana();
+        subProveedor.setRoot(proveedorInfo);
+        subProveedor.makeDragable(bTitulo.getBarra());
+        subProveedor.makeDragable(titulo);
+        subProveedor.makeResizable(20);
+        subProveedor.makeFocusable();
+        subProveedor.setCloseButton(cerrar);
+        return subProveedor;
     }
 
+    //LISTADO DE PROVEEDOR
     public Form_SubVentana lstProveedorEventHandler(ActionEvent event) {
         BorderPane listProveedor = new BorderPane();
-        Label titulo = new Label("Nuevo Proveedor");
+        Label titulo = new Label("Listado de Proveedores");
         titulo.setFont(Font.font("News701 BT", 25));
         titulo.setTextFill(Color.AQUA);
         Button cerrar = new Button("X");
         cerrar.setFont(Font.font("Arial Black", 20));
         cerrar.setTextFill(Color.AQUA);
-        Form_Barra_De_Titulo btitulonProve = new Form_Barra_De_Titulo(titulo, cerrar);
-        listProveedor.setTop(btitulonProve.getBarra());
-        Form_Listado_Proveedor provList = new Form_Listado_Proveedor();
-        listProveedor.setCenter(provList.getPnlFinal());
-        Form_SubVentana provL = new Form_SubVentana();
-        provL.setRoot(listProveedor);
-        provL.makeDragable(btitulonProve.getBarra());
-        provL.makeDragable(titulo);
-        provL.makeResizable(20);
-        provL.makeFocusable();
-        provL.setCloseButton(cerrar);
-        return provL;
+        Form_Barra_De_Titulo bTitulo = new Form_Barra_De_Titulo(titulo, cerrar);
+        listProveedor.setTop(bTitulo.getBarra());
+        Form_Listado_Proveedor proveedor = new Form_Listado_Proveedor();
+        listProveedor.setCenter(proveedor.getPnlFinal());
+        Form_SubVentana subProveedor = new Form_SubVentana();
+        subProveedor.setRoot(listProveedor);
+        subProveedor.makeDragable(bTitulo.getBarra());
+        subProveedor.makeDragable(titulo);
+        subProveedor.makeResizable(20);
+        subProveedor.makeFocusable();
+        subProveedor.setCloseButton(cerrar);
+        return subProveedor;
+    }
+//PRODUCTO
+
+    //NUEVO PRODUCTO
+    public Form_SubVentana nProductoEventHandler(ActionEvent event) {
+        BorderPane producNuevo = new BorderPane();
+        Label titulo = new Label("Nuevo Producto");
+        titulo.setFont(Font.font("News701 BT", 25));
+        titulo.setTextFill(Color.AQUA);
+        Button cerrar = new Button("X");
+        cerrar.setFont(Font.font("Arial Black", 20));
+        cerrar.setTextFill(Color.AQUA);
+        Form_Barra_De_Titulo bTitulo = new Form_Barra_De_Titulo(titulo, cerrar);
+        producNuevo.setTop(bTitulo.getBarra());
+        Form_Nuevo_Producto producto = new Form_Nuevo_Producto();
+        producNuevo.setCenter(producto.getPnlFinal());
+        Form_SubVentana subProducto = new Form_SubVentana();
+        subProducto.setRoot(producNuevo);
+        subProducto.makeDragable(bTitulo.getBarra());
+        subProducto.makeDragable(titulo);
+        subProducto.makeResizable(20);
+        subProducto.makeFocusable();
+        subProducto.setCloseButton(cerrar);
+        return subProducto;
     }
 
-    public Form_SubVentana nClienteEventHandler(ActionEvent event) {
-        BorderPane clienteNuevo = new BorderPane();
-        Label titulo = new Label("Nueva CLiente");
+    //EDITAR PRODUCTO
+    //ELIMINAR PRODUCTO
+    public Form_SubVentana eProductoEventHandler(ActionEvent event) {
+        BorderPane producEli = new BorderPane();
+        Label titulo = new Label("Eliminar un Producto");
         titulo.setFont(Font.font("News701 BT", 25));
         titulo.setTextFill(Color.AQUA);
         Button cerrar = new Button("X");
         cerrar.setFont(Font.font("Arial Black", 20));
         cerrar.setTextFill(Color.AQUA);
-        Form_Barra_De_Titulo btitulonCliente = new Form_Barra_De_Titulo(titulo, cerrar);
-        clienteNuevo.setTop(btitulonCliente.getBarra());
-        Form_Nuevo_Cliente clientN = new Form_Nuevo_Cliente();
-        clienteNuevo.setCenter(clientN.getPnlFinal());
-        Form_SubVentana nCliente = new Form_SubVentana();
-        nCliente.setRoot(clienteNuevo);
-        nCliente.makeDragable(btitulonCliente.getBarra());
-        nCliente.makeDragable(titulo);
-        nCliente.makeResizable(20);
-        nCliente.makeFocusable();
-        nCliente.setCloseButton(cerrar);
-        return nCliente;
-    }
-    
-    public Form_SubVentana bClienteEventHandler(ActionEvent event) {
-        BorderPane clienteBuscar = new BorderPane();
-        Label titulo = new Label("Nueva CLiente");
-        titulo.setFont(Font.font("News701 BT", 25));
-        titulo.setTextFill(Color.AQUA);
-        Button cerrar = new Button("X");
-        cerrar.setFont(Font.font("Arial Black", 20));
-        cerrar.setTextFill(Color.AQUA);
-        Form_Barra_De_Titulo btitulonCliente = new Form_Barra_De_Titulo(titulo, cerrar);
-        clienteBuscar.setTop(btitulonCliente.getBarra());
-        Form_BuscarCliente clientB = new Form_BuscarCliente();
-        clienteBuscar.setCenter(clientB.getPnlFinal());
-        Form_SubVentana bCliente = new Form_SubVentana();
-        bCliente.setRoot(clienteBuscar);
-        bCliente.makeDragable(btitulonCliente.getBarra());
-        bCliente.makeDragable(titulo);
-        bCliente.makeResizable(20);
-        bCliente.makeFocusable();
-        bCliente.setCloseButton(cerrar);
-        return bCliente;
-    }
-    
-    public Form_SubVentana eClienteEventHandler(ActionEvent event) {
-        BorderPane clienteEliminar = new BorderPane();
-        Label titulo = new Label("Eliminar CLiente");
-        titulo.setFont(Font.font("News701 BT", 25));
-        titulo.setTextFill(Color.AQUA);
-        Button cerrar = new Button("X");
-        cerrar.setFont(Font.font("Arial Black", 20));
-        cerrar.setTextFill(Color.AQUA);
-        Form_Barra_De_Titulo btitulonCliente = new Form_Barra_De_Titulo(titulo, cerrar);
-        clienteEliminar.setTop(btitulonCliente.getBarra());
-        Form_EliminarCliente clienteE = new Form_EliminarCliente();
-        clienteEliminar.setCenter(clienteE.getPnlFinal());
-        Form_SubVentana eCliente = new Form_SubVentana();
-        eCliente.setRoot(clienteEliminar);
-        eCliente.makeDragable(btitulonCliente.getBarra());
-        eCliente.makeDragable(titulo);
-        eCliente.makeResizable(20);
-        eCliente.makeFocusable();
-        eCliente.setCloseButton(cerrar);
-        return eCliente;
+        Form_Barra_De_Titulo bTitulo = new Form_Barra_De_Titulo(titulo, cerrar);
+        producEli.setTop(bTitulo.getBarra());
+        Form_EliminarProducto producto = new Form_EliminarProducto();
+        producEli.setCenter(producto.getPnlFinal());
+        Form_SubVentana subProducto = new Form_SubVentana();
+        subProducto.setRoot(producEli);
+        subProducto.makeDragable(bTitulo.getBarra());
+        subProducto.makeDragable(titulo);
+        subProducto.makeResizable(20);
+        subProducto.makeFocusable();
+        subProducto.setCloseButton(cerrar);
+        return subProducto;
     }
 
-    public Form_SubVentana lstClienteEventHandler(ActionEvent event) {
-        BorderPane listClientes = new BorderPane();
-        Label titulo = new Label("Nueva CLiente");
+    //INFORMACION DE UN PRODUCTO
+    public Form_SubVentana bProductoEventHandler(ActionEvent event) {
+        BorderPane producBuscar = new BorderPane();
+        Label titulo = new Label("Informacion de Producto");
         titulo.setFont(Font.font("News701 BT", 25));
         titulo.setTextFill(Color.AQUA);
         Button cerrar = new Button("X");
         cerrar.setFont(Font.font("Arial Black", 20));
         cerrar.setTextFill(Color.AQUA);
-        Form_Barra_De_Titulo btitulonCliente = new Form_Barra_De_Titulo(titulo, cerrar);
-        listClientes.setTop(btitulonCliente.getBarra());
-        Form_Listado_Cliente clientesLista = new Form_Listado_Cliente();
-        listClientes.setCenter(clientesLista.getPnlFinal());
-        Form_SubVentana lstClientes = new Form_SubVentana();
-        lstClientes.setRoot(listClientes);
-        lstClientes.makeDragable(btitulonCliente.getBarra());
-        lstClientes.makeDragable(titulo);
-        lstClientes.makeResizable(20);
-        lstClientes.makeFocusable();
-        lstClientes.setCloseButton(cerrar);
-        return lstClientes;
+        Form_Barra_De_Titulo bTitulo = new Form_Barra_De_Titulo(titulo, cerrar);
+        producBuscar.setTop(bTitulo.getBarra());
+        Form_BuscarProducto producto = new Form_BuscarProducto();
+        producBuscar.setCenter(producto.getPnlFinal());
+        Form_SubVentana subProducto = new Form_SubVentana();
+        subProducto.setRoot(producBuscar);
+        subProducto.makeDragable(bTitulo.getBarra());
+        subProducto.makeDragable(titulo);
+        subProducto.makeResizable(20);
+        subProducto.makeFocusable();
+        subProducto.setCloseButton(cerrar);
+        return subProducto;
     }
 
+    //LISTADO DE PRODUCTO
+    public Form_SubVentana lstProductoEventHandler(ActionEvent event) {
+        BorderPane listProd = new BorderPane();
+        Label titulo = new Label("Listado de Productos");
+        titulo.setFont(Font.font("News701 BT", 25));
+        titulo.setTextFill(Color.AQUA);
+        Button cerrar = new Button("X");
+        cerrar.setFont(Font.font("Arial Black", 20));
+        cerrar.setTextFill(Color.AQUA);
+        Form_Barra_De_Titulo bTitulo = new Form_Barra_De_Titulo(titulo, cerrar);
+        listProd.setTop(bTitulo.getBarra());
+        Form_Listado_Producto producto = new Form_Listado_Producto();
+        listProd.setCenter(producto.getPnlFinal());
+        Form_SubVentana subProducto = new Form_SubVentana();
+        subProducto.setRoot(listProd);
+        subProducto.makeDragable(bTitulo.getBarra());
+        subProducto.makeDragable(titulo);
+        subProducto.makeResizable(20);
+        subProducto.makeFocusable();
+        subProducto.setCloseButton(cerrar);
+        return subProducto;
+    }
+//CATEGORIA
+
+    //NUEVO CATEGORIA
     public Form_SubVentana nCategoriaEventHandler(ActionEvent event) {
         BorderPane categNueva = new BorderPane();
         Label titulo = new Label("Nueva Categoria");
@@ -626,172 +787,96 @@ public class Form_Menu_Principal extends Application {
         Button cerrar = new Button("X");
         cerrar.setFont(Font.font("Arial Black", 20));
         cerrar.setTextFill(Color.AQUA);
-        Form_Barra_De_Titulo btitulonCateg = new Form_Barra_De_Titulo(titulo, cerrar);
-        categNueva.setTop(btitulonCateg.getBarra());
-        Form_Nueva_Categoria categN = new Form_Nueva_Categoria();
-        categNueva.setCenter(categN.getPnlFinal());
-        Form_SubVentana nCategoria = new Form_SubVentana();
-        nCategoria.setRoot(categNueva);
-        nCategoria.makeDragable(btitulonCateg.getBarra());
-        nCategoria.makeDragable(titulo);
-        nCategoria.makeResizable(20);
-        nCategoria.makeFocusable();
-        nCategoria.setCloseButton(cerrar);
-        return nCategoria;
-    }
-    
-    public Form_SubVentana bCategoriaEventHandler(ActionEvent event) {
-        BorderPane buscaCategoria = new BorderPane();
-        Label titulo = new Label("Nueva Categoria");
-        titulo.setFont(Font.font("News701 BT", 25));
-        titulo.setTextFill(Color.AQUA);
-        Button cerrar = new Button("X");
-        cerrar.setFont(Font.font("Arial Black", 20));
-        cerrar.setTextFill(Color.AQUA);
-        Form_Barra_De_Titulo btitulonCateg = new Form_Barra_De_Titulo(titulo, cerrar);
-        buscaCategoria.setTop(btitulonCateg.getBarra());
-        Form_BuscarCategoria cetegB = new Form_BuscarCategoria();
-        buscaCategoria.setCenter(cetegB.getPnlFinal());
-        Form_SubVentana bCategoria = new Form_SubVentana();
-        bCategoria.setRoot(buscaCategoria);
-        bCategoria.makeDragable(btitulonCateg.getBarra());
-        bCategoria.makeDragable(titulo);
-        bCategoria.makeResizable(20);
-        bCategoria.makeFocusable();
-        bCategoria.setCloseButton(cerrar);
-        return bCategoria;
+        Form_Barra_De_Titulo bTitulo = new Form_Barra_De_Titulo(titulo, cerrar);
+        categNueva.setTop(bTitulo.getBarra());
+        Form_Nueva_Categoria categoria = new Form_Nueva_Categoria();
+        categNueva.setCenter(categoria.getPnlFinal());
+        Form_SubVentana subCategoria = new Form_SubVentana();
+        subCategoria.setRoot(categNueva);
+        subCategoria.makeDragable(bTitulo.getBarra());
+        subCategoria.makeDragable(titulo);
+        subCategoria.makeResizable(20);
+        subCategoria.makeFocusable();
+        subCategoria.setCloseButton(cerrar);
+        return subCategoria;
     }
 
-    public Form_SubVentana lstCategoriaEventHandler(ActionEvent event) {
-        BorderPane listCateg = new BorderPane();
-        Label titulo = new Label("Nueva Categoria");
-        titulo.setFont(Font.font("News701 BT", 25));
-        titulo.setTextFill(Color.AQUA);
-        Button cerrar = new Button("X");
-        cerrar.setFont(Font.font("Arial Black", 20));
-        cerrar.setTextFill(Color.AQUA);
-        Form_Barra_De_Titulo btitulonCateg = new Form_Barra_De_Titulo(titulo, cerrar);
-        listCateg.setTop(btitulonCateg.getBarra());
-        Form_Listado_Categoria categLista = new Form_Listado_Categoria();
-        listCateg.setCenter(categLista.getPnlFinal());
-        Form_SubVentana lstCategorias = new Form_SubVentana();
-        lstCategorias.setRoot(listCateg);
-        lstCategorias.makeDragable(btitulonCateg.getBarra());
-        lstCategorias.makeDragable(titulo);
-        lstCategorias.makeResizable(20);
-        lstCategorias.makeFocusable();
-        lstCategorias.setCloseButton(cerrar);
-        return lstCategorias;
-    }
-
-    public Form_SubVentana nDetalleCompraEventHandler(ActionEvent event) {
-        BorderPane detalleCompraNuevo = new BorderPane();
-        Label titulo = new Label("Nueva Detalle Compra");
-        titulo.setFont(Font.font("News701 BT", 25));
-        titulo.setTextFill(Color.AQUA);
-        Button cerrar = new Button("X");
-        cerrar.setFont(Font.font("Arial Black", 20));
-        cerrar.setTextFill(Color.AQUA);
-        Form_Barra_De_Titulo btitulonDC = new Form_Barra_De_Titulo(titulo, cerrar);
-        detalleCompraNuevo.setTop(btitulonDC.getBarra());
-        Form_Nueva_DetalleCompra detCompraN = new Form_Nueva_DetalleCompra();
-        detalleCompraNuevo.setCenter(detCompraN.getPnlFinal());
-        Form_SubVentana nDetallCompra = new Form_SubVentana();
-        nDetallCompra.setRoot(detalleCompraNuevo);
-        nDetallCompra.makeDragable(btitulonDC.getBarra());
-        nDetallCompra.makeDragable(titulo);
-        nDetallCompra.makeResizable(20);
-        nDetallCompra.makeFocusable();
-        nDetallCompra.setCloseButton(cerrar);
-        return nDetallCompra;
-    }
-
-    public Form_SubVentana lstDetalleCompraEventHandler(ActionEvent event) {
-        BorderPane listDetCom = new BorderPane();
-        Label titulo = new Label("Nueva Detalle Compra");
-        titulo.setFont(Font.font("News701 BT", 25));
-        titulo.setTextFill(Color.AQUA);
-        Button cerrar = new Button("X");
-        cerrar.setFont(Font.font("Arial Black", 20));
-        cerrar.setTextFill(Color.AQUA);
-        Form_Barra_De_Titulo btitulonDC = new Form_Barra_De_Titulo(titulo, cerrar);
-        listDetCom.setTop(btitulonDC.getBarra());
-        Form_Listado_DetalleCompra DetCompLista = new Form_Listado_DetalleCompra();
-        listDetCom.setCenter(DetCompLista.getPnlFinal());
-        Form_SubVentana lstDetCompra = new Form_SubVentana();
-        lstDetCompra.setRoot(listDetCom);
-        lstDetCompra.makeDragable(btitulonDC.getBarra());
-        lstDetCompra.makeDragable(titulo);
-        lstDetCompra.makeResizable(20);
-        lstDetCompra.makeFocusable();
-        lstDetCompra.setCloseButton(cerrar);
-        return lstDetCompra;
-    }
-
+    //EDITAR CATEGORIA
+    //ELIMINAR CATEGORIA
     public Form_SubVentana eCategoriaEventHandler(ActionEvent event) {
         BorderPane eCategoria = new BorderPane();
-        Label titulo = new Label("Nueva Detalle Venta");
+        Label titulo = new Label("Eliminar una Categoria");
         titulo.setFont(Font.font("News701 BT", 25));
         titulo.setTextFill(Color.AQUA);
         Button cerrar = new Button("X");
         cerrar.setFont(Font.font("Arial Black", 20));
         cerrar.setTextFill(Color.AQUA);
-        Form_Barra_De_Titulo btitulonDV = new Form_Barra_De_Titulo(titulo, cerrar);
-        eCategoria.setTop(btitulonDV.getBarra());
-        Form_EliminarCategoria categE = new Form_EliminarCategoria();
-        eCategoria.setCenter(categE.getPnlFinal());
-        Form_SubVentana nDetallVenta = new Form_SubVentana();
-        nDetallVenta.setRoot(eCategoria);
-        nDetallVenta.makeDragable(btitulonDV.getBarra());
-        nDetallVenta.makeDragable(titulo);
-        nDetallVenta.makeResizable(20);
-        nDetallVenta.makeFocusable();
-        nDetallVenta.setCloseButton(cerrar);
-        return nDetallVenta;
+        Form_Barra_De_Titulo bTitulo = new Form_Barra_De_Titulo(titulo, cerrar);
+        eCategoria.setTop(bTitulo.getBarra());
+        Form_EliminarCategoria categoria = new Form_EliminarCategoria();
+        eCategoria.setCenter(categoria.getPnlFinal());
+        Form_SubVentana subCategoria = new Form_SubVentana();
+        subCategoria.setRoot(eCategoria);
+        subCategoria.makeDragable(bTitulo.getBarra());
+        subCategoria.makeDragable(titulo);
+        subCategoria.makeResizable(20);
+        subCategoria.makeFocusable();
+        subCategoria.setCloseButton(cerrar);
+        return subCategoria;
     }
 
-    public Form_SubVentana eProveedorEventHandler(ActionEvent event) {
-        BorderPane eProveedor = new BorderPane();
-        Label titulo = new Label("Eliminar Proveedor");
+    //INFORMACION DE UN CATEGORIA
+    public Form_SubVentana bCategoriaEventHandler(ActionEvent event) {
+        BorderPane buscaCategoria = new BorderPane();
+        Label titulo = new Label("Informacion de Categoria");
         titulo.setFont(Font.font("News701 BT", 25));
         titulo.setTextFill(Color.AQUA);
         Button cerrar = new Button("X");
         cerrar.setFont(Font.font("Arial Black", 20));
         cerrar.setTextFill(Color.AQUA);
-        Form_Barra_De_Titulo btitulonDV = new Form_Barra_De_Titulo(titulo, cerrar);
-        eProveedor.setTop(btitulonDV.getBarra());
-        Form_EliminarProveedor proE = new Form_EliminarProveedor();
-        eProveedor.setCenter(proE.getPnlFinal());
-        Form_SubVentana elimProveedor = new Form_SubVentana();
-        elimProveedor.setRoot(eProveedor);
-        elimProveedor.makeDragable(btitulonDV.getBarra());
-        elimProveedor.makeDragable(titulo);
-        elimProveedor.makeResizable(20);
-        elimProveedor.makeFocusable();
-        elimProveedor.setCloseButton(cerrar);
-        return elimProveedor;
+        Form_Barra_De_Titulo bTitulo = new Form_Barra_De_Titulo(titulo, cerrar);
+        buscaCategoria.setTop(bTitulo.getBarra());
+        Form_BuscarCategoria categoria = new Form_BuscarCategoria();
+        buscaCategoria.setCenter(categoria.getPnlFinal());
+        Form_SubVentana subCategoria = new Form_SubVentana();
+        subCategoria.setRoot(buscaCategoria);
+        subCategoria.makeDragable(bTitulo.getBarra());
+        subCategoria.makeDragable(titulo);
+        subCategoria.makeResizable(20);
+        subCategoria.makeFocusable();
+        subCategoria.setCloseButton(cerrar);
+        return subCategoria;
     }
 
-    public Form_SubVentana lstDetalleVentaEventHandler(ActionEvent event) {
-        BorderPane listDetVen = new BorderPane();
-        Label titulo = new Label("Nueva Detalle Venta");
+    //LISTADO DE CATEGORIA
+    public Form_SubVentana lstCategoriaEventHandler(ActionEvent event) {
+        BorderPane listCateg = new BorderPane();
+        Label titulo = new Label("Lista de Categorias");
         titulo.setFont(Font.font("News701 BT", 25));
         titulo.setTextFill(Color.AQUA);
         Button cerrar = new Button("X");
         cerrar.setFont(Font.font("Arial Black", 20));
         cerrar.setTextFill(Color.AQUA);
-        Form_Barra_De_Titulo btitulonDV = new Form_Barra_De_Titulo(titulo, cerrar);
-        listDetVen.setTop(btitulonDV.getBarra());
-        Form_Listado_DetalleVenta detVenLista = new Form_Listado_DetalleVenta();
-        listDetVen.setCenter(detVenLista.getPnlFinal());
-        Form_SubVentana lstDetVenta = new Form_SubVentana();
-        lstDetVenta.setRoot(listDetVen);
-        lstDetVenta.makeDragable(btitulonDV.getBarra());
-        lstDetVenta.makeDragable(titulo);
-        lstDetVenta.makeResizable(20);
-        lstDetVenta.makeFocusable();
-        lstDetVenta.setCloseButton(cerrar);
-        return lstDetVenta;
+        Form_Barra_De_Titulo bTitulo = new Form_Barra_De_Titulo(titulo, cerrar);
+        listCateg.setTop(bTitulo.getBarra());
+        Form_Listado_Categoria categoria = new Form_Listado_Categoria();
+        listCateg.setCenter(categoria.getPnlFinal());
+        Form_SubVentana subCategoria = new Form_SubVentana();
+        subCategoria.setRoot(listCateg);
+        subCategoria.makeDragable(bTitulo.getBarra());
+        subCategoria.makeDragable(titulo);
+        subCategoria.makeResizable(20);
+        subCategoria.makeFocusable();
+        subCategoria.setCloseButton(cerrar);
+        return subCategoria;
     }
+//KARDEX
 
+    //KARDEX MENSUAL
+    //LISTADO DE KARDEX
+//CONSULTAS
+    //LOS 3 PRODUCTOS MAS VENDIDOS
+    //LOS 3 PROVEEDORES CON MAS COMPRAS
+    //EL MEJOR CLIENTE
+    //LOS PRODUCTOS CON SU STOCK
 }

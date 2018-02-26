@@ -21,14 +21,15 @@ import kardex.negocio.impl.*;
 import kardex.accesoadatos.*;
 
 public class Form_EliminarCliente {
-private Label txtCedula;
+
+    private Label txtCedula;
     private Label txtFechaNacim;
     private Label txtNombres;
     private Label txtApellidos;
     private Label txtTelf;
     private Label txtDir;
     private Label txtEmail;
-private Cliente clienteB;
+    private Cliente clienteB;
     private TextField cedula;
     private Label fechanac;
     private Label nombres;
@@ -36,11 +37,12 @@ private Cliente clienteB;
     private Label telf;
     private Label dir;
     private Label email;
+    
 
     private Image iconCliente;
     private ImageView visorIcono;
 
-    private Button bIngresar;
+    private Button bEditar;
     private Button bModificar;
     private Button bEliminar;
     private Button bLimpiar;
@@ -97,10 +99,14 @@ private Cliente clienteB;
         email.setMaxSize(400, 25);
         email.setMinSize(400, 25);
         email.setStyle("-fx-border-color: blue ; -fx-border-width: 2px");
- //BOTONES
-        bIngresar = new Button("Aceptar");
-        bIngresar.setFont(Font.font("News701 BT", 15));
-        bIngresar.setOnAction(new EventHandler<ActionEvent>() {
+        
+        
+        
+
+        //BOTONES
+        bEditar = new Button("Aceptar");
+        bEditar.setFont(Font.font("News701 BT", 15));
+        bEditar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 btnIngresarEventHandler(event);
@@ -149,7 +155,7 @@ private Cliente clienteB;
         datsFinales.setAlignment(Pos.CENTER);
         //BOTONES
         pnlbotones = new HBox(25);
-        pnlbotones.getChildren().addAll(bIngresar, bLimpiar, bCancelar);
+        pnlbotones.getChildren().addAll(bEditar, bLimpiar, bCancelar);
         pnlbotones.setAlignment(Pos.CENTER);
         //PANTALLA PRINCIPAL
         pnlFinal = new VBox(10);
@@ -182,6 +188,8 @@ private Cliente clienteB;
             System.out.println("Error de Ingreso" + e.getMessage());
         }
     }
+    
+    
 
     public void bCancelarEventHandler(ActionEvent event) {
         System.exit(0);
@@ -197,11 +205,11 @@ private Cliente clienteB;
         fechanac.setText("");
     }
 
-    public void buscarClienteEventHandler(ActionEvent event){
-        ClienteI clienteDao=new ClienteImp();
-         clienteB=null;
+    public void buscarClienteEventHandler(ActionEvent event) {
+        ClienteI clienteDao = new ClienteImp();
+        clienteB = null;
         try {
-            clienteB=clienteDao.obtener(cedula.getText());
+            clienteB = clienteDao.obtener(cedula.getText());
             fechanac.setText(String.valueOf(clienteB.getFechaNac()));
             nombres.setText(String.valueOf(clienteB.getNombre()));
             apellidos.setText(String.valueOf(clienteB.getApellido()));
@@ -209,9 +217,8 @@ private Cliente clienteB;
             telf.setText(String.valueOf(clienteB.getTelefono()));
             email.setText(String.valueOf(clienteB.getEmail()));
         } catch (Exception e) {
-            
+
         }
     }
-    
-}
 
+}

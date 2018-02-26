@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package kardex.vistas;
-
 import javafx.application.*;
 import javafx.event.*;
 import javafx.scene.*;
@@ -24,9 +18,7 @@ import kardex.negocio.dao.*;
 import kardex.negocio.entidades.*;
 import kardex.negocio.impl.*;
 import kardex.accesoadatos.*;
-
-public class Form_EliminarProveedor {
-
+public class Form_EditarProveedor {
     private Label txtRuc;
     private Label txtNombres;
     private Label txtDireccion;
@@ -37,9 +29,9 @@ public class Form_EliminarProveedor {
     private TextField Direccion;
     private TextField Telefono;
     private TextField Email;
-    private Button btnEliminar;
     private Button btnBuscar;
     private Button btnLimpiar;
+    private Button btnModificar;
     private Proveedor proveedor;
     private VBox pnlIcono;
     private Image iconProveedor;
@@ -50,9 +42,7 @@ public class Form_EliminarProveedor {
     private HBox pnlProveedor;
     private HBox pnlBotones;
     private VBox pnlFinal;
-    private Proveedor prov;
-
-    public Form_EliminarProveedor() {
+    public Form_EditarProveedor() {
         //Icono
         iconProveedor = new Image("file:src\\kardex\\multimedia\\images\\iconoProveedor.jpg");
         visorIcono = new ImageView(iconProveedor);
@@ -110,16 +100,16 @@ public class Form_EliminarProveedor {
                 bLimpiarEventHandler(event);
             }
         });
-        btnEliminar=new Button("Eliminar");
-        btnEliminar.setFont(Font.font("News701 BT", 15));
-        btnEliminar.setOnAction(new EventHandler<ActionEvent>() {
+        btnModificar=new Button("Modificar");
+        btnModificar.setFont(Font.font("News701 BT", 15));
+        btnModificar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                bEliminarEventHandler(event);
+                bmodificarEventHandler(event);
             }
         });
         pnlBotones=new HBox(20);
-        pnlBotones.getChildren().addAll(btnBuscar,btnEliminar,btnLimpiar);
+        pnlBotones.getChildren().addAll(btnBuscar,btnModificar,btnLimpiar);
         pnlBotones.setAlignment(Pos.CENTER);
         pnlBotones.setPadding(new Insets(10));
         //Panel Principal
@@ -155,10 +145,15 @@ public class Form_EliminarProveedor {
         Email.setText("");
         
     }
-    public void bEliminarEventHandler(ActionEvent event){
+    public void bmodificarEventHandler(ActionEvent event){
         ProveedorI provDao=new ProveedorImp();
         try {
-            if(provDao.eliminar(proveedor)>0){
+            proveedor.setRuc(Ruc.getText());
+            proveedor.setNombre(Nombres.getText());
+            proveedor.setDireccion(Direccion.getText());
+            proveedor.setTelefono(Telefono.getText());
+            proveedor.setEmail(Email.getText());
+            if(provDao.modificar(proveedor)>0){
                 System.out.println("Modificacion Correctoa");
             }
             else{

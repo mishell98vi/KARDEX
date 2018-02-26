@@ -1,5 +1,6 @@
 
 package kardex.vistas;
+
 import javafx.application.*;
 import javafx.event.*;
 import javafx.scene.*;
@@ -19,10 +20,11 @@ import kardex.negocio.dao.*;
 import kardex.negocio.entidades.*;
 import kardex.negocio.impl.*;
 import kardex.accesoadatos.*;
-public class Form_EliminarProducto {
+public class Form_EditarProducto {
     private TextField codProd;
-    private Label nomProd;
-    private Label precioProd;
+    private TextField nomProd;
+    private TextField precioProd;
+    //Labels
     private Label prod;
     private Label txtCodprod;
     private Label txtNomProd;
@@ -30,14 +32,18 @@ public class Form_EliminarProducto {
     private Label txtCategoProd;
     private Label categDesc;
     private Label Descripcion;
-    private Label cbxCategoria;
-    private Producto nProd;
-    private Categoria ncat;
+    //combobox
+    private ComboBox<Categoria> cbxCategoria;
+    private ObservableList<Categoria> items = FXCollections.observableArrayList();
+    private ArrayList<Categoria> listadoCategorias;
+    //multimedia
     private Image icono;
     private ImageView visorIcono;
+    //botones
     private Button btnBuscar;
     private Button btnLimpiar;
-    private Button btnEliminar;
+    private Button btnModificar;
+    //paneles
     private VBox pnlVisualizar;
     private HBox pnlListCateg;
     private VBox pnlItemsProducto;
@@ -49,17 +55,24 @@ public class Form_EliminarProducto {
     private HBox pnlBotones;
     private VBox pnlFinal;
 
-    public Form_EliminarProducto() {
+    public Form_EditarProducto() {
+        //imagen y listado de categorias
         icono = new Image("file:src\\kardex\\multimedia\\images\\iconoProducto.png");
         visorIcono = new ImageView(icono);
         visorIcono.setFitHeight(100);
         visorIcono.setFitWidth(100);
         prod = new Label("PRODUCTOS");
         prod.setFont(Font.font("News701 BT", 20));
-        cbxCategoria = new Label("");
-        cbxCategoria.setMaxSize(150, 25);
-        cbxCategoria.setMinSize(150, 25);
-        cbxCategoria.setStyle("-fx-border-color: blue ; -fx-border-width: 2px");
+        cargarCategorias();
+        cbxCategoria = new ComboBox<>();
+        cbxCategoria.setItems(items);
+        cbxCategoria.setValue(items.get(0));
+        cbxCategoria.setOnShown(new EventHandler<Event>() {
+            @Override
+            public void handle(Event event) {
+                mostrarDescripcionEventHandler(event);
+            }
+        });
         txtCategoProd = new Label("Categoria: ");
         txtCategoProd.setFont(Font.font("News701 BT", 20));
         pnlListCateg = new HBox(10);
@@ -69,6 +82,8 @@ public class Form_EliminarProducto {
         pnlVisualizar.getChildren().addAll(visorIcono, pnlListCateg);
         pnlVisualizar.setAlignment(Pos.CENTER);
         pnlVisualizar.setPadding(new Insets(5));
+        //producto
+        //labels
         txtCodprod = new Label("Codigo: ");
         txtCodprod.setFont(Font.font("News701 BT", 20));
         txtNomProd = new Label("Nombre: ");
@@ -80,18 +95,11 @@ public class Form_EliminarProducto {
         Descripcion = new Label("");
         Descripcion.setMaxSize(400, 100);
         Descripcion.setMinSize(400, 100);
-        Descripcion.setStyle("-fx-border-color: blue ; -fx-border-width: 2px");
+        //items
         codProd = new TextField("");
-        codProd.setMaxSize(150, 25);
-        codProd.setMinSize(150, 25);
-        nomProd = new Label("");
-        nomProd.setMaxSize(150, 25);
-        nomProd.setMinSize(150, 25);
-        nomProd.setStyle("-fx-border-color: blue ; -fx-border-width: 2px");
-        precioProd = new Label("");
-        precioProd.setMaxSize(150, 25);
-        precioProd.setMinSize(150, 25);
-        precioProd.setStyle("-fx-border-color: blue ; -fx-border-width: 2px");
+        nomProd = new TextField("");
+        precioProd = new TextField("");
+        //panel producto
         pnlNombresProducto = new VBox(10);
         pnlNombresProducto.getChildren().addAll(txtCodprod, txtNomProd, txtPrecioProd);
         pnlNombresProducto.setAlignment(Pos.CENTER_LEFT);
@@ -107,6 +115,13 @@ public class Form_EliminarProducto {
         pnlDetProducto.getChildren().addAll(prod, pnlProducto);
         pnlDetProducto.setPadding(new Insets(5));
         pnlDetProducto.setAlignment(Pos.CENTER);
+        pnlprodCateg = new HBox(10);
+        pnlprodCateg.getChildren().addAll(pnlDetProducto, pnlVisualizar);
+        //descripcion categoria
+        pnlDescCateg = new VBox(10);
+        pnlDescCateg.getChildren().addAll(categDesc, Descripcion);
+        pnlDescCateg.setAlignment(Pos.CENTER);
+        //Botones
         btnBuscar = new Button("Buscar");
         btnBuscar.setFont(Font.font("News701 BT", 15));
         btnBuscar.setOnAction(new EventHandler<ActionEvent>() {
@@ -115,13 +130,6 @@ public class Form_EliminarProducto {
                 bBuscarEventHandler(event);
             }
         });
-        pnlprodCateg = new HBox(10);
-        pnlprodCateg.getChildren().addAll(pnlDetProducto,btnBuscar, pnlVisualizar);
-        pnlprodCateg.setAlignment(Pos.CENTER);
-        pnlDescCateg = new VBox(10);
-        pnlDescCateg.getChildren().addAll(categDesc, Descripcion);
-        pnlDescCateg.setAlignment(Pos.CENTER);
-        
         btnLimpiar = new Button("Limpiar");
         btnLimpiar.setFont(Font.font("News701 BT", 15));
         btnLimpiar.setOnAction(new EventHandler<ActionEvent>() {
@@ -130,18 +138,19 @@ public class Form_EliminarProducto {
                 bLimpiarEventHandler(event);
             }
         });
-        btnEliminar = new Button("Eliminar");
-        btnEliminar.setFont(Font.font("News701 BT", 15));
-        btnEliminar.setOnAction(new EventHandler<ActionEvent>() {
+        btnModificar = new Button("Modificar");
+        btnModificar.setFont(Font.font("News701 BT", 15));
+        btnModificar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                bEliminarEventHandler(event);
+                bCerrarEventHandler(event);
             }
         });
         pnlBotones = new HBox(25);
-        pnlBotones.getChildren().addAll(btnLimpiar, btnEliminar);
+        pnlBotones.getChildren().addAll(btnBuscar,btnModificar, btnLimpiar);
         pnlBotones.setAlignment(Pos.CENTER);
         pnlBotones.setPadding(new Insets(10));
+        //Panel Principal
         pnlFinal = new VBox(5);
         Image fondoFinal = new Image("file:src\\kardex\\multimedia\\images\\fondo.jpg");
         BackgroundImage fondo = new BackgroundImage(fondoFinal, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
@@ -149,50 +158,54 @@ public class Form_EliminarProducto {
         pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: orange ; -fx-border-width: 2px");
         pnlFinal.getChildren().addAll(pnlprodCateg, pnlDescCateg, pnlBotones);
     }
+    
+    
 
-
-    public void bBuscarEventHandler(ActionEvent event) {
-        ProductoI prodDao = new ProductoImp();
-        nProd = new Producto();
-        ncat = new Categoria();
-        CategoriaI catDao = new CategoriaImp();
+    public void cargarCategorias() {
+        listadoCategorias = new ArrayList<>();
+        CategoriaI categDao = new CategoriaImp();
         try {
-            nProd=prodDao.obtener(Integer.parseInt(codProd.getText()));
-            ncat=catDao.obtener(nProd.getCategoria().getCodigoCategoria());
-            nomProd.setText(nProd.getNombre());
-            precioProd.setText(String.valueOf(nProd.getPrecio()));
-            cbxCategoria.setText(ncat.getNombre());
-            Descripcion.setText(ncat.getDescripcion());
-            System.out.println("Producto: "+nProd.getCodigoProducto()+"  "+nProd.getCategoria().getNombre()+"  "+nProd.getNombre()+"  "+nProd.getPrecio()+"  ");
+            listadoCategorias = categDao.obtener();
+            for (Categoria categ : listadoCategorias) {
+                items.add(categ);
+            }
+        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(this, "ERROR AL CARGAR CURSOS", "ERROR" + e.getMessage(), JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    public void bBuscarEventHandler(ActionEvent event){
+        ProductoI prodDao=new ProductoImp();
+        Producto nProd=new Producto();
+        Categoria ncat=new Categoria();
+        CategoriaI catDao=new CategoriaImp();
+        try {
+            ncat=cbxCategoria.getValue();
+            nProd.setCodigoProducto(Integer.parseInt(codProd.getText()));
+            nProd.setNombre(nomProd.getText());
+            nProd.setPrecio(Double.parseDouble(precioProd.getText()));
+            nProd.setCategoria(ncat);
+            if(prodDao.ingresar(nProd)>0){
+                System.out.println("Ingreso Correcto");
+            }
+            else{
+                System.out.println("Ingreso Fallido");
+            }
         } catch (Exception e) {
         }
     }
-
-    public void bLimpiarEventHandler(ActionEvent event) {
+            
+    public void bLimpiarEventHandler(ActionEvent event){
         codProd.setText("");
         nomProd.setText("");
         precioProd.setText("");
-        cbxCategoria.setText("");
-        Descripcion.setText("");
     }
-
-    public void bEliminarEventHandler(ActionEvent event) {
-        ProductoI productoDao=new ProductoImp();
-        try {
-            if(productoDao.eliminar(nProd)>0){
-                System.out.println("Eliminado Correctamente!");
-            }
-            else
-            {
-                System.out.println("Error de eliminacion de producto");
-            }
-        } catch (Exception e) {
-            System.out.println("Error: "+e.getMessage());
-        }
+    
+    public void bCerrarEventHandler(ActionEvent event){
     }
-
-    public void mostrarDescripcionEventHandler(Event event) {
-        ncat = new Categoria();
+    
+    public void mostrarDescripcionEventHandler(Event event){
+        Categoria ncat=new Categoria();
+        ncat=cbxCategoria.getValue();
         Descripcion.setText(ncat.getDescripcion());
     }
 

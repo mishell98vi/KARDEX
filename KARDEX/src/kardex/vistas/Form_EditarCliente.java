@@ -13,25 +13,23 @@ import javafx.beans.*;
 import javafx.collections.*;
 import javafx.geometry.*;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.*;
 import javafx.stage.*;
 import javafx.scene.image.*;
 import kardex.negocio.dao.*;
 import kardex.negocio.entidades.*;
 import kardex.negocio.impl.*;
 import kardex.accesoadatos.*;
-
-public class Form_Nuevo_Cliente {
-
-    private Label txtCedula;
+public class Form_EditarCliente {
+private Label txtCedula;
     private Label txtFechaNacim;
     private Label txtNombres;
     private Label txtApellidos;
     private Label txtTelf;
     private Label txtDir;
     private Label txtEmail;
-
+private Cliente clienteB;
     private TextField cedula;
+    
     private TextField fechanac;
     private TextField nombres;
     private TextField apellidos;
@@ -42,17 +40,18 @@ public class Form_Nuevo_Cliente {
     private Image iconCliente;
     private ImageView visorIcono;
 
-    private Button bIngresar;
+    private Button bBuscar;
+    private Button bModificar;
     private Button bLimpiar;
 
     private GridPane centroCliente;
     private HBox clImagen;
-    private GridPane datRest;
+    private HBox datRest;
     private HBox datsFinales;
     private HBox pnlbotones;
     private VBox pnlFinal;
 
-    public Form_Nuevo_Cliente() {
+    public Form_EditarCliente() {
 
         iconCliente = new Image("file:src\\kardex\\multimedia\\images\\iconocliente.png");
         visorIcono = new ImageView(iconCliente);
@@ -81,15 +80,13 @@ public class Form_Nuevo_Cliente {
         telf = new TextField("");
         dir = new TextField("");
         email = new TextField("");
-        email.setMinWidth(350);
-        email.setMaxWidth(350);
-        //BOTONES
-        bIngresar = new Button("Aceptar");
-        bIngresar.setFont(Font.font("News701 BT", 15));
-        bIngresar.setOnAction(new EventHandler<ActionEvent>() {
+ //BOTONES
+        bModificar = new Button("Aceptar");
+        bModificar.setFont(Font.font("News701 BT", 15));
+        bModificar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                btnIngresarEventHandler(event);
+                btnEditarEventHandler(event);
             }
         });
         bLimpiar = new Button("Limpiar");
@@ -100,6 +97,8 @@ public class Form_Nuevo_Cliente {
                 bLimpiarEventHandler(event);
             }
         });
+        bBuscar = new Button("Buscar");
+        bBuscar.setFont(Font.font("News701 BT", 15));
         //PANELES
         //Cliente
         centroCliente = new GridPane();
@@ -118,18 +117,16 @@ public class Form_Nuevo_Cliente {
         clImagen.getChildren().addAll(visorIcono, centroCliente);
         clImagen.setAlignment(Pos.CENTER);
         //RESTO CLIENTE
-        datRest = new GridPane();
-        datRest.add(txtTelf, 0, 0);
-        datRest.add(telf, 1, 0);
-        datRest.add(txtDir, 2, 0);
-        datRest.add(dir, 3, 0);
+        datRest = new HBox();
+        datRest.getChildren().addAll(txtTelf, telf, txtDir, dir);
+        datRest.setAlignment(Pos.CENTER);
         //FINAL CLIENTE
         datsFinales = new HBox(10);
         datsFinales.getChildren().addAll(txtEmail, email);
         datsFinales.setAlignment(Pos.CENTER);
         //BOTONES
         pnlbotones = new HBox(25);
-        pnlbotones.getChildren().addAll(bIngresar, bLimpiar);
+        pnlbotones.getChildren().addAll(bBuscar, bModificar, bLimpiar);
         pnlbotones.setAlignment(Pos.CENTER);
         //PANTALLA PRINCIPAL
         pnlFinal = new VBox(10);
@@ -140,36 +137,45 @@ public class Form_Nuevo_Cliente {
         pnlFinal.getChildren().addAll(clImagen, datRest, datsFinales, pnlbotones);
         pnlFinal.setAlignment(Pos.CENTER);
         pnlFinal.setPadding(new Insets(15));
+        bBuscar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                buscarClienteEventHandler(event);
+            }
+        });
     }
 
     public VBox getPnlFinal() {
         return pnlFinal;
     }
 
-    public void btnIngresarEventHandler(ActionEvent event) {
+    public void btnEditarEventHandler(ActionEvent event) {
         ClienteI clienteDao = new ClienteImp();
         try {
-            Cliente nuevoCliente = new Cliente();
-            nuevoCliente.setCedula(cedula.getText());
-            nuevoCliente.setNombre(nombres.getText());
-            nuevoCliente.setApellido(apellidos.getText());
-            nuevoCliente.setDireccion(dir.getText());
-            nuevoCliente.setTelefono(telf.getText());
-            nuevoCliente.setEmail(email.getText());
             DateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+            clienteB.setNombre(nombres.getText());
+            clienteB.setApellido(apellidos.getText());
+            clienteB.setTelefono(telf.getText());
+            clienteB.setDireccion(dir.getText());
+            clienteB.setEmail(email.getText());
             try {
-                nuevoCliente.setFechaNac(formatoFecha.parse(fechanac.getText()));
+                clienteB.setFechaNac(formatoFecha.parse(fechanac.getText()));
             } catch (Exception er) {
                 System.out.println("Error al insertar fecha" + er.getMessage());
             }
-            if (clienteDao.ingresar(nuevoCliente) > 0) {
-                System.out.println("Ingreso Correcto");
-            } else {
-                System.out.println("Error de Ingreso");
+            if (clienteDao.modificar(clienteB) > 0) {
+                System.out.println("Se modificio correctamente el Cliente");
+            }
+            else{
+                System.out.println("Error de modificacion de Cliente");
             }
         } catch (Exception e) {
             System.out.println("Error de Ingreso" + e.getMessage());
         }
+    }
+
+    public void bCancelarEventHandler(ActionEvent event) {
+        System.exit(0);
     }
 
     public void bLimpiarEventHandler(ActionEvent event) {
@@ -182,4 +188,22 @@ public class Form_Nuevo_Cliente {
         fechanac.setText("");
     }
 
+    public void buscarClienteEventHandler(ActionEvent event){
+        ClienteI clienteDao=new ClienteImp();
+         clienteB=null;
+        try {
+            clienteB=clienteDao.obtener(cedula.getText());
+            fechanac.setText(String.valueOf(clienteB.getFechaNac()));
+            nombres.setText(String.valueOf(clienteB.getNombre()));
+            apellidos.setText(String.valueOf(clienteB.getApellido()));
+            dir.setText(String.valueOf(clienteB.getDireccion()));
+            telf.setText(String.valueOf(clienteB.getTelefono()));
+            email.setText(String.valueOf(clienteB.getEmail()));
+        } catch (Exception e) {
+            
+        }
+    }
+    
 }
+
+
