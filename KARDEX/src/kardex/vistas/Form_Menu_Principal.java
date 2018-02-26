@@ -95,9 +95,6 @@ public class Form_Menu_Principal extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        
-            
-        
         interior = new Pane();
         interior.setMaxSize(1270, 710);
         Background fondoImagen = new Background(new BackgroundImage(new Image("file:src\\kardex\\multimedia\\images\\micasa.png"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(500, 500, false, true, true, false)));
@@ -145,9 +142,20 @@ venta = new Menu("Ventas");
 //COMPRAS
 compra = new Menu("Compras");
         //NUEVA COMPRA
+        newCompra = new MenuItem("Nueva Venta");
+        newCompra.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Pane nFacCompra = new Pane();
+                nFacCompra.getChildren().add(nFactCompraEventHandler(event));
+                nFacCompra.setPadding(new Insets(10));
+                interior.getChildren().add(nFacCompra);
+            }
+        });
         //ELIMIAR COMPRA
         //LISTA DE COMRAS
 //COMPRAS
+compra.getItems().addAll(newCompra);
 //********************************//
 //CLIENTE
 
@@ -432,20 +440,41 @@ compra = new Menu("Compras");
         FactVentaNuevo.setTop(bTitulo.getBarra());
         Form_Nueva_FacturaVenta FactVentN = new Form_Nueva_FacturaVenta();
         FactVentaNuevo.setCenter(FactVentN.getPnlFinal());
-        Form_SubVentana nFactVenta = new Form_SubVentana();
-        nFactVenta.setRoot(FactVentaNuevo);
-        nFactVenta.makeDragable(bTitulo.getBarra());
-        nFactVenta.makeDragable(titulo);
-        nFactVenta.makeResizable(20);
-        nFactVenta.makeFocusable();
-        nFactVenta.setCloseButton(cerrar);
-        return nFactVenta;
+        Form_SubVentana subCliente = new Form_SubVentana();
+        subCliente.setRoot(FactVentaNuevo);
+        subCliente.makeDragable(bTitulo.getBarra());
+        subCliente.makeDragable(titulo);
+        subCliente.makeResizable(20);
+        subCliente.makeFocusable();
+        subCliente.setCloseButton(cerrar);
+        return subCliente;
     }
 
     //ELIMINAR VENTA
     //LISTA DE VENTAS
 //COMPRAS
     //NUEVA COMPRA
+    public Form_SubVentana nFactCompraEventHandler(ActionEvent event) {
+        BorderPane FactVentaNuevo = new BorderPane();
+        Label titulo = new Label("Nuevo Factura Venta");
+        titulo.setFont(Font.font("News701 BT", 25));
+        titulo.setTextFill(Color.AQUA);
+        Button cerrar = new Button("X");
+        cerrar.setFont(Font.font("Arial Black", 20));
+        cerrar.setTextFill(Color.AQUA);
+        Form_Barra_De_Titulo bTitulo = new Form_Barra_De_Titulo(titulo, cerrar);
+        FactVentaNuevo.setTop(bTitulo.getBarra());
+        Form_Nueva_FacturaCompra FactComN = new Form_Nueva_FacturaCompra();
+        FactVentaNuevo.setCenter(FactComN.getpntFinal());
+        Form_SubVentana subCliente = new Form_SubVentana();
+        subCliente.setRoot(FactVentaNuevo);
+        subCliente.makeDragable(bTitulo.getBarra());
+        subCliente.makeDragable(titulo);
+        subCliente.makeResizable(20);
+        subCliente.makeFocusable();
+        subCliente.setCloseButton(cerrar);
+        return subCliente;
+    }
     //ELIMIAR COMPRA
     //LISTA DE COMRAS
 //CLIENTE
