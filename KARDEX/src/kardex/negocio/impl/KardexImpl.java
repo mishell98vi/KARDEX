@@ -10,7 +10,7 @@ public class KardexImpl implements KardexI{
      @Override
     public int insertar(Kardex kardex) throws Exception {
         int numFilas = 0;
-        String sqlC = "INSERT INTO Kardex (codKardex, codProducto, fechaEmision, tipoTransaccion, existencia, valorTotal, cantEditable) VALUES (?,?,?,?,?,?,?)";
+        String sqlC = "INSERT INTO Kardex (codigoKardex, codigoProducto, fechaEmision, tipoTransaccion, existecias, valorTotal, cantidadEdicion) VALUES (?,?,?,?,?,?,?)";
         ArrayList<Parametro> lisParametros = new ArrayList<>();
         lisParametros.add(new Parametro(1, kardex.getCodKardex()));
         lisParametros.add(new Parametro(2, kardex.getProducto().getCodigoProducto()));
@@ -42,7 +42,7 @@ public class KardexImpl implements KardexI{
     @Override
     public int modificar(Kardex kardex) throws Exception {
         int numFilas = 0;
-        String sqlC = "UPDATE kardex SET codKardex=?, codProducto=?, fechaEmision=?, tipoTransaccion=?, existencia=?, valorTotal=?, cantEditable=? WHERE codKardex=? and codProducto=?";
+        String sqlC = "UPDATE kardex SET codigoKardex=?, codigoProducto=?, fechaEmision=?, tipoTransaccion=?, existecias=?, valorTotal=?, cantidadEdicion=? WHERE codigoKardex=? and codigoProducto=?";
         ArrayList<Parametro> lisParametros = new ArrayList<>();
         lisParametros.add(new Parametro(1, kardex.getCodKardex()));
         lisParametros.add(new Parametro(2, kardex.getProducto().getCodigoProducto()));
@@ -76,7 +76,7 @@ public class KardexImpl implements KardexI{
     @Override
     public int eliminar(Kardex kardex) throws Exception {
         int numFilas = 0;
-        String sqlC = "DELETE FROM Kardex WHERE codKardex=? and codProducto=?";
+        String sqlC = "DELETE FROM Kardex WHERE codigoKardex=? and codigoProducto=?";
         ArrayList<Parametro> lisParametros = new ArrayList<>();
         lisParametros.add(new Parametro(1, kardex.getCodKardex()));
         lisParametros.add(new Parametro(2, kardex.getProducto().getCodigoProducto()));
@@ -98,7 +98,7 @@ public class KardexImpl implements KardexI{
     @Override
     public Kardex obtener(int codKardex, int codProducto) throws Exception {
         Kardex nKardex = null;
-        String sqlC = "SELECT codKardex, codProducto, fechaEmision, tipoTransaccion, existencia, valorTotal, cantEditable FROM Kardex WHERE codKardex=? and codProducto=?";
+        String sqlC = "SELECT codigoKardex, codigoProducto, fechaEmision, tipoTransaccion, existecias, valorTotal, cantidadEdicion FROM Kardex WHERE codigoKardex=? and codigoProducto=?";
         ArrayList<Parametro> lisParametros = new ArrayList<>();
         lisParametros.add(new Parametro(1, codKardex));
         lisParametros.add(new Parametro(2, codProducto));
@@ -134,7 +134,7 @@ public class KardexImpl implements KardexI{
     @Override
     public ArrayList<Kardex> obtener() throws Exception {
         ArrayList<Kardex> listKardex = new ArrayList<>();
-        String sqlC = "SELECT codKardex, codProducto, fechaEmision, tipoTransaccion, existencia, valorTotal, cantEditable FROM Kardex";
+        String sqlC = "SELECT codigoKardex, codigoProducto, fechaEmision, tipoTransaccion, existecias, valorTotal, cantidadEdicion FROM Kardex";
         Conexion con = null;
         ProductoI prodDao = new ProductoImp();
         Producto nProd = null;

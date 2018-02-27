@@ -16,6 +16,7 @@ public class ProductoImp implements ProductoI{
         listParam.add(new Parametro(2, producto.getCategoria().getCodigoCategoria()));
         listParam.add(new Parametro(3, producto.getNombre()));
         listParam.add(new Parametro(4, producto.getPrecio()));
+        listParam.add(new Parametro(5, producto.getCodigoProducto()));
         Conexion conect = null;
         try {
             conect = new Conexion();

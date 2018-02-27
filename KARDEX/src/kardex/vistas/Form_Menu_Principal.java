@@ -140,7 +140,7 @@ venta = new Menu("Ventas");
 //COMPRAS
 compra = new Menu("Compras");
         //NUEVA COMPRA
-        newCompra = new MenuItem("Nueva Venta");
+        newCompra = new MenuItem("Nueva Compra");
         newCompra.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -234,10 +234,10 @@ compra.getItems().addAll(newCompra);
         modProveedor.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Pane eliProveedores = new Pane();
-                eliProveedores.getChildren().add(mProveedorEventHandler(event));
-                eliProveedores.setPadding(new Insets(10));
-                interior.getChildren().add(eliProveedores);
+                Pane modProveedores = new Pane();
+                modProveedores.getChildren().add(mProveedorEventHandler(event));
+                modProveedores.setPadding(new Insets(10));
+                interior.getChildren().add(modProveedores);
             }
         });
         //ELIMINAR PROVEEDOR
@@ -292,6 +292,15 @@ compra.getItems().addAll(newCompra);
         });
         //EDITAR PRODUCTO
         modProducto = new MenuItem("Modificar Producto");
+        modProducto.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Pane mProducto = new Pane();
+                mProducto.getChildren().add(mProductoEventHandler(event));
+                mProducto.setPadding(new Insets(10));
+                interior.getChildren().add(mProducto);
+            }
+        });
         //ELIMINAR PRODUCTO
         delProducto = new MenuItem("Eliminar Producto");
         delProducto.setOnAction(new EventHandler<ActionEvent>() {
@@ -344,6 +353,15 @@ compra.getItems().addAll(newCompra);
         });
         //EDITAR CATEGORIA
         modCategoria = new MenuItem("Modificar Categoria");
+        modCategoria.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Pane modiCateg = new Pane();
+                modiCateg.getChildren().add(mCategoriaEventHandler(event));
+                modiCateg.setPadding(new Insets(10));
+                interior.getChildren().add(modiCateg);
+            }
+        });
         //ELIMINAR CATEGORIA
         delCategoria = new MenuItem("Eliminar Categoria");
         delCategoria.setOnAction(new EventHandler<ActionEvent>() {
@@ -407,7 +425,7 @@ compra.getItems().addAll(newCompra);
         primaryStage.setMinHeight(720);
         primaryStage.setMinWidth(1280);
         primaryStage.setResizable(false);
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("EMPRESA");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -453,7 +471,7 @@ compra.getItems().addAll(newCompra);
     //NUEVA COMPRA
     public Form_SubVentana nFactCompraEventHandler(ActionEvent event) {
         BorderPane FactVentaNuevo = new BorderPane();
-        Label titulo = new Label("Nuevo Factura Venta");
+        Label titulo = new Label("Nuevo Factura Compra");
         titulo.setFont(Font.font("News701 BT", 25));
         titulo.setTextFill(Color.WHITE);
         Button cerrar = new Button("X");
@@ -734,6 +752,27 @@ compra.getItems().addAll(newCompra);
     }
 
     //EDITAR PRODUCTO
+    public Form_SubVentana mProductoEventHandler(ActionEvent event) {
+        BorderPane eProducto = new BorderPane();
+        Label titulo = new Label("Editar un Producto");
+        titulo.setFont(Font.font("News701 BT", 25));
+        titulo.setTextFill(Color.WHITE);
+        Button cerrar = new Button("X");
+        cerrar.setFont(Font.font("Arial Black", 20));
+        cerrar.setTextFill(Color.BLACK);
+        Form_Barra_De_Titulo bTitulo = new Form_Barra_De_Titulo(titulo, cerrar);
+        eProducto.setTop(bTitulo.getBarra());
+        Form_EditarProducto producto = new Form_EditarProducto();
+        eProducto.setCenter(producto.getPnlFinal());
+        Form_SubVentana subProveedor = new Form_SubVentana();
+        subProveedor.setRoot(eProducto);
+        subProveedor.makeDragable(bTitulo.getBarra());
+        subProveedor.makeDragable(titulo);
+        subProveedor.makeResizable(20);
+        subProveedor.makeFocusable();
+        subProveedor.setCloseButton(cerrar);
+        return subProveedor;
+    }
     //ELIMINAR PRODUCTO
     public Form_SubVentana eProductoEventHandler(ActionEvent event) {
         BorderPane producEli = new BorderPane();
@@ -828,6 +867,27 @@ compra.getItems().addAll(newCompra);
     }
 
     //EDITAR CATEGORIA
+    public Form_SubVentana mCategoriaEventHandler(ActionEvent event) {
+        BorderPane eCategoria = new BorderPane();
+        Label titulo = new Label("Editar una Categoria");
+        titulo.setFont(Font.font("News701 BT", 25));
+        titulo.setTextFill(Color.WHITE);
+        Button cerrar = new Button("X");
+        cerrar.setFont(Font.font("Arial Black", 20));
+        cerrar.setTextFill(Color.BLACK);
+        Form_Barra_De_Titulo bTitulo = new Form_Barra_De_Titulo(titulo, cerrar);
+        eCategoria.setTop(bTitulo.getBarra());
+        Form_EditarCategoria categoria = new Form_EditarCategoria();
+        eCategoria.setCenter(categoria.getPnlFinal());
+        Form_SubVentana subCategoria = new Form_SubVentana();
+        subCategoria.setRoot(eCategoria);
+        subCategoria.makeDragable(bTitulo.getBarra());
+        subCategoria.makeDragable(titulo);
+        subCategoria.makeResizable(20);
+        subCategoria.makeFocusable();
+        subCategoria.setCloseButton(cerrar);
+        return subCategoria;
+    }
     //ELIMINAR CATEGORIA
     public Form_SubVentana eCategoriaEventHandler(ActionEvent event) {
         BorderPane eCategoria = new BorderPane();
@@ -897,7 +957,6 @@ compra.getItems().addAll(newCompra);
         return subCategoria;
     }
 //KARDEX
-
     //KARDEX MENSUAL
     //LISTADO DE KARDEX
 //CONSULTAS

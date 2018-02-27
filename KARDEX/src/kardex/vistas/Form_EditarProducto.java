@@ -32,6 +32,7 @@ public class Form_EditarProducto {
     private Label txtCategoProd;
     private Label categDesc;
     private Label Descripcion;
+    private Producto nProd;
     //combobox
     private ComboBox<Categoria> cbxCategoria;
     private ObservableList<Categoria> items = FXCollections.observableArrayList();
@@ -67,7 +68,7 @@ public class Form_EditarProducto {
         cbxCategoria = new ComboBox<>();
         cbxCategoria.setItems(items);
         cbxCategoria.setValue(items.get(0));
-        cbxCategoria.setOnShown(new EventHandler<Event>() {
+        cbxCategoria.setOnHiding(new EventHandler<Event>() {
             @Override
             public void handle(Event event) {
                 mostrarDescripcionEventHandler(event);
@@ -143,7 +144,7 @@ public class Form_EditarProducto {
         btnModificar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                bCerrarEventHandler(event);
+                bModificarEventHandler(event);
             }
         });
         pnlBotones = new HBox(25);
@@ -155,7 +156,7 @@ public class Form_EditarProducto {
         Image fondoFinal = new Image("file:src\\kardex\\multimedia\\images\\fondo.jpg");
         BackgroundImage fondo = new BackgroundImage(fondoFinal, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         pnlFinal.setBackground(new Background(fondo));
-        pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: orange ; -fx-border-width: 2px");
+        pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: black ; -fx-border-width: 2px");
         pnlFinal.getChildren().addAll(pnlprodCateg, pnlDescCateg, pnlBotones);
     }
     
@@ -175,21 +176,15 @@ public class Form_EditarProducto {
     }
     public void bBuscarEventHandler(ActionEvent event){
         ProductoI prodDao=new ProductoImp();
-        Producto nProd=new Producto();
-        Categoria ncat=new Categoria();
-        CategoriaI catDao=new CategoriaImp();
+        Categoria nCat=new Categoria();
+        CategoriaI categDao=new CategoriaImp();
         try {
-            ncat=cbxCategoria.getValue();
-            nProd.setCodigoProducto(Integer.parseInt(codProd.getText()));
-            nProd.setNombre(nomProd.getText());
-            nProd.setPrecio(Double.parseDouble(precioProd.getText()));
-            nProd.setCategoria(ncat);
-            if(prodDao.ingresar(nProd)>0){
-                System.out.println("Ingreso Correcto");
-            }
-            else{
-                System.out.println("Ingreso Fallido");
-            }
+            nProd=prodDao.obtener(Integer.parseInt(codProd.getText()));
+            nomProd.setText(nProd.getNombre());
+            precioProd.setText(String.valueOf(nProd.getPrecio()));
+            nCat=categDao.obtener(nProd.getCategoria().getCodigoCategoria());
+            Descripcion.setText(nCat.getDescripcion());
+            Descripcion.setWrapText(true);
         } catch (Exception e) {
         }
     }
@@ -200,8 +195,6 @@ public class Form_EditarProducto {
         precioProd.setText("");
     }
     
-    public void bCerrarEventHandler(ActionEvent event){
-    }
     
     public void mostrarDescripcionEventHandler(Event event){
         Categoria ncat=new Categoria();
@@ -209,6 +202,25 @@ public class Form_EditarProducto {
         Descripcion.setText(ncat.getDescripcion());
     }
 
+    public void bModificarEventHandler(ActionEvent event){
+        ProductoI prodDao=new ProductoImp();
+        Categoria ncat=new Categoria();
+        CategoriaI catDao=new CategoriaImp();
+        try {
+            ncat=cbxCategoria.getValue();
+            nProd.setNombre(nomProd.getText());
+            nProd.setPrecio(Double.parseDouble(precioProd.getText()));
+            nProd.setCategoria(ncat);
+            if(prodDao.modificar(nProd)>0){
+                System.out.println("Modificacion Correcta");
+            }
+            else{
+                System.out.println("Modificacion Fallida");
+            }
+        } catch (Exception e) {
+        }
+    }
+    
     public VBox getPnlFinal() {
         return pnlFinal;
     }
