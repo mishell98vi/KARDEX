@@ -131,7 +131,7 @@ public class Form_Nueva_FacturaCompra {
         totalF = 0;
         tipoTransaccion = "C";
         //PANEL SUPERIOR CLIENTE
-        pFondo = new Image("file:src\\kardex\\multimedia\\images\\FONDOO.jpg");
+        pFondo = new Image("file:src\\kardex\\multimedia\\images\\fondo.jpg");
         fondo = new BackgroundImage(pFondo, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         txtcedula = new Label("Cedula/Ruc Proveedor:   ");
         txtcedula.setFont(Font.font("News701 BT", 15));
@@ -151,19 +151,19 @@ public class Form_Nueva_FacturaCompra {
         cedula.setMaxSize(150, 25);
         cedula.setMinSize(150, 25);
         nombres = new Label("");
-        nombres.setStyle("-fx-border-color: mediumblue; -fx-border-width: 2px");
+        nombres.setStyle("-fx-border-color: black; -fx-border-width: 2px");
         nombres.setMaxSize(250, 25);
         nombres.setMinSize(250, 25);
         direccion = new Label("");
-        direccion.setStyle("-fx-border-color: mediumblue; -fx-border-width: 2px");
+        direccion.setStyle("-fx-border-color: black; -fx-border-width: 2px");
         direccion.setMaxSize(225, 25);
         direccion.setMinSize(225, 25);
         telefono = new Label("");
-        telefono.setStyle("-fx-border-color: mediumblue; -fx-border-width: 2px");
+        telefono.setStyle("-fx-border-color: black; -fx-border-width: 2px");
         telefono.setMaxSize(75, 25);
         telefono.setMinSize(75, 25);
         email = new Label("");
-        email.setStyle("-fx-border-color: mediumblue; -fx-border-width: 2px");
+        email.setStyle("-fx-border-color: black; -fx-border-width: 2px");
         email.setMaxSize(100, 25);
         email.setMinSize(100, 25);
         pntC1 = new HBox(5);
@@ -183,8 +183,8 @@ public class Form_Nueva_FacturaCompra {
         ///////////Logo///////////
         logo = new Image("file:src\\kardex\\multimedia\\images\\micasa.png");
         mostrarLogo = new ImageView(logo);
-        mostrarLogo.setFitHeight(200);
-        mostrarLogo.setFitWidth(500);
+        mostrarLogo.setFitHeight(100);
+        mostrarLogo.setFitWidth(400);
         mostrarLogo.setOpacity(25);
         ///////////7////////////
         ///////////////Factura/////////////////
@@ -233,32 +233,33 @@ public class Form_Nueva_FacturaCompra {
         codigo = new Label("Codigo");
         codigo.setMaxSize(100, 30);
         codigo.setMinSize(100, 30);
-        codigo.setStyle("-fx-border-color: mediumblue; -fx-border-width: 2px");
+        codigo.setStyle("-fx-border-color: black; -fx-border-width: 2px");
         codigo.setAlignment(Pos.CENTER);
         nombre = new Label("Nombre");
         nombre.setMaxSize(325, 30);
         nombre.setMinSize(325, 30);
-        nombre.setStyle("-fx-border-color: mediumblue; -fx-border-width: 2px");
+        nombre.setStyle("-fx-border-color: black; -fx-border-width: 2px");
         nombre.setAlignment(Pos.CENTER);
         cantidad = new Label("Cantidad");
         cantidad.setMaxSize(100, 30);
         cantidad.setMinSize(100, 30);
-        cantidad.setStyle("-fx-border-color: mediumblue; -fx-border-width: 2px");
+        cantidad.setStyle("-fx-border-color: black; -fx-border-width: 2px");
         cantidad.setAlignment(Pos.CENTER);
-        precioU = new Label("Precio U");
+        precioU = new Label("P. Uni");
         precioU.setMaxSize(50, 30);
         precioU.setMinSize(50, 30);
-        precioU.setStyle("-fx-border-color: mediumblue; -fx-border-width: 2px");
+        precioU.setStyle("-fx-border-color: black; -fx-border-width: 2px");
         precioU.setAlignment(Pos.CENTER);
-        precioT = new Label("Precio T");
+        precioT = new Label("p. Total");
         precioT.setMaxSize(50, 30);
         precioT.setMinSize(50, 30);
-        precioT.setStyle("-fx-border-color: mediumblue; -fx-border-width: 2px");
+        precioT.setStyle("-fx-border-color: black; -fx-border-width: 2px");
         precioT.setAlignment(Pos.CENTER);
-        accion = new Label("A");
+        accion = new Label("Ins");
+        accion.setFont(Font.font("News701 BT"));
         accion.setMaxSize(55, 30);
         accion.setMinSize(55, 30);
-        accion.setStyle("-fx-border-color: mediumblue; -fx-border-width: 2px");
+        accion.setStyle("-fx-border-color: black; -fx-border-width: 2px");
         accion.setAlignment(Pos.CENTER);
         pntItems = new HBox(2);
         pntItems.setMaxSize(670, 30);
@@ -292,7 +293,7 @@ public class Form_Nueva_FacturaCompra {
         TotalAntes.setMaxSize(100, 25);
         TotalAntes.setMinSize(100, 25);
         TotalAntes.setFont(Font.font("News701 BT", 10));
-        TotalAntes.setStyle("-fx-border-color: mediumblue; -fx-border-width: 2px");
+        TotalAntes.setStyle("-fx-border-color: black; -fx-border-width: 2px");
         txtIva = new Label("IVA: ");
         txtIva.setFont(Font.font("News701 BT", 10));
         iva = new TextField("12");
@@ -304,7 +305,7 @@ public class Form_Nueva_FacturaCompra {
         totalFinal.setMaxSize(100, 25);
         totalFinal.setMinSize(100, 25);
         totalFinal.setFont(Font.font("News701 BT", 10));
-        totalFinal.setStyle("-fx-border-color: mediumblue; -fx-border-width: 2px");
+        totalFinal.setStyle("-fx-border-color: black; -fx-border-width: 2px");
         pntFin1 = new HBox(5);
         pntFin1.getChildren().addAll(txtTotalAntes, TotalAntes);
         pntFin1.setAlignment(Pos.CENTER_RIGHT);
@@ -330,7 +331,7 @@ public class Form_Nueva_FacturaCompra {
         pntFinal.setBottom(pntPie);
         pntFinal.setPadding(new Insets(10));
         pntFinal.setBackground(new Background(fondo));
-        pntFinal.setStyle("-fx-padding: 10; -fx-border-color: mediumblue; -fx-border-width: 2px");
+        pntFinal.setStyle("-fx-padding: 10; -fx-border-color: black; -fx-border-width: 2px");
         btnFila.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -385,7 +386,7 @@ public class Form_Nueva_FacturaCompra {
         tfCodigo = new TextField();
         tfCodigo.setMaxSize(100, 25);
         tfCodigo.setMinSize(100, 25);
-        tfCodigo.setStyle("-fx-border-color: mediumblue; -fx-border-width: 2px");
+        tfCodigo.setStyle("-fx-border-color: black; -fx-border-width: 2px");
         tfCodigo.setEditable(false);
         lstCodigo.add(tfCodigo);
         cod = new VBox();
@@ -401,7 +402,7 @@ public class Form_Nueva_FacturaCompra {
         tfCantidad = new TextField();
         tfCantidad.setMaxSize(100, 25);
         tfCantidad.setMinSize(100, 25);
-        tfCantidad.setStyle("-fx-border-color: mediumblue; -fx-border-width: 2px");
+        tfCantidad.setStyle("-fx-border-color: black; -fx-border-width: 2px");
         lstCantidad.add(tfCantidad);
         cant = new VBox();
         cant.setAlignment(Pos.BOTTOM_CENTER);
@@ -410,7 +411,7 @@ public class Form_Nueva_FacturaCompra {
         tfPrecioU = new TextField();
         tfPrecioU.setMaxSize(50, 25);
         tfPrecioU.setMinSize(50, 25);
-        tfPrecioU.setStyle("-fx-border-color: mediumblue; -fx-border-width: 2px");
+        tfPrecioU.setStyle("-fx-border-color: black; -fx-border-width: 2px");
         tfPrecioU.setEditable(false);
         lstPrecioU.add(tfPrecioU);
         pUnit = new VBox();
@@ -420,7 +421,7 @@ public class Form_Nueva_FacturaCompra {
         tfprecioT = new TextField();
         tfprecioT.setMaxSize(50, 25);
         tfprecioT.setMinSize(50, 25);
-        tfprecioT.setStyle("-fx-border-color: mediumblue; -fx-border-width: 2px");
+        tfprecioT.setStyle("-fx-border-color: black; -fx-border-width: 2px");
         tfprecioT.setEditable(false);
         lstPrecioT.add(tfprecioT);
         pTot = new VBox();

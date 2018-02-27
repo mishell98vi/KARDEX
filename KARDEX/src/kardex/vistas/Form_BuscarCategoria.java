@@ -59,7 +59,7 @@ public class Form_BuscarCategoria {
         nombre = new Label("");
         nombre.setMinSize(200, 25);
         nombre.setMaxSize(200, 25);
-        nombre.setStyle("-fx-border-color: blue ; -fx-border-width: 2px");
+        nombre.setStyle("-fx-border-color: black ; -fx-border-width: 2px");
         pnlICat2 = new VBox(10);
         pnlICat2.getChildren().addAll(codigo, nombre);
         pnlICat2.setAlignment(Pos.CENTER);
@@ -82,7 +82,7 @@ public class Form_BuscarCategoria {
         descripcion = new Label("");
         descripcion.setMaxSize(350, 100);
         descripcion.setMinSize(350, 100);
-        descripcion.setStyle("-fx-border-color: blue ; -fx-border-width: 2px");
+        descripcion.setStyle("-fx-border-color: black ; -fx-border-width: 2px");
         pnlInt = new VBox(10);
         pnlInt.getChildren().addAll(txtDescripcion, descripcion);
         pnlInt.setAlignment(Pos.CENTER);
@@ -110,7 +110,7 @@ public class Form_BuscarCategoria {
         Image fondoFinal = new Image("file:src\\kardex\\multimedia\\images\\FONDOO.jpg");
         BackgroundImage fondo = new BackgroundImage(fondoFinal, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         pnlFinal.setBackground(new Background(fondo));
-        pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: orange ; -fx-border-width: 2px");
+        pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: black ; -fx-border-width: 2px");
         pnlFinal.getChildren().addAll(pnlSup, pnlInt, pnlBotones);
         pnlFinal.setPadding(new Insets(10));
     }

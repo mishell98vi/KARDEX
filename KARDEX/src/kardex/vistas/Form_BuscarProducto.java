@@ -61,7 +61,7 @@ public class Form_BuscarProducto {
         cbxCategoria = new Label("");
         cbxCategoria.setMaxSize(200, 25);
         cbxCategoria.setMinSize(200, 25);
-        cbxCategoria.setStyle("-fx-border-color: blue ; -fx-border-width: 2px");
+        cbxCategoria.setStyle("-fx-border-color: black ; -fx-border-width: 2px");
         txtCategoProd = new Label("Categoria: ");
         txtCategoProd.setFont(Font.font("News701 BT", 20));
         pnlListCateg = new HBox(10);
@@ -82,16 +82,16 @@ public class Form_BuscarProducto {
         Descripcion = new Label("");
         Descripcion.setMaxSize(400, 100);
         Descripcion.setMinSize(400, 100);
-        Descripcion.setStyle("-fx-border-color: blue ; -fx-border-width: 2px");
+        Descripcion.setStyle("-fx-border-color: black ; -fx-border-width: 2px");
         codProd = new TextField("");
         nomProd = new Label("");
         nomProd.setMaxSize(200, 25);
         nomProd.setMinSize(200, 25);
-        nomProd.setStyle("-fx-border-color: blue ; -fx-border-width: 2px");
+        nomProd.setStyle("-fx-border-color: black ; -fx-border-width: 2px");
         precioProd = new Label("");
         precioProd.setMaxSize(200, 25);
         precioProd.setMinSize(200, 25);
-        precioProd.setStyle("-fx-border-color: blue ; -fx-border-width: 2px");
+        precioProd.setStyle("-fx-border-color: black ; -fx-border-width: 2px");
         pnlNombresProducto = new VBox(10);
         pnlNombresProducto.getChildren().addAll(txtCodprod, txtNomProd, txtPrecioProd);
         pnlNombresProducto.setAlignment(Pos.CENTER_LEFT);
@@ -144,7 +144,7 @@ public class Form_BuscarProducto {
         Image fondoFinal = new Image("file:src\\kardex\\multimedia\\images\\fondo.jpg");
         BackgroundImage fondo = new BackgroundImage(fondoFinal, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         pnlFinal.setBackground(new Background(fondo));
-        pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: orange ; -fx-border-width: 2px");
+        pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: black ; -fx-border-width: 2px");
         pnlFinal.getChildren().addAll(pnlprodCateg, pnlDescCateg, pnlBotones);
     }
 

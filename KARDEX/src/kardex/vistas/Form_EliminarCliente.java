@@ -42,11 +42,9 @@ public class Form_EliminarCliente {
     private Image iconCliente;
     private ImageView visorIcono;
 
-    private Button bEditar;
-    private Button bModificar;
-    private Button bEliminar;
+    private Button bBuscar;
     private Button bLimpiar;
-    private Button bCancelar;
+    private Button bEliminar;
 
     private GridPane centroCliente;
     private HBox clImagen;
@@ -80,38 +78,28 @@ public class Form_EliminarCliente {
         cedula = new TextField("");
         fechanac = new Label("");
         fechanac.setMaxSize(200, 25);
-        fechanac.setStyle("-fx-border-color: blue ; -fx-border-width: 2px");
+        fechanac.setStyle("-fx-border-color: black ; -fx-border-width: 2px");
         nombres = new Label("");
         nombres.setMaxSize(200, 25);
-        nombres.setStyle("-fx-border-color: blue ; -fx-border-width: 2px");
+        nombres.setStyle("-fx-border-color: black ; -fx-border-width: 2px");
         apellidos = new Label("");
         apellidos.setMaxSize(200, 25);
-        apellidos.setStyle("-fx-border-color: blue ; -fx-border-width: 2px");
+        apellidos.setStyle("-fx-border-color: black ; -fx-border-width: 2px");
         telf = new Label("");
         telf.setMaxSize(100, 25);
         telf.setMinSize(100, 25);
-        telf.setStyle("-fx-border-color: blue ; -fx-border-width: 2px");
+        telf.setStyle("-fx-border-color: black ; -fx-border-width: 2px");
         dir = new Label("");
         dir.setMaxSize(200, 25);
         dir.setMinSize(200, 25);
-        dir.setStyle("-fx-border-color: blue ; -fx-border-width: 2px");
+        dir.setStyle("-fx-border-color: black ; -fx-border-width: 2px");
         email = new Label("");
         email.setMaxSize(400, 25);
         email.setMinSize(400, 25);
-        email.setStyle("-fx-border-color: blue ; -fx-border-width: 2px");
-        
-        
-        
-
+        email.setStyle("-fx-border-color: black ; -fx-border-width: 2px");
         //BOTONES
-        bEditar = new Button("Aceptar");
-        bEditar.setFont(Font.font("News701 BT", 15));
-        bEditar.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                btnIngresarEventHandler(event);
-            }
-        });
+        bBuscar = new Button("Buscar");
+        bBuscar.setFont(Font.font("News701 BT", 15));
         bLimpiar = new Button("Limpiar");
         bLimpiar.setFont(Font.font("News701 BT", 15));
         bLimpiar.setOnAction(new EventHandler<ActionEvent>() {
@@ -120,12 +108,12 @@ public class Form_EliminarCliente {
                 bLimpiarEventHandler(event);
             }
         });
-        bCancelar = new Button("Salir");
-        bCancelar.setFont(Font.font("News701 BT", 15));
-        bCancelar.setOnAction(new EventHandler<ActionEvent>() {
+        bEliminar = new Button("Salir");
+        bEliminar.setFont(Font.font("News701 BT", 15));
+        bEliminar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                bCancelarEventHandler(event);
+                btnEliminarEventHandler(event);
             }
         });
         //PANELES
@@ -155,21 +143,21 @@ public class Form_EliminarCliente {
         datsFinales.setAlignment(Pos.CENTER);
         //BOTONES
         pnlbotones = new HBox(25);
-        pnlbotones.getChildren().addAll(bEditar, bLimpiar, bCancelar);
+        pnlbotones.getChildren().addAll(bBuscar, bLimpiar, bEliminar);
         pnlbotones.setAlignment(Pos.CENTER);
         //PANTALLA PRINCIPAL
         pnlFinal = new VBox(10);
         Image fondoFinal = new Image("file:src\\kardex\\multimedia\\images\\fondo.jpg");
         BackgroundImage fondo = new BackgroundImage(fondoFinal, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         pnlFinal.setBackground(new Background(fondo));
-        pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: orange ; -fx-border-width: 2px");
+        pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: black ; -fx-border-width: 2px");
         pnlFinal.getChildren().addAll(clImagen, datRest, datsFinales, pnlbotones);
         pnlFinal.setAlignment(Pos.CENTER);
         pnlFinal.setPadding(new Insets(15));
-        cedula.setOnAction(new EventHandler<ActionEvent>() {
+        bBuscar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                buscarClienteEventHandler(event);
+                btnBuscarClienteEventHandler(event);
             }
         });
     }
@@ -178,7 +166,7 @@ public class Form_EliminarCliente {
         return pnlFinal;
     }
 
-    public void btnIngresarEventHandler(ActionEvent event) {
+    public void btnEliminarEventHandler(ActionEvent event) {
         ClienteI clienteDao = new ClienteImp();
         try {
             if(clienteDao.eliminar(clienteB)>0){
@@ -191,7 +179,7 @@ public class Form_EliminarCliente {
     
     
 
-    public void bCancelarEventHandler(ActionEvent event) {
+    public void bEliminarEventHandler(ActionEvent event) {
         System.exit(0);
     }
 
@@ -205,7 +193,7 @@ public class Form_EliminarCliente {
         fechanac.setText("");
     }
 
-    public void buscarClienteEventHandler(ActionEvent event) {
+    public void btnBuscarClienteEventHandler(ActionEvent event) {
         ClienteI clienteDao = new ClienteImp();
         clienteB = null;
         try {

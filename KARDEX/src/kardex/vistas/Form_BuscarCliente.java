@@ -84,27 +84,27 @@ public class Form_BuscarCliente {
         fechanac = new Label("");
         fechanac.setMaxSize(200, 25);
         fechanac.setMinSize(200, 25);
-        fechanac.setStyle("-fx-border-color: orange ; -fx-border-width: 2px");
+        fechanac.setStyle("-fx-border-color: black ; -fx-border-width: 2px");
         nombres = new Label("");
         nombres.setMaxSize(200, 25);
         nombres.setMinSize(200, 25);
-        nombres.setStyle("-fx-border-color: orange ; -fx-border-width: 2px");
+        nombres.setStyle("-fx-border-color: black ; -fx-border-width: 2px");
         apellidos = new Label("");
         apellidos.setMaxSize(200, 25);
         apellidos.setMinSize(200, 25);
-        apellidos.setStyle("-fx-border-color: orange ; -fx-border-width: 2px");
+        apellidos.setStyle("-fx-border-color: black ; -fx-border-width: 2px");
         telf = new Label("");
         telf.setMaxSize(200, 25);
         telf.setMinSize(200, 25);
-        telf.setStyle("-fx-border-color: orange ; -fx-border-width: 2px");
+        telf.setStyle("-fx-border-color: black ; -fx-border-width: 2px");
         dir = new Label("");
         dir.setMaxSize(200, 25);
         dir.setMinSize(200, 25);
-        dir.setStyle("-fx-border-color: orange ; -fx-border-width: 2px");
+        dir.setStyle("-fx-border-color: black ; -fx-border-width: 2px");
         email = new Label("");
         email.setMaxSize(200, 25);
         email.setMinSize(200, 25);
-        email.setStyle("-fx-border-color: orange ; -fx-border-width: 2px");
+        email.setStyle("-fx-border-color: black ; -fx-border-width: 2px");
         
         //BOTONES
         bIngresar = new Button("Aceptar");
@@ -167,7 +167,7 @@ public class Form_BuscarCliente {
         Image fondoFinal = new Image("file:src\\kardex\\multimedia\\images\\fondo.jpg");
         BackgroundImage fondo = new BackgroundImage(fondoFinal, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         pnlFinal.setBackground(new Background(fondo));
-        pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: orange ; -fx-border-width: 2px");
+        pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: black ; -fx-border-width: 2px");
         pnlFinal.getChildren().addAll(clImagen, datRest, datsFinales, pnlbotones);
         pnlFinal.setAlignment(Pos.CENTER);
         pnlFinal.setPadding(new Insets(15));

@@ -55,7 +55,7 @@ public class Form_Listado_Cliente {
         Image fondoFinal = new Image("file:src\\kardex\\multimedia\\images\\fondo.jpg");
         BackgroundImage fondo = new BackgroundImage(fondoFinal, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         pnlFinal.setBackground(new Background(fondo));
-        pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: orange ; -fx-border-width: 2px");
+        pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: black ; -fx-border-width: 2px");
         pnlFinal.getChildren().addAll(titulo, tblCliente);
         pnlFinal.setAlignment(Pos.CENTER);
     }

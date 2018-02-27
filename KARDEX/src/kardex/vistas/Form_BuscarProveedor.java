@@ -61,25 +61,25 @@ public class Form_BuscarProveedor {
         txtNombres = new Label("Nombres: ");
         txtNombres.setFont(Font.font("News701 BT", 20));
         Nombres = new Label("");
-        Nombres.setStyle("-fx-border-color: orange ; -fx-border-width: 2px");
+        Nombres.setStyle("-fx-border-color: black ; -fx-border-width: 2px");
         Nombres.setMaxSize(300, 25);
         Nombres.setMinSize(300, 25);
         txtDireccion = new Label("Direccion: ");
         txtDireccion.setFont(Font.font("News701 BT", 20));
         Direccion = new Label("");
-        Direccion.setStyle("-fx-border-color: orange ; -fx-border-width: 2px");
+        Direccion.setStyle("-fx-border-color: black ; -fx-border-width: 2px");
         Direccion.setMaxSize(300, 25);
         Direccion.setMinSize(300, 25);
         txtTelefono = new Label("Telefono: ");
         txtTelefono.setFont(Font.font("News701 BT", 20));
         Telefono = new Label("");
-        Telefono.setStyle("-fx-border-color: orange ; -fx-border-width: 2px");
+        Telefono.setStyle("-fx-border-color: black ; -fx-border-width: 2px");
         Telefono.setMaxSize(300, 25);
         Telefono.setMinSize(300, 25);
         txtEmail = new Label("Email: ");
         txtEmail.setFont(Font.font("News701 BT", 20));
         Email = new Label("");
-        Email.setStyle("-fx-border-color: orange ; -fx-border-width: 2px");
+        Email.setStyle("-fx-border-color: black ; -fx-border-width: 2px");
         Email.setMaxSize(300, 25);
         Email.setMinSize(300, 25);
         pnlTxtField = new VBox(10);
@@ -129,7 +129,7 @@ public class Form_BuscarProveedor {
         Image fondoFinal = new Image("file:src\\kardex\\multimedia\\images\\fondo.jpg");
         BackgroundImage fondo = new BackgroundImage(fondoFinal, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         pnlFinal.setBackground(new Background(fondo));
-        pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: orange ; -fx-border-width: 2px");
+        pnlFinal.setStyle("-fx-padding: 10; -fx-border-color: black ; -fx-border-width: 2px");
         pnlFinal.getChildren().addAll(pnlProveedor,pnlBotones);
         pnlFinal.setPadding(new Insets(10));
     }
