@@ -540,14 +540,21 @@ public class Form_Nueva_FacturaCompra {
         DateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
         try {
             nProveedor = proveedorDao.obtener(cedula.getText());
-            try {
+        } catch (Exception e) {
+        }
+        try {
             nFactura.setCodFCompra(Integer.parseInt(tfCodFactura.getText()));
             try {
                 nFactura.setFecha(formatoFecha.parse(tfFechaFact.getText()));
-                nFactura.setProveedor(nProveedor);
+            } catch (Exception e) {
+            }
+            nFactura.setProveedor(nProveedor);
             if (factDao.ingresar(nFactura) > 0) {
                 System.out.println("Factura Nueva Creada");
-                for (int i = 0; i < listaCodigo.size(); i++) {
+            } else {
+                System.out.println("Error de creacion de factura");
+            }
+            for (int i = 0; i < listaCodigo.size(); i++) {
                 productoTemp = producDao.obtener(listaCodigo.get(i));
                 nCompra = new Detalle_Compra(cargarDetFact() + 1 + i, productoTemp, nFactura, listaCantidad.get(i), listaPrecioT.get(i));
                 if (compraDao.ingresar(nCompra) > 0) {
@@ -580,20 +587,6 @@ public class Form_Nueva_FacturaCompra {
             alerta.setHeaderText(null);
             alerta.setContentText("Compra Realizada con Exito!");
             alerta.showAndWait();
-            } else {
-                Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("INFORMACION DEL SISTEMA");
-            alerta.setHeaderText(null);
-            alerta.setContentText("Error de creacion de factura " );
-            alerta.showAndWait();
-            }
-            } catch (Exception e) {
-                Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("INFORMACION DEL SISTEMA");
-            alerta.setHeaderText(null);
-            alerta.setContentText("Error: " + e.getMessage());
-            alerta.showAndWait();
-            }
         } catch (Exception e) {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("INFORMACION DEL SISTEMA");
@@ -601,14 +594,6 @@ public class Form_Nueva_FacturaCompra {
             alerta.setContentText("Error: " + e.getMessage());
             alerta.showAndWait();
         }
-        } catch (Exception e) {
-            Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("INFORMACION DEL SISTEMA");
-            alerta.setHeaderText(null);
-            alerta.setContentText("Error: " + e.getMessage());
-            alerta.showAndWait();
-        }
-        
         
     }
 

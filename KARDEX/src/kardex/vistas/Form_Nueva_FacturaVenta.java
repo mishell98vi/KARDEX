@@ -545,6 +545,10 @@ public class Form_Nueva_FacturaVenta {
         ClienteI clientedorDao = new ClienteImp();
         Cliente nCliente = new Cliente();
         DateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            nCliente = clientedorDao.obtener(cedula.getText());
+        } catch (Exception e) {
+        }
         Factura_VentaI factDao = new Factura_VentaImp();
         Factura_Venta nFactura = new Factura_Venta();
         ProductoI producDao = new ProductoImp();
@@ -553,56 +557,50 @@ public class Form_Nueva_FacturaVenta {
         KardexProductoI consultaKDao = new KardexProductoImpl();
         Detalle_Venta nVenta = null;
         try {
-            nCliente = clientedorDao.obtener(cedula.getText());
-        } catch (Exception e) {
-        }
-        try {
             nFactura.setCodFVenta(Integer.parseInt(tfCodFactura.getText()));
             try {
                 nFactura.setFecha(formatoFecha.parse(tfFechaFact.getText()));
-                nFactura.setCliente(nCliente);
-                if (factDao.ingresar(nFactura) > 0) {
-                    System.out.println("Factura Nueva Creada");
-                    for (int i = 0; i < listaCodigo.size(); i++) {
-                        productoTemp = producDao.obtener(listaCodigo.get(i));
-                        nVenta = new Detalle_Venta((cargarDetalleVenta() + 1 + i), productoTemp, nFactura, listaCantidad.get(i), listaPrecioT.get(i));
-                        if (ventaDao.ingresar(nVenta) > 0) {
-                            System.out.println("Ingreso de Detalle V Correcto!");
-                        } else {
-                            System.out.println("Ingreso de Detalle V Fallido!");
-                        }
-                        ArrayList<Kardex> listaKardex = new ArrayList<>();
-                        listaKardex = consultaKDao.listadoKardexProducto(productoTemp.getCodigoProducto());
-                        System.out.println("tamaño de kardex por producto: " + listaKardex.size());
-                        Kardex kardexTemp = null;
-                        if (!listaKardex.isEmpty()) {
-                            Kardex ktemp = new Kardex();
-                            ktemp = listaKardex.get(listaKardex.size() - 1);
-                            System.out.println("Kardex final: " + ktemp.getCodKardex() + ktemp.getProducto().getNombre());
-                            kardexTemp = new Kardex();
-                            kardexTemp = ktemp;
-                            nKardex = new Kardex((ktemp.getCodKardex() + 1), productoTemp, nFactura.getFecha(), tipoTransaccion, kardexTemp.getExistencias() + (listaCantidad.get(i) * (-1)), listaCantidad.get(i) * -1, (-1 * listaPrecioT.get(i)));
-                        } else {
-                            kardexTemp = new Kardex(1, productoTemp, nFactura.getFecha(), tipoTransaccion, 0, 0, totalA);
-                        }
-                        if (kardexDao.insertar(nKardex) > 0) {
-                            System.out.println("Ingreso de Kardex Correcto!");
-                        } else {
-                            System.out.println("Ingreso de Kardex Fallido!");
-                        }
-                    }
-                    Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-                    alerta.setTitle("INFORMACION DEL SISTEMA");
-                    alerta.setHeaderText(null);
-                    alerta.setContentText("Venta Realizada con Exito!");
-                    alerta.showAndWait();
-                } else {
-                    System.out.println("Error de creacion de factura");
-                }
-
             } catch (Exception e) {
             }
-
+            nFactura.setCliente(nCliente);
+            if (factDao.ingresar(nFactura) > 0) {
+                System.out.println("Factura Nueva Creada");
+            } else {
+                System.out.println("Error de creacion de factura");
+            }
+            for (int i = 0; i < listaCodigo.size(); i++) {
+                productoTemp = producDao.obtener(listaCodigo.get(i));
+                nVenta = new Detalle_Venta((cargarDetalleVenta() + 1 + i), productoTemp, nFactura, listaCantidad.get(i), listaPrecioT.get(i));
+                if (ventaDao.ingresar(nVenta) > 0) {
+                    System.out.println("Ingreso de Detalle V Correcto!");
+                } else {
+                    System.out.println("Ingreso de Detalle V Fallido!");
+                }
+                ArrayList<Kardex> kardexBuscado = new ArrayList<>();
+                kardexBuscado = consultaKDao.listadoKardexProducto(productoTemp.getCodigoProducto());
+                System.out.println("tamaño de kardex por producto: "+kardexBuscado.size());
+                Kardex kardexTemp = null;
+                if (!kardexBuscado.isEmpty()) {
+                    Kardex ktemp = new Kardex();
+                    ktemp = kardexBuscado.get(kardexBuscado.size() - 1);
+                    System.out.println("Kardex final: " + ktemp.getCodKardex() + ktemp.getProducto().getNombre());
+                    kardexTemp = new Kardex();
+                    kardexTemp = ktemp;
+                    nKardex = new Kardex((ktemp.getCodKardex() + 1), productoTemp, nFactura.getFecha(), tipoTransaccion, kardexTemp.getExistencias()+(listaCantidad.get(i) * (-1)), listaCantidad.get(i)*-1, (-1*listaPrecioT.get(i)));
+                } else {
+                    kardexTemp = new Kardex(1, productoTemp, nFactura.getFecha(), tipoTransaccion, 0, 0, totalA);
+                }
+                if (kardexDao.insertar(nKardex) > 0) {
+                    System.out.println("Ingreso de Kardex Correcto!");
+                } else {
+                    System.out.println("Ingreso de Kardex Fallido!");
+                }
+            }
+            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("INFORMACION DEL SISTEMA");
+            alerta.setHeaderText(null);
+            alerta.setContentText("Venta Realizada con Exito!");
+            alerta.showAndWait();
         } catch (Exception e) {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("INFORMACION DEL SISTEMA");
