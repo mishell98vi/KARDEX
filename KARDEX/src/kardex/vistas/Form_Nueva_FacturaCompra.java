@@ -412,7 +412,7 @@ public class Form_Nueva_FacturaCompra {
         tfPrecioU.setMaxSize(50, 25);
         tfPrecioU.setMinSize(50, 25);
         tfPrecioU.setStyle("-fx-border-color: black; -fx-border-width: 2px");
-        tfPrecioU.setEditable(false);
+        tfPrecioU.setEditable(true);
         lstPrecioU.add(tfPrecioU);
         pUnit = new VBox();
         pUnit.setAlignment(Pos.BOTTOM_CENTER);

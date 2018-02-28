@@ -11,7 +11,7 @@ public class Kardex_MensualImpl implements kardexMensualI{
     public ArrayList<Kardex> listadoKardexFecha(int codigoProducto, String mes, String anio) throws Exception {
         ArrayList<Kardex> lista = new ArrayList<>();
         String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-        String url = "jdbc:sqlserver://192.16.10.5:1433;databaseName=EMPRESA";
+        String url = "jdbc:sqlserver://localhost:1433;databaseName=EMPRESA";
         String usuario = "integrador";
         String conraseña = "123";
         Connection conexion = null;

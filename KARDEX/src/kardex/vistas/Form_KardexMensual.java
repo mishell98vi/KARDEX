@@ -62,8 +62,8 @@ public class Form_KardexMensual extends Application {
     private ArrayList<String> listaMes;
     private Button btnCalcular;
     private TableView<Kardex> tblKardex;
-    private TableColumn<Kardex, Date> cmlFecha;
-    private TableColumn<Kardex, String >cmlDetalle;
+    private TableColumn<Kardex, String> cmlFecha;
+    private TableColumn<Kardex, String> cmlDetalle;
     private TableColumn<Kardex, Integer> cmlSCant;
     private TableColumn<Kardex, Double> cmlSVU;
     private TableColumn<Kardex, Double> cmlSVT;
@@ -302,13 +302,72 @@ public class Form_KardexMensual extends Application {
     
     public void bCalcularEventHandler(ActionEvent event){
         kardexMensualI kardexMDao=new Kardex_MensualImpl();
+        ObservableList<String> listFechas= FXCollections.observableArrayList();
+        ObservableList<String> listDetalle= FXCollections.observableArrayList();
+        ObservableList<String> listEC= FXCollections.observableArrayList();
+        ObservableList<String> listEPU= FXCollections.observableArrayList();
+        ObservableList<String> listEPT= FXCollections.observableArrayList();
+        ObservableList<String> listSC= FXCollections.observableArrayList();
+        ObservableList<String> listSPU= FXCollections.observableArrayList();
+        ObservableList<String> listSPT= FXCollections.observableArrayList();
+        ObservableList<String> listEXC= FXCollections.observableArrayList();
+        ObservableList<String> listEXPU= FXCollections.observableArrayList();
+        ObservableList<String> listEXPT= FXCollections.observableArrayList();
         listaKardexMensual=new ArrayList<>();
         try {
             listaKardexMensual=kardexMDao.listadoKardexFecha(cmbProducto.getSelectionModel().getSelectedIndex()+1, String.valueOf(cmbMes.getSelectionModel().getSelectedIndex()+1), cmbAnio.getValue());
-            for(Kardex k: listaKardexMensual){
+            for(Kardex k:listaKardexMensual){
+                System.out.println(k.getCodKardex()+"  "+k.getTipoTransaccion()+"  "+k.getProducto().getNombre());
                 if(k.getTipoTransaccion().equals("C")){
-                    
+                    listFechas.add(String.valueOf(k.getFechaEmision()));
+                    listDetalle.add("Compra ("+k.getProducto().getNombre()+")");
+                    listEC.add(String.valueOf(k.getCantEditable()));
+                    listEPT.add(String.valueOf(k.getValorTotal()));
+                    listEPU.add(String.valueOf(k.getValorTotal()/k.getCantEditable()));
+                    listSC.add("");
+                    listSPU.add("");
+                    listSPT.add("");
+                    listEXC.add(String.valueOf(k.getExistencias()));
+                    listEXPT.add(String.valueOf(k.getValorTotal()));
+                    listEXPU.add(String.valueOf(k.getValorTotal()/k.getExistencias()));
                 }
+                else{
+                    listFechas.add(String.valueOf(k.getFechaEmision()));
+                    listDetalle.add("Compra ("+k.getProducto().getNombre()+")");
+                    listSC.add(String.valueOf(k.getCantEditable()));
+                    listSPT.add(String.valueOf(k.getValorTotal()));
+                    listSPU.add(String.valueOf(k.getValorTotal()/k.getCantEditable()));
+                    listEC.add("");
+                    listEPU.add("");
+                    listEPT.add("");
+                    listEXC.add(String.valueOf(k.getExistencias()));
+                    listEXPT.add(String.valueOf(k.getValorTotal()));
+                    listEXPU.add(String.valueOf(k.getValorTotal()/k.getExistencias()));
+                }
+                cmlFecha.getStyleClass().addAll(listFechas);
+                cmlFecha.setVisible(true);
+                cmlDetalle.getStyleClass().addAll(listDetalle);
+                cmlDetalle.setVisible(true);
+                cmlECant.getStyleClass().addAll(listEC);
+                cmlECant.setVisible(true);
+                cmlEVU.getStyleClass().addAll(listEPU);
+                cmlEVU.setVisible(true);
+                cmlEVT.getStyleClass().addAll(listEPT);
+                cmlEVT.setVisible(true);
+                cmlSCant.getStyleClass().addAll(listSC);
+                cmlSCant.setVisible(true);
+                cmlSVU.getStyleClass().addAll(listSPU);
+                cmlSVU.setVisible(true);
+                cmlSVT.getStyleClass().addAll(listSPT);
+                cmlSVT.setVisible(true);
+                cmlExCant.getStyleClass().addAll(listEXC);
+                cmlExCant.setVisible(true);
+                cmlExVU.getStyleClass().addAll(listEXPU);
+                cmlExVU.setVisible(true);
+                cmlExVT.getStyleClass().addAll(listEXPT);
+                cmlExVT.setVisible(true);
+                tblKardex.getItems().addAll(listaKardexMensual);
+                tblKardex.setVisible(true);
             }
         } catch (Exception e) {
         }

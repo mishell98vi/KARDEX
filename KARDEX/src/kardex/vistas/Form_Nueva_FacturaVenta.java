@@ -533,7 +533,7 @@ public class Form_Nueva_FacturaVenta {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("INFORMACION DEL SISTEMA");
             alerta.setHeaderText(null);
-            alerta.setContentText("Error: " + e.getMessage());
+            alerta.setContentText("Error al Cargar Ventas: " + e.getMessage());
             alerta.showAndWait();
         }
         return numCateg;
@@ -570,7 +570,7 @@ public class Form_Nueva_FacturaVenta {
             }
             for (int i = 0; i < listaCodigo.size(); i++) {
                 productoTemp = producDao.obtener(listaCodigo.get(i));
-                nVenta = new Detalle_Venta((cargarDetalleVenta() + 1 + i), productoTemp, nFactura, listaCantidad.get(i), listaPrecioT.get(i));
+                nVenta = new Detalle_Venta((cargarDetalleVenta() + 2 + i), productoTemp, nFactura, listaCantidad.get(i), listaPrecioT.get(i));
                 if (ventaDao.ingresar(nVenta) > 0) {
                     System.out.println("Ingreso de Detalle V Correcto!");
                 } else {
@@ -605,7 +605,7 @@ public class Form_Nueva_FacturaVenta {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("INFORMACION DEL SISTEMA");
             alerta.setHeaderText(null);
-            alerta.setContentText("Error: " + e.getMessage());
+            alerta.setContentText("Error asd: " + e.getMessage());
             alerta.showAndWait();
         }
     }

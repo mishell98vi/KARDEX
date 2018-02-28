@@ -10,7 +10,7 @@ public class KardexProductoImpl implements KardexProductoI{
     public ArrayList<Kardex> listadoKardexProducto(int codProducto) throws Exception {
         ArrayList<Kardex> lista = new ArrayList<>();
         String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-        String url = "jdbc:sqlserver://192.168.10.5:1433;databaseName=EMPRESA";
+        String url = "jdbc:sqlserver://localhost:1433;databaseName=EMPRESA";
         String usuario = "integrador";
         String conraseña = "123";
         Connection conexion = null;
