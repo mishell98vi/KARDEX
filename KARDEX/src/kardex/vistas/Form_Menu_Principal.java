@@ -96,7 +96,7 @@ public class Form_Menu_Principal extends Application {
     @Override
     public void start(Stage primaryStage) {
         interior = new Pane();
-        interior.setMaxSize(1270, 710);
+        interior.setMaxSize(1280, 720);
         Background fondoImagen = new Background(new BackgroundImage(new Image("file:src\\kardex\\multimedia\\images\\micasa.png"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(500, 500, false, true, true, false)));
         interior.setBackground(fondoImagen);
         visorFondo = new ImageView(fondo);
@@ -420,9 +420,9 @@ compra.getItems().addAll(newCompra);
         escritorio.setCenter(interior);
         Scene scene = new Scene(escritorio, 1280, 720);
         primaryStage.setMaximized(true);
-        primaryStage.setMaxHeight(720);
+        primaryStage.setMaxHeight(680);
         primaryStage.setMaxWidth(1280);
-        primaryStage.setMinHeight(720);
+        primaryStage.setMinHeight(680);
         primaryStage.setMinWidth(1280);
         primaryStage.setResizable(false);
         primaryStage.setTitle("EMPRESA");

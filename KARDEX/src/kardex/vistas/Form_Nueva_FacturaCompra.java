@@ -181,7 +181,7 @@ public class Form_Nueva_FacturaCompra {
         pntCliente = new VBox(2);
         pntCliente.getChildren().addAll(pntC1, pntC2, pntC3, pntC4);
         ///////////Logo///////////
-        logo = new Image("file:src\\kardex\\multimedia\\images\\micasa.png");
+        logo = new Image("file:src\\kardex\\multimedia\\images\\logoFactura.png");
         mostrarLogo = new ImageView(logo);
         mostrarLogo.setFitHeight(100);
         mostrarLogo.setFitWidth(400);

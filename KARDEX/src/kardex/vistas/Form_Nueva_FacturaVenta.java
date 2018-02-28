@@ -180,7 +180,7 @@ public class Form_Nueva_FacturaVenta {
         pntCliente.getChildren().addAll(pntCliente1, pntCliente2, pntCliente3, pntCliente4);
         consumidorFinal();
         ///////////Logo///////////
-        iLogo = new Image("file:src\\kardex\\multimedia\\images\\micasa.png");
+        iLogo = new Image("file:src\\kardex\\multimedia\\images\\logoFactura.png");
         mostrarLogo = new ImageView(iLogo);
         mostrarLogo.setFitHeight(100);
         mostrarLogo.setFitWidth(400);
