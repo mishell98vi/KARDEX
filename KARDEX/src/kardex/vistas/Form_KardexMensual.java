@@ -31,7 +31,7 @@ import kardex.negocio.dao.*;
 import kardex.negocio.impl.*;
 import kardex.accesoadatos.*;
 
-public class Form_KardexMensual extends Application {
+public class Form_KardexMensual {
 
     private Label lblProducto;
     private Label lblFechaI;
@@ -91,8 +91,7 @@ public class Form_KardexMensual extends Application {
     private VBox pntIntKardex;
     private BorderPane pntPrincipal;
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+    public Form_KardexMensual() {
         cargarProducto();
         itemsA.addAll("2016", "2017", "2018", "2019", "2020");
         itemsM.addAll("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
@@ -115,7 +114,7 @@ public class Form_KardexMensual extends Application {
         cmbProducto = new ComboBox<Producto>(itemsP);
         cmbAnio = new ComboBox<>(itemsA);
         cmbMes = new ComboBox<>(itemsM);
-        btnCalcular=new Button("Calcular kardex");
+        btnCalcular = new Button("Calcular kardex");
         pntCabProd = new VBox(5);
         pntCabProd.getChildren().addAll(lblProducto, cmbProducto, btnCalcular);
         pntCabProd.setAlignment(Pos.CENTER);
@@ -271,10 +270,6 @@ public class Form_KardexMensual extends Application {
         pntPrincipal.setCenter(pntKardex);
         pntPrincipal.setPadding(new Insets(5));
         Scene scene = new Scene(pntPrincipal, 950, 520);
-        primaryStage.setResizable(true);
-        primaryStage.setTitle("EMPRESA");
-        primaryStage.setScene(scene);
-        primaryStage.show();
         btnCalcular.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -283,8 +278,8 @@ public class Form_KardexMensual extends Application {
         });
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    public Node getPntPrincipal() {
+        return pntPrincipal;
     }
 
     public void cargarProducto() {
@@ -299,50 +294,49 @@ public class Form_KardexMensual extends Application {
 
         }
     }
-    
-    public void bCalcularEventHandler(ActionEvent event){
-        kardexMensualI kardexMDao=new Kardex_MensualImpl();
-        ObservableList<String> listFechas= FXCollections.observableArrayList();
-        ObservableList<String> listDetalle= FXCollections.observableArrayList();
-        ObservableList<String> listEC= FXCollections.observableArrayList();
-        ObservableList<String> listEPU= FXCollections.observableArrayList();
-        ObservableList<String> listEPT= FXCollections.observableArrayList();
-        ObservableList<String> listSC= FXCollections.observableArrayList();
-        ObservableList<String> listSPU= FXCollections.observableArrayList();
-        ObservableList<String> listSPT= FXCollections.observableArrayList();
-        ObservableList<String> listEXC= FXCollections.observableArrayList();
-        ObservableList<String> listEXPU= FXCollections.observableArrayList();
-        ObservableList<String> listEXPT= FXCollections.observableArrayList();
-        listaKardexMensual=new ArrayList<>();
+
+    public void bCalcularEventHandler(ActionEvent event) {
+        kardexMensualI kardexMDao = new Kardex_MensualImpl();
+        ObservableList<String> listFechas = FXCollections.observableArrayList();
+        ObservableList<String> listDetalle = FXCollections.observableArrayList();
+        ObservableList<String> listEC = FXCollections.observableArrayList();
+        ObservableList<String> listEPU = FXCollections.observableArrayList();
+        ObservableList<String> listEPT = FXCollections.observableArrayList();
+        ObservableList<String> listSC = FXCollections.observableArrayList();
+        ObservableList<String> listSPU = FXCollections.observableArrayList();
+        ObservableList<String> listSPT = FXCollections.observableArrayList();
+        ObservableList<String> listEXC = FXCollections.observableArrayList();
+        ObservableList<String> listEXPU = FXCollections.observableArrayList();
+        ObservableList<String> listEXPT = FXCollections.observableArrayList();
+        listaKardexMensual = new ArrayList<>();
         try {
-            listaKardexMensual=kardexMDao.listadoKardexFecha(cmbProducto.getSelectionModel().getSelectedIndex()+1, String.valueOf(cmbMes.getSelectionModel().getSelectedIndex()+1), cmbAnio.getValue());
-            for(Kardex k:listaKardexMensual){
-                System.out.println(k.getCodKardex()+"  "+k.getTipoTransaccion()+"  "+k.getProducto().getNombre());
-                if(k.getTipoTransaccion().equals("C")){
+            listaKardexMensual = kardexMDao.listadoKardexFecha(cmbProducto.getSelectionModel().getSelectedIndex() + 1, String.valueOf(cmbMes.getSelectionModel().getSelectedIndex() + 1), cmbAnio.getValue());
+            for (Kardex k : listaKardexMensual) {
+                System.out.println(k.getCodKardex() + "  " + k.getTipoTransaccion() + "  " + k.getProducto().getNombre());
+                if (k.getTipoTransaccion().equals("C")) {
                     listFechas.add(String.valueOf(k.getFechaEmision()));
-                    listDetalle.add("Compra ("+k.getProducto().getNombre()+")");
+                    listDetalle.add("Compra (" + k.getProducto().getNombre() + ")");
                     listEC.add(String.valueOf(k.getCantEditable()));
                     listEPT.add(String.valueOf(k.getValorTotal()));
-                    listEPU.add(String.valueOf(k.getValorTotal()/k.getCantEditable()));
+                    listEPU.add(String.valueOf(k.getValorTotal() / k.getCantEditable()));
                     listSC.add("");
                     listSPU.add("");
                     listSPT.add("");
                     listEXC.add(String.valueOf(k.getExistencias()));
                     listEXPT.add(String.valueOf(k.getValorTotal()));
-                    listEXPU.add(String.valueOf(k.getValorTotal()/k.getExistencias()));
-                }
-                else{
+                    listEXPU.add(String.valueOf(k.getValorTotal() / k.getExistencias()));
+                } else {
                     listFechas.add(String.valueOf(k.getFechaEmision()));
-                    listDetalle.add("Compra ("+k.getProducto().getNombre()+")");
+                    listDetalle.add("Compra (" + k.getProducto().getNombre() + ")");
                     listSC.add(String.valueOf(k.getCantEditable()));
                     listSPT.add(String.valueOf(k.getValorTotal()));
-                    listSPU.add(String.valueOf(k.getValorTotal()/k.getCantEditable()));
+                    listSPU.add(String.valueOf(k.getValorTotal() / k.getCantEditable()));
                     listEC.add("");
                     listEPU.add("");
                     listEPT.add("");
                     listEXC.add(String.valueOf(k.getExistencias()));
                     listEXPT.add(String.valueOf(k.getValorTotal()));
-                    listEXPU.add(String.valueOf(k.getValorTotal()/k.getExistencias()));
+                    listEXPU.add(String.valueOf(k.getValorTotal() / k.getExistencias()));
                 }
                 cmlFecha.getStyleClass().addAll(listFechas);
                 cmlFecha.setVisible(true);
@@ -372,5 +366,4 @@ public class Form_KardexMensual extends Application {
         } catch (Exception e) {
         }
     }
-    
 }

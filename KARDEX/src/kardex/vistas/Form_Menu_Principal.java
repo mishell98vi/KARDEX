@@ -404,10 +404,17 @@ compra.getItems().addAll(newCompra);
         kardex = new Menu("Kardex");
         //KARDEX MENSUAL
         kardexMensual = new MenuItem("Kardex Mensual");
-        //LISTADO DE KARDEX
-        listakardex = new MenuItem("Listado de kardex");
+        kardexMensual.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Pane kardex = new Pane();
+                kardex.getChildren().add(kardexEventHandler(event));
+                kardex.setPadding(new Insets(10));
+                interior.getChildren().add(kardex);
+            }
+        });
 //KARDEX
-        kardex.getItems().addAll(kardexMensual, listakardex);
+        kardex.getItems().addAll(kardexMensual);
 //********************************//        
 //CONSULTAS
         //LOS 3 PRODUCTOS MAS VENDIDOS
@@ -958,10 +965,25 @@ compra.getItems().addAll(newCompra);
     }
 //KARDEX
     //KARDEX MENSUAL
-    //LISTADO DE KARDEX
-//CONSULTAS
-    //LOS 3 PRODUCTOS MAS VENDIDOS
-    //LOS 3 PROVEEDORES CON MAS COMPRAS
-    //EL MEJOR CLIENTE
-    //LOS PRODUCTOS CON SU STOCK
+    public Form_SubVentana kardexEventHandler(ActionEvent event){
+        BorderPane kardex = new BorderPane();
+        Label titulo = new Label("Lista de Categorias");
+        titulo.setFont(Font.font("News701 BT", 25));
+        titulo.setTextFill(Color.WHITE);
+        Button cerrar = new Button("X");
+        cerrar.setFont(Font.font("Arial Black", 20));
+        cerrar.setTextFill(Color.BLACK);
+        Form_Barra_De_Titulo bTitulo = new Form_Barra_De_Titulo(titulo, cerrar);
+        kardex.setTop(bTitulo.getBarra());
+        Form_KardexMensual Kmensual = new Form_KardexMensual();
+        kardex.setCenter(Kmensual.getPntPrincipal());
+        Form_SubVentana subCategoria = new Form_SubVentana();
+        subCategoria.setRoot(kardex);
+        subCategoria.makeDragable(bTitulo.getBarra());
+        subCategoria.makeDragable(titulo);
+        subCategoria.makeResizable(20);
+        subCategoria.makeFocusable();
+        subCategoria.setCloseButton(cerrar);
+        return subCategoria;
+    }
 }

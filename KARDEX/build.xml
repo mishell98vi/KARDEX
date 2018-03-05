@@ -70,4 +70,6 @@
     nbproject/build-impl.xml file. 
 
     -->
+    <target name="-post-jfx-deploy">
+    </target>
 </project>
